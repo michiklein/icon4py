@@ -45,4 +45,4 @@ def plot_torus(vertices_coords, e2v):
     ax.set_ylabel("Y")
     ax.set_zlabel("Z")
 
-    plt.savefig("torus.png")
+    plt.show()
