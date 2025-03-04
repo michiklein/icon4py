@@ -128,6 +128,24 @@ def _get_grid(
     selected_grid_type: str, selected_backend: gtx_backend.Backend | None
 ) -> base_grid.BaseGrid:
     match selected_grid_type:
+        case "torus_grid":
+            from icon4py.model.common.grid.grid_manager import (  # type: ignore [import-not-found]
+                GridManager,
+                ToZeroBasedIndexTransformation,
+            )
+
+            from icon4py.model.common.grid.vertical import VerticalGridConfig  # type: ignore [import-not-found]
+            TORUS_GRID_FILE = "/Users/michaelklein/Documents/MASTERTHESIS/all_torus_files/torus_100000_100000_24576.nc"
+            def init_grid_manager(fname, num_levels=65, transformation=ToZeroBasedIndexTransformation()):
+                grid_manager = GridManager(transformation, fname, VerticalGridConfig(num_levels))
+                grid_manager(backend=selected_backend)
+                return grid_manager
+
+            def get_torus_grid():
+                grid_manager = init_grid_manager(TORUS_GRID_FILE)
+                return grid_manager.grid
+            grid_instance = get_torus_grid()
+            return grid_instance
         case "icon_grid":
             from icon4py.model.testing.grid_utils import (
                 get_grid_manager_for_experiment,
