@@ -20,7 +20,7 @@ def get_torus_grid(filename, num_levels, transformation):
     return simple_grid
 
 # Define the available neighbor tables
-neighbor_tables = ["C2E2C", "C2E", "E2C", "V2E", "E2V", "V2C", "C2V", "V2E2V", "E2V", "C2V"]
+neighbor_tables = ["C2E2C", "C2E", "E2C", "V2E", "E2V", "V2C", "C2V", "V2E2V", "C2E2C0", "C2E2C2E", "C2E2C2E2C", "E2C2V", "E2C2E", "E2C2E0"]
 
 # Prompt user for grid file path
 grid_file = input("Enter the full path to the grid file: ")
