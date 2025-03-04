@@ -37,17 +37,17 @@ def _e2c2v_stencil(
 def c2v_stecil(
     vertex_input: fa.VertexKField[float]
 ):
+     _c2v_stencil(vertex_input)   
 
-_c2v_stencil(vertex_input)
-
+@program
 def e2c_stencil(
     cell_input: fa.CellKField[float]
-):
-    
-_e2c_stencil(cell_input)
+): 
+    _e2c_stencil(cell_input)
 
+@program
 def e2c2v_stencil(
     vertex_input: fa.VertexKField[float]
 ):
-
-_e2c2v_stencil(vertex_input)
+    _e2c2v_stencil(vertex_input)
+    
