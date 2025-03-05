@@ -7,24 +7,16 @@ from icon4py.model.atmosphere.diffusion.stencils.calculate_e2c2v_simple import (
     e2c_stencil,
     e2c2v_stencil,
 )
-from icon4py.model.common import dimension as dims, type_alias as ta
-from icon4py.model.testing.helpers import StencilTest
 
+def _c2v_stencil_numpy(vertex_input: np.ndarray) -> np.ndarray:
+    return np.sum(vertex_input, axis=0)
 
-def c2v_numpy(vertex_input: np.ndarray, connectivities: dict) -> np.ndarray:
-    c2v_conn = connectivities[dims.C2VDim]
-    return np.sum(vertex_input[c2v_conn], axis=1)
+def _e2c_stencil_numpy(cell_input: np.ndarray) -> np.ndarray:
+    return np.sum(cell_input, axis=0)
 
+def _e2c2v_stencil_numpy(vertex_input: np.ndarray) -> np.ndarray:
+    tmp = _c2v_stencil_numpy(vertex_input)
+    return _e2c_stencil_numpy(tmp)
 
-def e2c_numpy(cell_input: np.ndarray, connectivities: dict) -> np.ndarray:
-    e2c_conn = connectivities[dims.E2CDim]
-    return np.sum(cell_input[e2c_conn], axis=1)
-
-
-def e2c2v_numpy(vertex_input: np.ndarray, connectivities: dict) -> np.ndarray:
-    cell_temp = c2v_numpy(vertex_input, connectivities)
-    return e2c_numpy(cell_temp, connectivities)
-
-
-class TestMkleinFirst(StencilTest):
+class TestCalculateE2C2V:
     
