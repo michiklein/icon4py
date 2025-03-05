@@ -3,13 +3,13 @@ import pytest
 
 import icon4py.model.common.utils.data_allocation as data_alloc
 
-from icon4py.model.common.grid.calculate_e2c2v_simple import (
+from icon4py.model.common.grid.e2c2v_simplesum import (
     c2v_stecil,
     e2c_stencil,
     e2c2v_stencil,
 )
 
-from icon4py.model.common.grid.calculate_e2c2v_manualreduction import (
+from icon4py.model.common.grid.e2c2v_manualreductionsum import (
     e2c2v_manualreduction_stencil,
 )
 
