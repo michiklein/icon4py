@@ -15,14 +15,7 @@ from utilities import (
 )  # type: ignore [import-not-found]
 
 
-def parse_arguments():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("grid")
-    return parser.parse_args()
-
-
-args = parse_arguments()
-grid_file = args.grid
+grid_file = input("Enter the full path to the grid file: ")
 
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 
