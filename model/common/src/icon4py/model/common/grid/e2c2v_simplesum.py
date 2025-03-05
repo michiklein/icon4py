@@ -11,9 +11,9 @@ def _E2C2V_simple_sum(
     return (
         vertex_input(C2V[0])(E2C[0])
         + vertex_input(C2V[1])(E2C[0])
-        + vertex_input(C2V[1])(E2C[0])  # == vertex_input(C2V[0])(E2C[1])
+        + vertex_input(C2V[0])(E2C[1])  # + vertex_input(C2V[1])(E2C[0]), replace for slightly smarter sum
         + vertex_input(C2V[2])(E2C[0])
-        + vertex_input(C2V[2])(E2C[0])  # == vertex_input(C2V[1])(E2C[1])
+        + vertex_input(C2V[1])(E2C[1])  # + vertex_input(C2V[2])(E2C[0]), replace for slightly smarter sum
         + vertex_input(C2V[2])(E2C[1])
     )
 
