@@ -5,7 +5,10 @@ from icon4py.model.common.grid.grid_manager import (  # type: ignore [import-not
 )
 from icon4py.model.common.grid.vertical import VerticalGridConfig  # type: ignore [import-not-found]
 
-def init_grid_manager(fname, num_levels=65, transformation=ToZeroBasedIndexTransformation()):
+
+def init_grid_manager(
+    fname, num_levels=65, transformation=ToZeroBasedIndexTransformation()
+):
     grid_manager = GridManager(
         transformation,
         fname,
@@ -14,19 +17,38 @@ def init_grid_manager(fname, num_levels=65, transformation=ToZeroBasedIndexTrans
     grid_manager(None)
     return grid_manager
 
+
 def get_torus_grid(filename, num_levels, transformation):
     grid_manager = init_grid_manager(filename, num_levels, transformation)
     simple_grid = grid_manager.grid
     return simple_grid
 
+
 # Define the available neighbor tables
-neighbor_tables = ["C2E2C", "C2E", "E2C", "V2E", "E2V", "V2C", "C2V", "V2E2V", "C2E2CO", "C2E2C2E", "C2E2C2E2C", "E2C2V", "E2C2E", "E2C2EO"]
+neighbor_tables = [
+    "C2E",
+    "C2V",
+    "E2C",
+    "E2V",
+    "V2C",
+    "V2E",
+    "E2C2E",
+    "E2C2V",
+    "V2E2V",
+    "C2E2C",
+    "C2E2CO",
+    "C2E2C2E",
+    "C2E2C2E2C",
+    "E2C2E2C",
+    "E2C2EO",
+    "C2E2EO",
+]
 
 # Prompt user for grid file path
-grid_file = input("Enter the full path to the grid file: ")
+grid_file = input("Path to grid file: ")
 
 # Suggest available tables in the prompt
-table_name = input(f"Enter the table name (choose from {', '.join(neighbor_tables)}): ")
+table_name = input(f"Choose table from {', '.join(neighbor_tables)}): ")
 
 # Load the torus grid
 torus_grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
