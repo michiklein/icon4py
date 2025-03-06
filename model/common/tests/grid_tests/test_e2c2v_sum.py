@@ -1,4 +1,3 @@
-from helper import *
 from icon4py.model.common.grid.e2c2v_sum import (
     E2C2V_simple_sum,
     E2C2V_smart_sum,
@@ -6,7 +5,9 @@ from icon4py.model.common.grid.e2c2v_sum import (
 )
 from icon4py.model.common.grid.simple import SimpleGrid
 
-from collections import Counter
+import gt4py.next as gtx
+from gt4py.next import Dimension
+import numpy as np
 
 
 def test_E2C2V_sums():
@@ -14,12 +15,17 @@ def test_E2C2V_sums():
     tol = 10e-6
 
     n_edges = grid.num_edges
+    print("number of edges:", n_edges)
     n_vertices = grid.num_vertices
+    print("number of vertices:", n_vertices)
+    v_array = np.random.rand(n_vertices)
+    print("vertex array:", v_array)
 
-    vertex_domain = gtx.domain({V: n_vertices})
-    edge_domain = gtx.domain({E: n_edges})
+    vertex_domain = gtx.domain({Dimension("Vertex"): n_vertices})
+    edge_domain = gtx.domain({Dimension("Edge"): n_edges})
 
-    vertex_field = random_field(vertex_domain)
+    vertex_field = gtx.as_field(vertex_domain, v_array)
+    print("vertex field:", vertex_field.asnumpy())
 
     edge_field_simple_sum = gtx.zeros(edge_domain)
     edge_field_smart_sum = gtx.zeros(edge_domain)
@@ -40,9 +46,9 @@ def test_E2C2V_sums():
         edge_field_smarter_sum,
         offset_provider=grid.offset_providers,
     )
-    print(edge_field_simple_sum.asnumpy()[0])
-    print(edge_field_smart_sum.asnumpy()[0])
-    print(edge_field_smarter_sum.asnumpy()[0])
+    print(edge_field_simple_sum.asnumpy())
+    print(edge_field_smart_sum.asnumpy())
+    print(edge_field_smarter_sum.asnumpy())
 
     assert np.allclose(
         edge_field_simple_sum.asnumpy(), edge_field_smart_sum.asnumpy(), atol=tol

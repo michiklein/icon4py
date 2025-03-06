@@ -1,5 +1,4 @@
 from gt4py.next.ffront.decorator import field_operator, program
-import gt4py.next as gtx
 from icon4py.model.common import field_type_aliases as fa
 from icon4py.model.common.dimension import C2V, E2C, E2V
 
