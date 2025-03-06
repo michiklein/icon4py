@@ -13,7 +13,12 @@ import numpy as np
 
 from icon4py.model.common import dimension as dims, exceptions
 from icon4py.model.common.grid import horizontal as h_grid
-from icon4py.model.common.grid.base import BaseGrid, GeometryType, GridConfig, HorizontalGridSize
+from icon4py.model.common.grid.base import (
+    BaseGrid,
+    GeometryType,
+    GridConfig,
+    HorizontalGridSize,
+)
 
 # periodic
 #
@@ -390,16 +395,62 @@ class SimpleGrid(BaseGrid):
 
         self._configure()
         self.offset_provider_mapping = {
+            "C2V": (
+                self._get_offset_provider,
+                dims.C2VDim,
+                dims.CellDim,
+                dims.VertexDim,
+            ),
             "C2E": (self._get_offset_provider, dims.C2EDim, dims.CellDim, dims.EdgeDim),
-            "C2E2CO": (self._get_offset_provider, dims.C2E2CODim, dims.CellDim, dims.CellDim),
-            "C2E2C": (self._get_offset_provider, dims.C2E2CDim, dims.CellDim, dims.CellDim),
-            "E2C2EO": (self._get_offset_provider, dims.E2C2EODim, dims.EdgeDim, dims.EdgeDim),
-            "E2C2E": (self._get_offset_provider, dims.E2C2EDim, dims.EdgeDim, dims.EdgeDim),
-            "V2C": (self._get_offset_provider, dims.V2CDim, dims.VertexDim, dims.CellDim),
-            "V2E": (self._get_offset_provider, dims.V2EDim, dims.VertexDim, dims.EdgeDim),
+            "C2E2CO": (
+                self._get_offset_provider,
+                dims.C2E2CODim,
+                dims.CellDim,
+                dims.CellDim,
+            ),
+            "C2E2C": (
+                self._get_offset_provider,
+                dims.C2E2CDim,
+                dims.CellDim,
+                dims.CellDim,
+            ),
+            "E2C2EO": (
+                self._get_offset_provider,
+                dims.E2C2EODim,
+                dims.EdgeDim,
+                dims.EdgeDim,
+            ),
+            "E2C2E": (
+                self._get_offset_provider,
+                dims.E2C2EDim,
+                dims.EdgeDim,
+                dims.EdgeDim,
+            ),
+            "V2C": (
+                self._get_offset_provider,
+                dims.V2CDim,
+                dims.VertexDim,
+                dims.CellDim,
+            ),
+            "V2E": (
+                self._get_offset_provider,
+                dims.V2EDim,
+                dims.VertexDim,
+                dims.EdgeDim,
+            ),
             "E2C": (self._get_offset_provider, dims.E2CDim, dims.EdgeDim, dims.CellDim),
-            "E2V": (self._get_offset_provider, dims.E2VDim, dims.EdgeDim, dims.VertexDim),
-            "E2C2V": (self._get_offset_provider, dims.E2C2VDim, dims.EdgeDim, dims.VertexDim),
+            "E2V": (
+                self._get_offset_provider,
+                dims.E2VDim,
+                dims.EdgeDim,
+                dims.VertexDim,
+            ),
+            "E2C2V": (
+                self._get_offset_provider,
+                dims.E2C2VDim,
+                dims.EdgeDim,
+                dims.VertexDim,
+            ),
             "C2CE": (
                 self._get_offset_provider_for_sparse_fields,
                 dims.C2EDim,
@@ -407,8 +458,18 @@ class SimpleGrid(BaseGrid):
                 dims.CEDim,
             ),
             "Koff": (lambda: dims.KDim,),  # Koff is a special case
-            "C2E2C2E": (self._get_offset_provider, dims.C2E2C2EDim, dims.CellDim, dims.EdgeDim),
-            "C2E2C2E2C": (self._get_offset_provider, dims.C2E2C2E2CDim, dims.CellDim, dims.CellDim),
+            "C2E2C2E": (
+                self._get_offset_provider,
+                dims.C2E2C2EDim,
+                dims.CellDim,
+                dims.EdgeDim,
+            ),
+            "C2E2C2E2C": (
+                self._get_offset_provider,
+                dims.C2E2C2E2CDim,
+                dims.CellDim,
+                dims.CellDim,
+            ),
             "E2ECV": (
                 self._get_offset_provider_for_sparse_fields,
                 dims.E2C2VDim,
