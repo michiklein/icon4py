@@ -50,8 +50,7 @@ class OptionalPropertyName(GridFileName):
     MAX_CHILD_DOMAINS = "max_child_dom"
 
 
-class PropertyName(GridFileName):
-    ...
+class PropertyName(GridFileName): ...
 
 
 class LAMPropertyName(PropertyName):
@@ -147,8 +146,7 @@ class DimensionName(GridFileName):
     VERTEX_GRF = "vert_grf"
 
 
-class FieldName(GridFileName):
-    ...
+class FieldName(GridFileName): ...
 
 
 class ConnectivityName(FieldName):
@@ -323,8 +321,7 @@ class IndexTransformation(Protocol):
     def __call__(
         self,
         array: data_alloc.NDArray,
-    ) -> data_alloc.NDArray:
-        ...
+    ) -> data_alloc.NDArray: ...
 
 
 class NoTransformation(IndexTransformation):
@@ -342,7 +339,9 @@ class ToZeroBasedIndexTransformation(IndexTransformation):
         Fortran indices are 1-based, hence the offset is -1 for 0-based ness of python except for
         INVALID values which are marked with -1 in the grid file and are kept such.
         """
-        return np.asarray(np.where(array == GridFile.INVALID_INDEX, 0, -1), dtype=gtx.int32)
+        return np.asarray(
+            np.where(array == GridFile.INVALID_INDEX, 0, -1), dtype=gtx.int32
+        )
 
 
 CoordinateDict: TypeAlias = dict[dims.Dimension, dict[Literal["lat", "lon"], gtx.Field]]
@@ -407,7 +406,9 @@ class GridManager:
         self._coordinates = self._read_coordinates(backend)
         self._geometry = self._read_geometry_fields(backend)
 
-    def _read_coordinates(self, backend: Optional[gtx_backend.Backend]) -> CoordinateDict:
+    def _read_coordinates(
+        self, backend: Optional[gtx_backend.Backend]
+    ) -> CoordinateDict:
         return {
             dims.CellDim: {
                 "lat": gtx.as_field(
@@ -458,11 +459,15 @@ class GridManager:
             # TODO (@halungge) still needs to ported, values from "our" grid files contains (wrong) values:
             #   based on bug in generator fixed with this [PR40](https://gitlab.dkrz.de/dwd-sw/dwd_icon_tools/-/merge_requests/40) .
             GeometryName.CELL_AREA.value: gtx.as_field(
-                (dims.CellDim,), self._reader.variable(GeometryName.CELL_AREA), allocator=backend
+                (dims.CellDim,),
+                self._reader.variable(GeometryName.CELL_AREA),
+                allocator=backend,
             ),
             # TODO (@halungge) easily computed from a neighbor_sum V2C over the cell areas?
             GeometryName.DUAL_AREA.value: gtx.as_field(
-                (dims.VertexDim,), self._reader.variable(GeometryName.DUAL_AREA), allocator=backend
+                (dims.VertexDim,),
+                self._reader.variable(GeometryName.DUAL_AREA),
+                allocator=backend,
             ),
             GeometryName.EDGE_CELL_DISTANCE.value: gtx.as_field(
                 (dims.EdgeDim, dims.E2CDim),
@@ -471,7 +476,9 @@ class GridManager:
             ),
             GeometryName.EDGE_VERTEX_DISTANCE.value: gtx.as_field(
                 (dims.EdgeDim, dims.E2VDim),
-                self._reader.variable(GeometryName.EDGE_VERTEX_DISTANCE, transpose=True),
+                self._reader.variable(
+                    GeometryName.EDGE_VERTEX_DISTANCE, transpose=True
+                ),
             ),
             # TODO (@halungge) recompute from coordinates? field in gridfile contains NaN on boundary edges
             GeometryName.TANGENT_ORIENTATION.value: gtx.as_field(
@@ -481,12 +488,16 @@ class GridManager:
             ),
             GeometryName.CELL_NORMAL_ORIENTATION.value: gtx.as_field(
                 (dims.CellDim, dims.C2EDim),
-                self._reader.int_variable(GeometryName.CELL_NORMAL_ORIENTATION, transpose=True),
+                self._reader.int_variable(
+                    GeometryName.CELL_NORMAL_ORIENTATION, transpose=True
+                ),
                 allocator=backend,
             ),
             GeometryName.EDGE_ORIENTATION_ON_VERTEX.value: gtx.as_field(
                 (dims.VertexDim, dims.V2EDim),
-                self._reader.int_variable(GeometryName.EDGE_ORIENTATION_ON_VERTEX, transpose=True),
+                self._reader.int_variable(
+                    GeometryName.EDGE_ORIENTATION_ON_VERTEX, transpose=True
+                ),
                 allocator=backend,
             ),
         }
@@ -510,7 +521,8 @@ class GridManager:
             dims.VertexDim: DimensionName.VERTEX_GRF,
         }
         max_refinement_control_values = {
-            dim: self._reader.dimension(name) for dim, name in grid_refinement_dimensions.items()
+            dim: self._reader.dimension(name)
+            for dim, name in grid_refinement_dimensions.items()
         }
         start_index_names = {
             dims.CellDim: GridRefinementName.START_INDEX_CELLS,
@@ -519,7 +531,9 @@ class GridManager:
         }
 
         start_indices = {
-            dim: self._get_index_field(name, transpose=False, apply_offset=True)[_CHILD_DOM]
+            dim: self._get_index_field(name, transpose=False, apply_offset=True)[
+                _CHILD_DOM
+            ]
             for dim, name in start_index_names.items()
         }
         for dim in grid_refinement_dimensions.keys():
@@ -533,7 +547,9 @@ class GridManager:
             dims.VertexDim: GridRefinementName.END_INDEX_VERTICES,
         }
         end_indices = {
-            dim: self._get_index_field(name, transpose=False, apply_offset=False)[_CHILD_DOM]
+            dim: self._get_index_field(name, transpose=False, apply_offset=False)[
+                _CHILD_DOM
+            ]
             for dim, name in end_index_names.items()
         }
         for dim in grid_refinement_dimensions.keys():
@@ -564,7 +580,9 @@ class GridManager:
             dims.VertexDim: GridRefinementName.CONTROL_VERTICES,
         }
         refinement_control_fields = {
-            dim: xp.asarray(self._reader.int_variable(name, decomposition_info, transpose=False))
+            dim: xp.asarray(
+                self._reader.int_variable(name, decomposition_info, transpose=False)
+            )
             for dim, name in refinement_control_names.items()
         }
         return refinement_control_fields
@@ -664,7 +682,16 @@ class GridManager:
         return grid
 
 
-def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) -> icon.IconGrid:
+def _add_derived_connectivities(
+    grid: icon.IconGrid, array_ns: ModuleType = np
+) -> icon.IconGrid:
+    v2e2v0 = array_ns.column_stack(
+        (
+            array_ns.asarray(range(grid.connectivities[dims.V2E2VDim].shape[0])),
+            grid.connectivities[dims.V2E2VDim],
+        )
+    )
+
     e2c2v = _construct_diamond_vertices(
         grid.connectivities[dims.E2VDim],
         grid.connectivities[dims.C2VDim],
@@ -672,12 +699,16 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
         array_ns=array_ns,
     )
     e2c2e = _construct_diamond_edges(
-        grid.connectivities[dims.E2CDim], grid.connectivities[dims.C2EDim], array_ns=array_ns
+        grid.connectivities[dims.E2CDim],
+        grid.connectivities[dims.C2EDim],
+        array_ns=array_ns,
     )
     e2c2e0 = array_ns.column_stack((array_ns.asarray(range(e2c2e.shape[0])), e2c2e))
 
     c2e2c2e = _construct_triangle_edges(
-        grid.connectivities[dims.C2E2CDim], grid.connectivities[dims.C2EDim], array_ns=array_ns
+        grid.connectivities[dims.C2E2CDim],
+        grid.connectivities[dims.C2EDim],
+        array_ns=array_ns,
     )
     c2e2c0 = array_ns.column_stack(
         (
@@ -685,7 +716,9 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
             (grid.connectivities[dims.C2E2CDim]),
         )
     )
-    c2e2c2e2c = _construct_butterfly_cells(grid.connectivities[dims.C2E2CDim], array_ns=array_ns)
+    c2e2c2e2c = _construct_butterfly_cells(
+        grid.connectivities[dims.C2E2CDim], array_ns=array_ns
+    )
 
     grid.with_connectivities(
         {
@@ -695,6 +728,7 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
             dims.E2C2VDim: e2c2v,
             dims.E2C2EDim: e2c2e,
             dims.E2C2EODim: e2c2e0,
+            dims.V2E2VODim: v2e2v0,
         }
     )
 
@@ -789,10 +823,17 @@ def _construct_diamond_edges(
     flattened = expanded.reshape(sh[0], sh[1] * sh[2])
 
     diamond_sides = 4
-    e2c2e = GridFile.INVALID_INDEX * array_ns.ones((sh[0], diamond_sides), dtype=gtx.int32)
+    e2c2e = GridFile.INVALID_INDEX * array_ns.ones(
+        (sh[0], diamond_sides), dtype=gtx.int32
+    )
     for i in range(sh[0]):
         var = flattened[
-            i, (~array_ns.isin(flattened[i, :], array_ns.asarray([i, GridFile.INVALID_INDEX])))
+            i,
+            (
+                ~array_ns.isin(
+                    flattened[i, :], array_ns.asarray([i, GridFile.INVALID_INDEX])
+                )
+            ),
         ]
         e2c2e[i, : var.shape[0]] = var
     return e2c2e
