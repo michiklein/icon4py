@@ -686,6 +686,7 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
         )
     )
     c2e2c2e2c = _construct_butterfly_cells(grid.connectivities[dims.C2E2CDim], array_ns=array_ns)
+    v2e2c = _v2e2c_connectivity(grid.connectivities[dims.V2CDim])
 
     grid.with_connectivities(
         {
@@ -695,6 +696,7 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
             dims.E2C2VDim: e2c2v,
             dims.E2C2EDim: e2c2e,
             dims.E2C2EODim: e2c2e0,
+            dims.V2E2CDim: v2e2c,
         }
     )
 
@@ -881,3 +883,15 @@ def _patch_with_dummy_lastline(ar, array_ns: ModuleType = np):
         axis=0,
     )
     return patched_ar
+
+
+def _v2e2c_connectivity(v2c: data_alloc.NDArray) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the cells neighboring a vertex.
+
+    Args:
+        v2c: ndarray containing the connectivity table for vertex-to-cell
+
+    Returns: ndarray containing the connectivity table for vertex-to-cell
+    """
+    return v2c

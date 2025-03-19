@@ -101,6 +101,7 @@ class IconGrid(base.BaseGrid):
                 dims.CellDim,
                 dims.CECECDim,
             ),
+            "V2E2C": (self._get_offset_provider, dims.V2E2CDim, dims.VertexDim, dims.CellDim),
         }
 
     def __repr__(self):

@@ -1,8 +1,8 @@
 from icon4py.model.common.grid.e2c2v_sum import (
     E2C2V_simple_sum,
-    E2C2V_smart_sum,
-    E2C2V_smarter_sum,
-    E2C2V_direct_sum,
+    E2C2V_smartest_sum_se,
+    E2C2V_smartest_sum_e,
+    E2C2V_smartest_sum_n,
 )
 from icon4py.model.common.grid.simple import SimpleGrid
 
@@ -54,9 +54,9 @@ def test_E2C2V_sums():
     print("vertex field:", vertex_field.asnumpy())
 
     edge_field_simple_sum = gtx.zeros(edge_domain)
-    edge_field_smart_sum = gtx.zeros(edge_domain)
-    edge_field_smarter_sum = gtx.zeros(edge_domain)
-    edge_field_direct_sum = gtx.zeros(edge_domain)
+    edge_field_smartest_sum_se = gtx.zeros(edge_domain)
+    edge_field_smartest_sum_e = gtx.zeros(edge_domain)
+    edge_field_smartest_sum_n = gtx.zeros(edge_domain)
 
     # E2C2V_simple_sum.with_backend(model_backends.BACKENDS["gtfn_cpu"])(
     #     vertex_field,
@@ -68,45 +68,26 @@ def test_E2C2V_sums():
         edge_field_simple_sum,
         offset_provider=grid.offset_providers,
     )
-    E2C2V_smart_sum(
+    E2C2V_smartest_sum_se(
         vertex_field,
-        edge_field_smart_sum,
+        edge_field_smartest_sum_se,
         offset_provider=grid.offset_providers,
     )
-    E2C2V_smarter_sum(
+    E2C2V_smartest_sum_e(
         vertex_field,
-        edge_field_smarter_sum,
+        edge_field_smartest_sum_e,
         offset_provider=grid.offset_providers,
     )
-    E2C2V_direct_sum(
+    E2C2V_smartest_sum_n(
         vertex_field,
-        edge_field_direct_sum,
+        edge_field_smartest_sum_n,
         offset_provider=grid.offset_providers,
-    )
-    print("direct:", edge_field_direct_sum.asnumpy())
-    print("simple:", edge_field_simple_sum.asnumpy())
-    print("smart:", edge_field_smart_sum.asnumpy())
-    print("smarter:", edge_field_smarter_sum.asnumpy())
-
-    assert np.allclose(
-        edge_field_simple_sum.asnumpy(), edge_field_direct_sum.asnumpy(), atol=tol
-    )
-    assert np.allclose(
-        edge_field_simple_sum.asnumpy(), edge_field_smart_sum.asnumpy(), atol=tol
-    )
-    assert np.allclose(
-        edge_field_simple_sum.asnumpy(), edge_field_smarter_sum.asnumpy(), atol=tol
-    )
-    assert np.allclose(
-        edge_field_smart_sum.asnumpy(), edge_field_smarter_sum.asnumpy(), atol=tol
     )
 
-    assert np.allclose(
-        edge_field_smart_sum.asnumpy(), edge_field_direct_sum.asnumpy(), atol=tol
-    )
-    assert np.allclose(
-        edge_field_smarter_sum.asnumpy(), edge_field_direct_sum.asnumpy(), atol=tol
-    )
+    edge_field_smartest_sum = np.choose(np.arange(len(edge_field_smartest_sum_se.asnumpy())) % 3, [edge_field_smartest_sum_se.asnumpy(), edge_field_smartest_sum_e.asnumpy(), edge_field_smartest_sum_n.asnumpy()])
+    print("edge field simple sum:", edge_field_simple_sum.asnumpy())
+    print("edge field smartest sum:", edge_field_smartest_sum)
+    assert np.allclose(edge_field_simple_sum.asnumpy(), edge_field_smartest_sum, atol=tol)
 
 
 test_E2C2V_sums()
