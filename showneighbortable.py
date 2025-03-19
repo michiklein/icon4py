@@ -24,31 +24,11 @@ def get_torus_grid(filename, num_levels, transformation):
     return simple_grid
 
 
-# Define the available neighbor tables
-neighbor_tables = [
-    "C2E",
-    "C2V",
-    "E2C",
-    "E2V",
-    "V2C",
-    "V2E",
-    "E2C2E",
-    "E2C2V",
-    "V2E2V",
-    "C2E2C",
-    "C2E2CO",
-    "C2E2C2E",
-    "C2E2C2E2C",
-    "E2C2E2C",
-    "E2C2EO",
-    "C2E2EO",
-]
-
 # Prompt user for grid file path
 grid_file = input("Path to grid file: ")
 
 # Suggest available tables in the prompt
-table_name = input(f"Choose table from {', '.join(neighbor_tables)}): ")
+table_name = input(f"Choose table: ")
 
 # Load the torus grid
 torus_grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())

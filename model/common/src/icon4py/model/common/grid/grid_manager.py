@@ -687,6 +687,7 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
     )
     c2e2c2e2c = _construct_butterfly_cells(grid.connectivities[dims.C2E2CDim], array_ns=array_ns)
     v2e2c = _v2e2c_connectivity(grid.connectivities[dims.V2CDim])
+    e2v2c = _e2v2c_connectivity(grid.connectivities[dims.E2VDim],grid.connectivities[dims.V2CDim], array_ns=array_ns)
 
     grid.with_connectivities(
         {
@@ -697,6 +698,7 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
             dims.E2C2EDim: e2c2e,
             dims.E2C2EODim: e2c2e0,
             dims.V2E2CDim: v2e2c,
+            dims.E2V2CDim: e2v2c,
         }
     )
 
@@ -895,3 +897,37 @@ def _v2e2c_connectivity(v2c: data_alloc.NDArray) -> data_alloc.NDArray:
     Returns: ndarray containing the connectivity table for vertex-to-cell
     """
     return v2c
+
+def _e2v2c_connectivity(e2v: data_alloc.NDArray, v2c: data_alloc.NDArray, array_ns: ModuleType = np,) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the cells neighboring an edge-to-vertex.
+    
+                --------   --------   
+            /  \       /  \       /  \          
+           /    \     /    \     /    \        
+          /      \   /      \   /      \   
+         /        \ /        \ /        \  
+          --------   ---e0---   --------   
+         \        / \        / \        /  
+          \      /   \      /   \      /   
+           \    /     \    /     \    /   
+            \  /       \  /       \  /    
+                --------   -------- 
+    these 10 cells will then be in the table. the order is arbitrary, but the first two cells are the ones that are connected to the edge.  
+
+    Args:
+        e2v: ndarray containing the connectivity table for edge-to-vertex
+        v2c: ndarray containing the connectivity table for vertex-to-cell
+
+    Returns: ndarray containing the connectivity table for edge-to-vertex-to-cell
+    """
+
+    naive_array = np.hstack((v2c[e2v[:, 0]], v2c[e2v[:, 1]]))
+    result = np.array(
+        [
+            list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
+            + [x for x in row if row.tolist().count(x) == 1]
+            for row in naive_array
+        ]
+    )
+    return result
