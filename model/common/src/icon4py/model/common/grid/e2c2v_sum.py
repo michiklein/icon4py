@@ -9,10 +9,10 @@ def _E2C2V_simple_sum(
 ) -> fa.EdgeField[float]:
     return (
         vertex_input(C2V[0])(E2C[0])
-        + vertex_input(C2V[0])(E2C[1])
         + vertex_input(C2V[1])(E2C[0])
-        + vertex_input(C2V[1])(E2C[1])
         + vertex_input(C2V[2])(E2C[0])
+        + vertex_input(C2V[0])(E2C[1])
+        + vertex_input(C2V[1])(E2C[1])
         + vertex_input(C2V[2])(E2C[1])
     )
 
@@ -45,7 +45,8 @@ def E2C2V_smartest_sum_se(
     edge_out: fa.EdgeField[float],
 ):
     _E2C2V_smartest_sum_se(vertex_input, out=edge_out)
-    
+
+
 @field_operator
 def _E2C2V_smartest_sum_e(
     vertex_input: fa.VertexField[float],
@@ -66,6 +67,7 @@ def E2C2V_smartest_sum_e(
     edge_out: fa.EdgeField[float],
 ):
     _E2C2V_smartest_sum_e(vertex_input, out=edge_out)
+
 
 @field_operator
 def _E2C2V_smartest_sum_n(
