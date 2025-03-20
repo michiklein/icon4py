@@ -687,7 +687,15 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
     )
     c2e2c2e2c = _construct_butterfly_cells(grid.connectivities[dims.C2E2CDim], array_ns=array_ns)
     v2e2c = _v2e2c_connectivity(grid.connectivities[dims.V2CDim])
-    e2v2c = _e2v2c_connectivity(grid.connectivities[dims.E2VDim],grid.connectivities[dims.V2CDim], array_ns=array_ns)
+    e2v2c = _e2v2c_connectivity(
+        grid.connectivities[dims.E2VDim], grid.connectivities[dims.V2CDim]
+    )
+    v2e2v = _v2e2v_connectivity(
+        grid.connectivities[dims.V2EDim], grid.connectivities[dims.E2VDim]
+    )
+    v2e2v0 = _v2e2v0_connectivity(
+        grid.connectivities[dims.V2EDim], grid.connectivities[dims.E2VDim]
+    )
 
     grid.with_connectivities(
         {
@@ -699,6 +707,8 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
             dims.E2C2EODim: e2c2e0,
             dims.V2E2CDim: v2e2c,
             dims.E2V2CDim: e2v2c,
+            dims.V2E2VDim: v2e2v,
+            dims.V2E2VODim: v2e2v0,
         }
     )
 
@@ -957,12 +967,65 @@ def _e2v2c_connectivity(e2v: data_alloc.NDArray, v2c: data_alloc.NDArray) -> dat
             result[i, 6] = naive_array[i, 7]
             result[i, 7] = naive_array[i, 8]
             result[i, 8] = naive_array[i, 10]
-            result[i, 9] = naive_array[i, 11] 
-    # result = np.array(
+            result[i, 9] = naive_array[i, 11]
+    # result = np.array( # pretty slow but nice :/
     #     [
     #         list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
     #         + [x for x in row if row.tolist().count(x) == 1]
     #         for row in naive_array
     #     ]
     # )
+    return result
+
+
+def _v2e2v_connectivity(
+    v2e: data_alloc.NDArray, e2v: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the vertices surrounding a vertex.
+
+    Args:
+        v2e: ndarray containing the connectivity table for vertex-to-edge
+        e2v: ndarray containing the connectivity table for edge-to-vertex
+
+    Returns: ndarray containing the connectivity table for vertex-to-edge-to-vertex
+    """
+
+    naive_array = np.hstack(
+        (
+            e2v[v2e[:, 0]],
+            e2v[v2e[:, 1]],
+            e2v[v2e[:, 2]],
+            e2v[v2e[:, 3]],
+            e2v[v2e[:, 4]],
+            e2v[v2e[:, 5]],
+        )
+    )
+    result = np.delete(naive_array, [0, 3, 4, 7, 9, 10], axis=1)
+    return naive_array
+
+def _v2e2v0_connectivity(
+    v2e: data_alloc.NDArray, e2v: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the vertices surrounding a vertex.
+
+    Args:
+        v2e: ndarray containing the connectivity table for vertex-to-edge
+        e2v: ndarray containing the connectivity table for edge-to-vertex
+
+    Returns: ndarray containing the connectivity table for vertex-to-edge-to-vertex
+    """
+
+    naive_array = np.hstack(
+        (
+            e2v[v2e[:, 0]],
+            e2v[v2e[:, 1]],
+            e2v[v2e[:, 2]],
+            e2v[v2e[:, 3]],
+            e2v[v2e[:, 4]],
+            e2v[v2e[:, 5]],
+        )
+    )
+    result = np.delete(naive_array, [3, 4, 7, 9, 10], axis=1)
     return result

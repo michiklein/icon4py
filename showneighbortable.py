@@ -32,10 +32,11 @@ grid_file = input("Path to grid file: ")
 # Suggest available tables in the prompt
 table_name = input(f"Choose table: ")
 
+start = time.perf_counter()
 # Load the torus grid
 torus_grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 
-start = time.perf_counter()
+
 # Print the chosen table
 try:
     print(f"\n--- Table '{table_name}' ---\n")
