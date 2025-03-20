@@ -898,7 +898,7 @@ def _v2e2c_connectivity(v2c: data_alloc.NDArray) -> data_alloc.NDArray:
     """
     return v2c
 
-def _e2v2c_connectivity(e2v: data_alloc.NDArray, v2c: data_alloc.NDArray, array_ns: ModuleType = np,) -> data_alloc.NDArray:
+def _e2v2c_connectivity(e2v: data_alloc.NDArray, v2c: data_alloc.NDArray) -> data_alloc.NDArray:
     """
     Construct the connectivity table for the cells neighboring an edge-to-vertex.
     
