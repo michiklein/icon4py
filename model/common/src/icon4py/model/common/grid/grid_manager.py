@@ -923,11 +923,46 @@ def _e2v2c_connectivity(e2v: data_alloc.NDArray, v2c: data_alloc.NDArray, array_
     """
 
     naive_array = np.hstack((v2c[e2v[:, 0]], v2c[e2v[:, 1]]))
-    result = np.array(
-        [
-            list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
-            + [x for x in row if row.tolist().count(x) == 1]
-            for row in naive_array
-        ]
-    )
+    result = np.zeros((naive_array.shape[0], 10), dtype=gtx.int32)
+    for i in range(0, naive_array.shape[0]):
+        if i % 3 == 0:
+            result[i, 0] = naive_array[i, 0]
+            result[i, 1] = naive_array[i, 4]
+            result[i, 2] = naive_array[i, 1]
+            result[i, 3] = naive_array[i, 2]
+            result[i, 4] = naive_array[i, 3]
+            result[i, 5] = naive_array[i, 5]
+            result[i, 6] = naive_array[i, 7]
+            result[i, 7] = naive_array[i, 8]
+            result[i, 8] = naive_array[i, 9]
+            result[i, 9] = naive_array[i, 11]
+        if i % 3 == 1:
+            result[i, 0] = naive_array[i, 0]
+            result[i, 1] = naive_array[i, 5]
+            result[i, 2] = naive_array[i, 1]
+            result[i, 3] = naive_array[i, 2]
+            result[i, 4] = naive_array[i, 3]
+            result[i, 5] = naive_array[i, 4]
+            result[i, 6] = naive_array[i, 7]
+            result[i, 7] = naive_array[i, 8]
+            result[i, 8] = naive_array[i, 9]
+            result[i, 9] = naive_array[i, 11]
+        if i % 3 == 2:
+            result[i, 0] = naive_array[i, 0]
+            result[i, 1] = naive_array[i, 3]
+            result[i, 2] = naive_array[i, 1]
+            result[i, 3] = naive_array[i, 2]
+            result[i, 4] = naive_array[i, 4]
+            result[i, 5] = naive_array[i, 5]
+            result[i, 6] = naive_array[i, 7]
+            result[i, 7] = naive_array[i, 8]
+            result[i, 8] = naive_array[i, 10]
+            result[i, 9] = naive_array[i, 11] 
+    # result = np.array(
+    #     [
+    #         list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
+    #         + [x for x in row if row.tolist().count(x) == 1]
+    #         for row in naive_array
+    #     ]
+    # )
     return result
