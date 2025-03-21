@@ -494,6 +494,84 @@ class SimpleGrid(BaseGrid):
                 dims.CellDim,
                 dims.CECECDim,
             ),
+             "V2E2C": (
+                self._get_offset_provider,
+                dims.V2E2CDim,
+                dims.VertexDim,
+                dims.CellDim,
+            ),
+            "E2V2C": (
+                self._get_offset_provider,
+                dims.E2V2CDim,
+                dims.EdgeDim,
+                dims.CellDim,
+            ),
+            "V2E2V": (
+                self._get_offset_provider,
+                dims.V2E2VDim,
+                dims.VertexDim,
+                dims.VertexDim,
+            ),
+            "V2E2VO": (
+                self._get_offset_provider,
+                dims.V2E2VODim,
+                dims.VertexDim,
+                dims.VertexDim,
+            ),
+            "V2C2V": (
+                self._get_offset_provider,
+                dims.V2C2VDim,
+                dims.VertexDim,
+                dims.VertexDim,
+            ),
+            "V2C2VO": (
+                self._get_offset_provider,
+                dims.V2C2VODim,
+                dims.VertexDim,
+                dims.VertexDim,
+            ),
+            "V2C2E": (
+                self._get_offset_provider,
+                dims.V2C2EDim,
+                dims.VertexDim,
+                dims.EdgeDim,
+            ),
+            "E2V2E": (
+                self._get_offset_provider,
+                dims.E2V2EDim,
+                dims.EdgeDim,
+                dims.EdgeDim,
+            ),
+            "E2V2EO": (
+                self._get_offset_provider,
+                dims.E2V2EODim,
+                dims.EdgeDim,
+                dims.EdgeDim,
+            ),
+            "C2V2E": (
+                self._get_offset_provider,
+                dims.C2V2EDim,
+                dims.CellDim,
+                dims.EdgeDim,
+            ),
+            "C2V2C": (
+                self._get_offset_provider,
+                dims.C2V2CDim,
+                dims.CellDim,
+                dims.CellDim,
+            ),
+            "C2V2CO": (
+                self._get_offset_provider,
+                dims.C2V2CODim,
+                dims.CellDim,
+                dims.CellDim,
+            ),
+            "C2E2V": (
+                self._get_offset_provider,
+                dims.C2E2VDim,
+                dims.CellDim,
+                dims.VertexDim,
+            ),
         }
 
     @property
