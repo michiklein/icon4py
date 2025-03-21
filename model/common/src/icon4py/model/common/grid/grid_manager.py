@@ -714,6 +714,15 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
     c2e2v = _c2v2e_connectivity(
         grid.connectivities[dims.C2VDim], grid.connectivities[dims.V2EDim]
     )
+    c2v2c = _c2v2c_connectivity(
+        grid.connectivities[dims.C2VDim], grid.connectivities[dims.V2CDim]
+    )
+    # c2v2c0 = _c2v2c0_connectivity(
+    #     grid.connectivities[dims.C2V2CDim]
+    # )
+    c2e2v = _c2e2v_connectivity(
+        grid.connectivities[dims.C2EDim], grid.connectivities[dims.E2VDim]
+    )
 
     grid.with_connectivities(
         {
@@ -733,6 +742,9 @@ def _add_derived_connectivities(grid: icon.IconGrid, array_ns: ModuleType = np) 
             dims.E2V2EDim: e2v2e,
             # dims.E2V2EODim: e2v2e0,
             dims.C2V2EDim: c2e2v,
+            dims.C2V2CDim: c2v2c,
+            # dims.C2V2CODim: c2v2c0,
+            dims.C2E2VDim: c2e2v,
             
         }
     )
@@ -1160,3 +1172,102 @@ def _c2v2e_connectivity(c2v: data_alloc.NDArray, v2e: data_alloc.NDArray) -> dat
         ]
     )
     return result
+
+
+def _c2v2c_connectivity(
+    c2v: data_alloc.NDArray, v2c: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the cells surrounding a c2v.
+    the order is arbitrary, but the first three cells are the ones that are connected to the cell.
+
+    Args:
+        c2v: ndarray containing the connectivity table for cell-to-vertex
+        v2c: ndarray containing the connectivity table for vertex-to-cell
+
+    Returns: ndarray containing the connectivity table for cell-to-vertex-to-cell
+    """
+    naive_array = np.hstack(
+        (
+            v2c[c2v[:, 0]],
+            v2c[c2v[:, 1]],
+            v2c[c2v[:, 2]],
+        )
+    )
+    result = np.array(
+        [
+            # Prepend dupes and delete the ones that appear 3 times, because they are the origin
+            list(dict.fromkeys([x for x in row if row.tolist().count(x) == 2]))
+            + [x for x in row if row.tolist().count(x) == 1]
+            for row in naive_array
+        ]
+    )
+    return result
+
+
+def _c2v2c0_connectivity(
+    c2v2c: data_alloc.NDArray,
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the cells surrounding a c2v and the cell itself. The order is the same as c2v2c with the origin cell prepended.
+
+    Args:
+        c2v2c: ndarray containing the connectivity table for cell-to-vertex-to-cell
+
+    Returns: ndarray containing the connectivity table for cell-to-vertex-to-cell
+    """
+    return np.column_stack((np.arange(0, c2v2c.shape[0]), c2v2c))
+
+
+def _c2e2v_connectivity( #TODO
+    c2v: data_alloc.NDArray, v2e: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the vertices surrounding a c2e.
+
+    Args:
+        c2e: ndarray containing the connectivity table for cell-to-edge
+        e2v: ndarray containing the connectivity table for edge-to-vertex
+
+    Returns: ndarray containing the connectivity table for cell-to-edge-to-vertex
+    """
+    return c2v
+
+
+# def _c2e2c_connectivity( #TODO
+#     c2e: data_alloc.NDArray, e2c: data_alloc.NDArray
+# ) -> data_alloc.NDArray:
+#     """
+#     Construct the connectivity table for the cells surrounding a c2e.
+
+#     Args:
+#         c2e: ndarray containing the connectivity table for cell-to-edge
+#         e2c: ndarray containing the connectivity table for edge-to-cell
+
+#     Returns: ndarray containing the connectivity table for cell-to-edge-to-cell
+#     """
+#     naive_array = np.hstack(
+#         (
+#             e2c[c2e[:, 0]],
+#             e2c[c2e[:, 1]],
+#             e2c[c2e[:, 2]],
+#         )
+#     )
+#     result = np.array(  # we delete the dupes because they are the origin
+#         [[x for x in row if row.tolist().count(x) == 1] for row in naive_array]
+#     )
+#     return result
+
+
+# def _c2e2c0_connectivity( #TODO
+#     c2e2c: data_alloc.NDArray,
+# ) -> data_alloc.NDArray:
+#     """
+#     Construct the connectivity table for the cells surrounding a c2e and the cell itself. The order is the same as c2e2c with the origin cell prepended.
+
+#     Args:
+#         c2e2c: ndarray containing the connectivity table for cell-to-edge-to-cell
+
+#     Returns: ndarray containing the connectivity table for cell-to-edge-to-cell
+#     """
+#     return np.column_stack((np.arange(0, c2e2c.shape[0]), c2e2c))
