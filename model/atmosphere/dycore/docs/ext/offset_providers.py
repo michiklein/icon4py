@@ -15,7 +15,7 @@ import numpy as np
 
 
 SIDE: Final = 1  # Length of each triangle side
-LABEL_TRIANGLES: Final = False  # Option to label each triangle center with its ID
+LABEL_TRIANGLES = input("Label triangles? (y/n): ").strip().lower() == "y"  # Option to label each triangle center with its ID
 COLORS: Final = list(mcolors.TABLEAU_COLORS.values())
 AX_BORDER: Final = 0.05 * SIDE  # Border around the axes
 IMG_DIR = "img"
@@ -31,8 +31,8 @@ class Triangle:
         self.label_offset = 0.10 * SIDE
         self.cell_offset = 0.25 * SIDE
         self.edge_offset = 0.25 * SIDE
-        self.vertex_size = 10
-        self.bold_line = 6
+        self.vertex_size = 15
+        self.bold_line = 8
 
     def calculate_vertices(self):
         if self.orientation == "up":
@@ -114,7 +114,7 @@ class Triangle:
         Parameters:
             vertex : Vertex to be colored ('A', 'B', or 'C')
         """
-        vertex_size = self.vertex_size - 2 * coloridx
+        vertex_size = self.vertex_size - 1.5 * coloridx
         match vertex:
             case "A":
                 self.ax.plot(
@@ -141,7 +141,7 @@ class Triangle:
         """
         Fills the triangle area with color, leaving some distance from the sides.
         """
-        cell_offset = self.cell_offset + self.cell_offset / 8 * coloridx
+        cell_offset = self.cell_offset + self.cell_offset / 10 * coloridx
         if self.orientation == "up":
             A = (
                 self.A[0] + cell_offset * np.cos(np.pi / 6),
@@ -173,7 +173,7 @@ class Triangle:
         Parameters:
             edge : Edge to be colored ('AB', 'BC', or 'CA')
         """
-        edge_offset = self.edge_offset + self.edge_offset / 4 * coloridx
+        edge_offset = self.edge_offset + self.edge_offset / 8 * coloridx
         match (edge, self.orientation):
             case ("AB", "up"):
                 V0 = (self.A[0] + edge_offset, self.A[1])
@@ -287,7 +287,12 @@ def draw_mesh(ax, nx, ny):
         if LABEL_TRIANGLES:
             T.print_labels(str(i))
 
-    xlims = (-AX_BORDER - (ny - 1) * SIDE / 2, AX_BORDER + (nx - 1) * SIDE - (ny - 1) * SIDE / 2)
+    extra_x_margin = 0.15 * SIDE  # adjust this value to control how much space to add
+    xlims = (
+        -AX_BORDER - (ny - 1) * SIDE / 2 - extra_x_margin,
+        AX_BORDER + (nx - 1) * SIDE - (ny - 1) * SIDE / 2 + extra_x_margin
+    )
+
     ylims = (-0.2, AX_BORDER + ny * SIDE * np.sqrt(3) / 2)
 
     return triangles, xlims, ylims
@@ -312,7 +317,7 @@ def add_legend(ax, label, xlims):
     # Calculate the starting x position to center the legend
     total_width = N * rect_width + (N - 1) * spacing
     legend_x = (xlims[1] - xlims[0] - total_width) / 2 + xlims[0]
-    legend_y = -0.12  # Y position for the legend
+    legend_y = -0.2 # Y position for the legend
 
     for i in range(N):
         # Draw the rectangle
@@ -373,9 +378,10 @@ def generate_mesh_figure(nx, ny, label, static_dir):
 # ===============================================================================
 def generate_figures(static_dir: str = "."):
     # ---------------------------------------------------------------------------
-    fig, ax, T = generate_mesh_figure(2, 2, "c2e", static_dir)
+    # c2e
+    fig, ax, T = generate_mesh_figure(1, 1, "c2e", static_dir)
 
-    Ta = T[1]
+    Ta = T[0]
     Ta.color_cell()
     draw_arrow(ax, Ta.AB, Ta.CC, 1)
     draw_arrow(ax, Ta.BC, Ta.CC, 1)
@@ -423,27 +429,203 @@ def generate_figures(static_dir: str = "."):
     Tb.color_cell(2)
     Tc.color_cell(2)
     Td.color_cell(2)
-    draw_arrow(ax, Ta.CC, Ta.AB, 2)
-    draw_arrow(ax, Ta.CC, Ta.BC, 2)
-    draw_arrow(ax, Ta.CC, Ta.CA, 2)
-    Ta.color_cell(2)
+    draw_arrow(ax, Ta.CC, Ta.AB, 3)
+    draw_arrow(ax, Ta.CC, Ta.BC, 3)
+    draw_arrow(ax, Ta.CC, Ta.CA, 3)
+    Ta.color_cell(3)
 
     fig.save()
-
+    
     # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(1, 1, "c2e2v", static_dir)
+    Ta = T[0]
+    Ta.color_cell()
+    draw_arrow(ax, Ta.AB, Ta.CC, 1)
+    draw_arrow(ax, Ta.BC, Ta.CC, 1)
+    draw_arrow(ax, Ta.CA, Ta.CC, 1)
+    Ta.color_edges(1)
+    draw_arrow(ax, Ta.A, Ta.AB, 2)
+    draw_arrow(ax, Ta.A, Ta.CA, 2)
+    draw_arrow(ax, Ta.B, Ta.BC, 2)
+    draw_arrow(ax, Ta.B, Ta.AB, 2)
+    draw_arrow(ax, Ta.C, Ta.CA, 2)
+    draw_arrow(ax, Ta.C, Ta.BC, 2)
+    Ta.color_vertices(2)
+    Ta.color_vertices(4)
+    fig.save()
+    
+    
+    # ---------------------------------------------------------------------------    
     # ---------------------------------------------------------------------------
-    fig, ax, T = generate_mesh_figure(2, 2, "e2v", static_dir)
-
-    Ta = T[1]
-    Ta.color_edge("BC")
-    draw_arrow(ax, Ta.B, Ta.BC, 1)
-    draw_arrow(ax, Ta.C, Ta.BC, 1)
-    Ta.color_vertex("B", 1)
-    Ta.color_vertex("C", 1)
-
+    # c2v
+    fig, ax, T = generate_mesh_figure(1, 1, "c2v", static_dir)
+    Ta = T[0]
+    Ta.color_cell()
+    draw_arrow(ax, Ta.A, Ta.CC, 1)
+    draw_arrow(ax, Ta.B, Ta.CC, 1)
+    draw_arrow(ax, Ta.C, Ta.CC, 1)
+    Ta.color_vertices(1)
+    fig.save()
+    
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(2, 3, "c2v2c", static_dir)
+    Ta = T[7]
+    Tb = T[1]
+    Tc = T[0]
+    Td = T[2]
+    Te = T[3]
+    Tf = T[4]
+    Tg = T[5]
+    Th = T[6]
+    Ti = T[8]
+    Tj = T[9]
+    Tk = T[14]
+    Tl = T[15]
+    Tm = T[16]
+    
+    Ta.color_cell()
+    draw_arrow(ax, Ta.A, Ta.CC, 1)
+    draw_arrow(ax, Ta.B, Ta.CC, 1)
+    draw_arrow(ax, Ta.C, Ta.CC, 1)
+    Ta.color_vertices(1)
+    draw_arrow(ax, Tb.CC, Tb.B, 2)
+    draw_arrow(ax, Tb.CC, Tc.C, 2)
+    draw_arrow(ax, Tc.CC, Tc.C, 2)
+    draw_arrow(ax, Td.CC, Td.C, 2)
+    draw_arrow(ax, Te.CC, Te.B, 2)
+    draw_arrow(ax, Tf.CC, Tf.C, 2)
+    draw_arrow(ax, Tg.CC, Tg.B, 2)
+    draw_arrow(ax, Th.CC, Th.B, 2)
+    draw_arrow(ax, Th.CC, Th.A, 2)
+    draw_arrow(ax, Ti.CC, Ti.A, 2)
+    draw_arrow(ax, Ti.CC, Ti.C, 2)
+    draw_arrow(ax, Tj.CC, Tj.A, 2)
+    draw_arrow(ax, Tk.CC, Tk.B, 2)
+    draw_arrow(ax, Tl.CC, Tl.A, 2)
+    draw_arrow(ax, Tm.CC, Tm.A, 2)
+    Tb.color_cell(2)
+    Tc.color_cell(2)
+    Td.color_cell(2)
+    Te.color_cell(2)
+    Tf.color_cell(2)
+    Tg.color_cell(2)
+    Th.color_cell(2)
+    Ti.color_cell(2)
+    Tj.color_cell(2)
+    Tk.color_cell(2)
+    Tl.color_cell(2)
+    Tm.color_cell(2)
+    Tb.color_cell(4)
+    Th.color_cell(4)
+    Ti.color_cell(4)
+    
     fig.save()
 
+    # ----------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(2, 3, "c2v2co", static_dir)
+    Ta = T[7]
+    Tb = T[1]
+    Tc = T[0]
+    Td = T[2]
+    Te = T[3]
+    Tf = T[4]
+    Tg = T[5]
+    Th = T[6]
+    Ti = T[8]
+    Tj = T[9]
+    Tk = T[14]
+    Tl = T[15]
+    Tm = T[16]
+    
+    Ta.color_cell()
+    draw_arrow(ax, Ta.A, Ta.CC, 1)
+    draw_arrow(ax, Ta.B, Ta.CC, 1)
+    draw_arrow(ax, Ta.C, Ta.CC, 1)
+    Ta.color_vertices(1)
+    draw_arrow(ax, Tb.CC, Tb.B, 2)
+    draw_arrow(ax, Tb.CC, Tc.C, 2)
+    draw_arrow(ax, Tc.CC, Tc.C, 2)
+    draw_arrow(ax, Td.CC, Td.C, 2)
+    draw_arrow(ax, Te.CC, Te.B, 2)
+    draw_arrow(ax, Tf.CC, Tf.C, 2)
+    draw_arrow(ax, Tg.CC, Tg.B, 2)
+    draw_arrow(ax, Th.CC, Th.B, 2)
+    draw_arrow(ax, Th.CC, Th.A, 2)
+    draw_arrow(ax, Ti.CC, Ti.A, 2)
+    draw_arrow(ax, Ti.CC, Ti.C, 2)
+    draw_arrow(ax, Tj.CC, Tj.A, 2)
+    draw_arrow(ax, Tk.CC, Tk.B, 2)
+    draw_arrow(ax, Tl.CC, Tl.A, 2)
+    draw_arrow(ax, Tm.CC, Tm.A, 2)
+    draw_arrow(ax, Ta.CC, Ta.A, 3)
+    draw_arrow(ax, Ta.CC, Ta.B, 3)
+    draw_arrow(ax, Ta.CC, Ta.C, 3)
+    Tb.color_cell(2)
+    Tc.color_cell(2)
+    Td.color_cell(2)
+    Te.color_cell(2)
+    Tf.color_cell(2)
+    Tg.color_cell(2)
+    Th.color_cell(2)
+    Ti.color_cell(2)
+    Tj.color_cell(2)
+    Tk.color_cell(2)
+    Tl.color_cell(2)
+    Tm.color_cell(2)
+    Tb.color_cell(4)
+    Th.color_cell(4)
+    Ti.color_cell(4)
+    Ta.color_cell(3)
+    
+    fig.save()
+    
+    # ----------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(2, 3, "c2v2e", static_dir)
+    
+    Ta = T[7]
+    
+    Ta.color_cell()
+    draw_arrow(ax, Ta.A, Ta.CC, 1)
+    draw_arrow(ax, Ta.B, Ta.CC, 1)
+    draw_arrow(ax, Ta.C, Ta.CC, 1)
+    Ta.color_vertices(1)
+    draw_arrow(ax, T[1].CA, Ta.A, 2)
+    draw_arrow(ax, T[1].AB, Ta.B, 2)
+    draw_arrow(ax, T[1].BC, Ta.A, 4)
+    draw_arrow(ax, T[1].BC, Ta.B, 4)
+    draw_arrow(ax, T[6].BC, Ta.C, 2)
+    draw_arrow(ax, T[6].CA, Ta.A, 2)
+    draw_arrow(ax, T[6].AB, Ta.A, 4)
+    draw_arrow(ax, T[6].AB, Ta.C, 4)
+    draw_arrow(ax, T[8].BC, Ta.C, 2)
+    draw_arrow(ax, T[8].AB, Ta.B, 2)
+    draw_arrow(ax, T[8].CA, Ta.C, 4)
+    draw_arrow(ax, T[8].CA, Ta.B, 4)
+    draw_arrow(ax, T[15].CA, Ta.C, 2)
+    draw_arrow(ax, T[15].AB, Ta.C, 2)
+    draw_arrow(ax, T[3].BC, Ta.A, 2)
+    draw_arrow(ax, T[3].AB, Ta.A, 2)
+    draw_arrow(ax, T[4].CA, Ta.B, 2)
+    draw_arrow(ax, T[4].BC, Ta.B, 2)
+    
+    T[1].color_edges(2)
+    T[6].color_edges(2)
+    T[8].color_edges(2)
+    T[15].color_edge("CA", 2)
+    T[15].color_edge("AB", 2)
+    T[3].color_edge("BC", 2)
+    T[3].color_edge("AB", 2)
+    T[4].color_edge("CA", 2)
+    T[4].color_edge("BC", 2)
+    T[1].color_edge("BC", 4)
+    T[6].color_edge("AB", 4)   
+    T[8].color_edge("CA", 4)
+
+
+    fig.save()
     # ---------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------
+    # e2c
     fig, ax, T = generate_mesh_figure(2, 2, "e2c", static_dir)
 
     Ta = T[1]
@@ -453,9 +635,9 @@ def generate_figures(static_dir: str = "."):
     draw_arrow(ax, Tb.CC, Tb.AB, 1)
     Ta.color_cell(1)
     Tb.color_cell(1)
-
+    
     fig.save()
-
+    
     # ---------------------------------------------------------------------------
     fig, ax, T = generate_mesh_figure(2, 2, "e2c2e", static_dir)
 
@@ -467,15 +649,40 @@ def generate_figures(static_dir: str = "."):
     Ta.color_cell(1)
     Tb.color_cell(1)
     draw_arrow(ax, Ta.AB, Ta.CC, 2)
-    draw_arrow(ax, Ta.BC, Ta.CC, 2)
     draw_arrow(ax, Ta.CA, Ta.CC, 2)
-    draw_arrow(ax, Tb.AB, Tb.CC, 2)
     draw_arrow(ax, Tb.BC, Tb.CC, 2)
     draw_arrow(ax, Tb.CA, Tb.CC, 2)
-    Ta.color_edges(2)
-    Tb.color_edges(2)
+    Ta.color_edge("AB", 2)
+    Ta.color_edge("CA", 2)
+    Tb.color_edge("CA", 2)
+    Tb.color_edge("BC", 2)
 
     fig.save()
+    
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(2, 2, "e2c2eo", static_dir)
+    
+    Ta = T[1]
+    Tb = T[7]
+    Ta.color_edge("BC")
+    draw_arrow(ax, Ta.CC, Ta.BC, 1)
+    draw_arrow(ax, Tb.CC, Tb.AB, 1)
+    Ta.color_cell(1)
+    Tb.color_cell(1)
+    draw_arrow(ax, Ta.AB, Ta.CC, 2)
+    draw_arrow(ax, Ta.BC, Ta.CC, 3)
+    draw_arrow(ax, Ta.CA, Ta.CC, 2)
+    draw_arrow(ax, Tb.AB, Tb.CC, 3)
+    draw_arrow(ax, Tb.BC, Tb.CC, 2)
+    draw_arrow(ax, Tb.CA, Tb.CC, 2)
+    Ta.color_edge("AB", 2)
+    Ta.color_edge("CA", 2)
+    Ta.color_edge("BC", 3)
+    Tb.color_edge("CA", 2)
+    Tb.color_edge("BC", 2)
+
+    fig.save()
+    
 
     # ---------------------------------------------------------------------------
     fig, ax, T = generate_mesh_figure(2, 2, "e2c2v", static_dir)
@@ -495,35 +702,401 @@ def generate_figures(static_dir: str = "."):
     draw_arrow(ax, Tb.C, Tb.CC, 2)
     Ta.color_vertices(2)
     Tb.color_vertices(2)
+    Ta.color_vertex("B", 4)
+    Ta.color_vertex("C", 4)
 
     fig.save()
 
     # ---------------------------------------------------------------------------
     # ---------------------------------------------------------------------------
+    # e2v
+    fig, ax, T = generate_mesh_figure(2, 2, "e2v", static_dir)
+
+    Ta = T[1]
+    Ta.color_edge("BC")
+    draw_arrow(ax, Ta.B, Ta.BC, 1)
+    draw_arrow(ax, Ta.C, Ta.BC, 1)
+    Ta.color_vertex("B", 1)
+    Ta.color_vertex("C", 1)
+
+    fig.save()
+    
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(2, 2, "e2v2c", static_dir)
+    
+    Ta = T[1]
+    Ta.color_edge("BC")
+    draw_arrow(ax, Ta.B, Ta.BC, 1)
+    draw_arrow(ax, Ta.C, Ta.BC, 1)
+    Ta.color_vertex("B", 1)
+    Ta.color_vertex("C", 1)
+    draw_arrow(ax, Ta.CC, Ta.C, 2)
+    draw_arrow(ax, Ta.CC, Ta.B, 2)
+    draw_arrow(ax, T[0].CC, T[0].C, 2)
+    draw_arrow(ax, T[2].CC, T[2].C, 2)
+    draw_arrow(ax, T[3].CC, T[3].B, 2)
+    draw_arrow(ax, T[4].CC, T[4].C, 2)
+    draw_arrow(ax, T[5].CC, T[5].B, 2)
+    draw_arrow(ax, T[6].CC, T[6].A, 2)
+    draw_arrow(ax, T[7].CC, T[7].A, 2)
+    draw_arrow(ax, T[7].CC, T[7].B, 2)
+    draw_arrow(ax, T[8].CC, T[8].A, 2)
+    draw_arrow(ax, T[9].CC, T[9].A, 2)
+    
+    for i in range(10):
+        T[i].color_cell(2)
+        
+    Ta.color_cell(4)
+    T[7].color_cell(4)
+
+
+    fig.save()
+    
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(2, 2, "e2v2e", static_dir)
+    
+    T[1].color_edge("BC")
+    draw_arrow(ax, T[1].B, T[1].BC, 1)
+    draw_arrow(ax, T[1].C, T[1].BC, 1)
+    T[1].color_vertex("B", 1)
+    T[1].color_vertex("C", 1)
+    draw_arrow(ax, T[0].CA, T[0].C, 2)
+    draw_arrow(ax, T[0].BC, T[0].C, 2)
+    draw_arrow(ax, T[2].CA, T[2].C, 2)
+    draw_arrow(ax, T[2].BC, T[2].C, 2)
+    draw_arrow(ax, T[5].AB, T[5].B, 2)
+    draw_arrow(ax, T[5].BC, T[5].B, 2)
+    draw_arrow(ax, T[7].CA, T[7].A, 2)
+    draw_arrow(ax, T[7].BC, T[7].B, 2)
+    draw_arrow(ax, T[9].CA, T[9].A, 2)
+    draw_arrow(ax, T[9].AB, T[9].A, 2)
+
+    T[0].color_edge("CA", 2)
+    T[0].color_edge("BC", 2)
+    T[2].color_edge("CA", 2)
+    T[2].color_edge("BC", 2)
+    T[5].color_edge("AB", 2)
+    T[5].color_edge("BC", 2)
+    T[7].color_edge("CA", 2)
+    T[7].color_edge("BC", 2)
+    T[9].color_edge("CA", 2)
+    T[9].color_edge("AB", 2)
+    
+    fig.save()
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(2, 2, "e2v2eo", static_dir)
+    
+    T[1].color_edge("BC")
+    draw_arrow(ax, T[1].B, T[1].BC, 1)
+    draw_arrow(ax, T[1].C, T[1].BC, 1)
+    T[1].color_vertex("B", 1)
+    T[1].color_vertex("C", 1)
+    draw_arrow(ax, T[0].CA, T[0].C, 2)
+    draw_arrow(ax, T[0].BC, T[0].C, 2)
+    draw_arrow(ax, T[2].CA, T[2].C, 2)
+    draw_arrow(ax, T[2].BC, T[2].C, 2)
+    draw_arrow(ax, T[5].AB, T[5].B, 2)
+    draw_arrow(ax, T[5].BC, T[5].B, 2)
+    draw_arrow(ax, T[7].CA, T[7].A, 2)
+    draw_arrow(ax, T[7].BC, T[7].B, 2)
+    draw_arrow(ax, T[9].CA, T[9].A, 2)
+    draw_arrow(ax, T[9].AB, T[9].A, 2)
+    draw_arrow(ax, T[1].BC, T[1].C, 3)
+    draw_arrow(ax, T[1].BC, T[1].B, 3)
+
+    T[0].color_edge("CA", 2)
+    T[0].color_edge("BC", 2)
+    T[2].color_edge("CA", 2)
+    T[2].color_edge("BC", 2)
+    T[5].color_edge("AB", 2)
+    T[5].color_edge("BC", 2)
+    T[7].color_edge("CA", 2)
+    T[7].color_edge("BC", 2)
+    T[9].color_edge("CA", 2)
+    T[9].color_edge("AB", 2)
+    T[1].color_edge("BC", 3)
+    
+    fig.save()
+    # ---------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------
+    # v2c
+    fig, ax, T = generate_mesh_figure(1, 2, "v2c", static_dir)
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CC, T[0].C, 1)
+    draw_arrow(ax, T[1].CC, T[1].B, 1)
+    draw_arrow(ax, T[2].CC, T[2].C, 1)
+    draw_arrow(ax, T[3].CC, T[3].B, 1)
+    draw_arrow(ax, T[4].CC, T[4].A, 1)
+    draw_arrow(ax, T[5].CC, T[5].A, 1)
+    
+    for i in range(6):
+        T[i].color_cell(1)
+    
+    fig.save()
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(1, 2, "v2c2e", static_dir)
+    
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CC, T[0].C, 1)
+    draw_arrow(ax, T[1].CC, T[1].B, 1)
+    draw_arrow(ax, T[2].CC, T[2].C, 1)
+    draw_arrow(ax, T[3].CC, T[3].B, 1)
+    draw_arrow(ax, T[4].CC, T[4].A, 1)
+    draw_arrow(ax, T[5].CC, T[5].A, 1)
+    
+    for i in range(6):
+        T[i].color_cell(1)
+        
+    draw_arrow(ax, T[0].AB, T[0].CC, 2)
+    draw_arrow(ax, T[0].BC, T[0].CC, 2)
+    draw_arrow(ax, T[0].CA, T[0].CC, 2)
+    draw_arrow(ax, T[1].AB, T[1].CC, 2)
+    draw_arrow(ax, T[1].BC, T[1].CC, 2)
+    draw_arrow(ax, T[1].CA, T[1].CC, 2)
+    draw_arrow(ax, T[2].AB, T[2].CC, 2)
+    draw_arrow(ax, T[2].BC, T[2].CC, 2)
+    draw_arrow(ax, T[2].CA, T[2].CC, 2)
+    draw_arrow(ax, T[3].AB, T[3].CC, 2)
+    draw_arrow(ax, T[3].BC, T[3].CC, 2)
+    draw_arrow(ax, T[3].CA, T[3].CC, 2)
+    draw_arrow(ax, T[4].AB, T[4].CC, 2)
+    draw_arrow(ax, T[4].BC, T[4].CC, 2)
+    draw_arrow(ax, T[4].CA, T[4].CC, 2)
+    draw_arrow(ax, T[5].AB, T[5].CC, 2)
+    draw_arrow(ax, T[5].BC, T[5].CC, 2)
+    draw_arrow(ax, T[5].CA, T[5].CC, 2)
+    for i in range(6):
+        T[i].color_edges(2)
+    T[0].color_edge("CA", 4)
+    T[0].color_edge("BC", 4)
+    T[3].color_edge("AB", 4)
+    T[3].color_edge("BC", 4)
+    T[5].color_edge("AB", 4)
+    T[5].color_edge("CA", 4)
+    
+    fig.save()
+
+    # ---------------------------------------------------------------------------
+    fig , ax, T = generate_mesh_figure(1, 2, "v2c2v", static_dir)
+    
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CC, T[0].C, 1)
+    draw_arrow(ax, T[1].CC, T[1].B, 1)
+    draw_arrow(ax, T[2].CC, T[2].C, 1)
+    draw_arrow(ax, T[3].CC, T[3].B, 1)
+    draw_arrow(ax, T[4].CC, T[4].A, 1)
+    draw_arrow(ax, T[5].CC, T[5].A, 1)
+    
+    for i in range(6):
+        T[i].color_cell(1)
+    
+    draw_arrow(ax, T[0].A, T[0].CC, 2)
+    draw_arrow(ax, T[0].B, T[0].CC, 2)
+    draw_arrow(ax, T[1].A, T[1].CC, 2)
+    draw_arrow(ax, T[1].C, T[1].CC, 2)
+    draw_arrow(ax, T[2].A, T[2].CC, 2)
+    draw_arrow(ax, T[2].B, T[2].CC, 2)
+    draw_arrow(ax, T[3].A, T[3].CC, 2)
+    draw_arrow(ax, T[3].C, T[3].CC, 2)
+    draw_arrow(ax, T[4].B, T[4].CC, 2)
+    draw_arrow(ax, T[4].C, T[4].CC, 2)
+    draw_arrow(ax, T[5].B, T[5].CC, 2)
+    draw_arrow(ax, T[5].C, T[5].CC, 2)
+    
+    T[0].color_vertex("A", 4)
+    T[0].color_vertex("B", 4)
+    T[3].color_vertex("A", 4)
+    T[3].color_vertex("C", 4)
+    T[5].color_vertex("B", 4)
+    T[5].color_vertex("C", 4)
+    
+    fig.save()
+    
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(1, 2, "v2c2vo", static_dir)
+
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CC, T[0].C, 1)
+    draw_arrow(ax, T[1].CC, T[1].B, 1)
+    draw_arrow(ax, T[2].CC, T[2].C, 1)
+    draw_arrow(ax, T[3].CC, T[3].B, 1)
+    draw_arrow(ax, T[4].CC, T[4].A, 1)
+    draw_arrow(ax, T[5].CC, T[5].A, 1)
+    
+    for i in range(6):
+        T[i].color_cell(1)
+    
+    draw_arrow(ax, T[0].A, T[0].CC, 2)
+    draw_arrow(ax, T[0].B, T[0].CC, 2)
+    draw_arrow(ax, T[1].A, T[1].CC, 2)
+    draw_arrow(ax, T[1].C, T[1].CC, 2)
+    draw_arrow(ax, T[2].A, T[2].CC, 2)
+    draw_arrow(ax, T[2].B, T[2].CC, 2)
+    draw_arrow(ax, T[3].A, T[3].CC, 2)
+    draw_arrow(ax, T[3].C, T[3].CC, 2)
+    draw_arrow(ax, T[4].B, T[4].CC, 2)
+    draw_arrow(ax, T[4].C, T[4].CC, 2)
+    draw_arrow(ax, T[5].B, T[5].CC, 2)
+    draw_arrow(ax, T[5].C, T[5].CC, 2)
+    
+    T[0].color_vertex("A", 4)
+    T[0].color_vertex("B", 4)
+    T[3].color_vertex("A", 4)
+    T[3].color_vertex("C", 4)
+    T[5].color_vertex("B", 4)
+    T[5].color_vertex("C", 4)
+    
+    for i in range(6):
+        draw_arrow(ax, T[0].C, T[i].CC, 3)
+    
+    T[0].color_vertex("C", 3)
+    
+    fig.save()
+
+    # ---------------------------------------------------------------------------
+    # ---------------------------------------------------------------------------
+    #v2e
     fig, ax, T = generate_mesh_figure(1, 2, "v2e", static_dir)
 
-    Ta = T[0]
-    Tb = T[2]
-    Tc = T[5]
-    Td = T[4]
-    Te = T[3]
-    Tf = T[1]
-    Ta.color_vertex("C")
-    draw_arrow(ax, Ta.CA, Ta.C, 1)
-    draw_arrow(ax, Tb.CA, Tb.C, 1)
-    draw_arrow(ax, Tc.AB, Tc.A, 1)
-    draw_arrow(ax, Td.AB, Td.A, 1)
-    draw_arrow(ax, Te.BC, Te.B, 1)
-    draw_arrow(ax, Tf.BC, Tf.B, 1)
-    Ta.color_edge("CA", 1)
-    Tb.color_edge("CA", 1)
-    Tc.color_edge("AB", 1)
-    Td.color_edge("AB", 1)
-    Te.color_edge("BC", 1)
-    Tf.color_edge("BC", 1)
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CA, T[0].C, 1)
+    draw_arrow(ax, T[0].BC, T[0].C, 1)
+    draw_arrow(ax, T[3].AB, T[0].C, 1)
+    draw_arrow(ax, T[3].BC, T[0].C, 1)
+    draw_arrow(ax, T[5].AB, T[0].C, 1)
+    draw_arrow(ax, T[5].CA, T[0].C, 1)
+    T[0].color_edge("CA", 1)
+    T[0].color_edge("BC", 1)
+    T[3].color_edge("AB", 1)
+    T[3].color_edge("BC", 1)
+    T[5].color_edge("AB", 1)
+    T[5].color_edge("CA", 1)
 
     fig.save()
+    
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(1, 2, "v2e2c", static_dir)
+    
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CA, T[0].C, 1)
+    draw_arrow(ax, T[0].BC, T[0].C, 1)
+    draw_arrow(ax, T[3].AB, T[0].C, 1)
+    draw_arrow(ax, T[3].BC, T[0].C, 1)
+    draw_arrow(ax, T[5].AB, T[0].C, 1)
+    draw_arrow(ax, T[5].CA, T[0].C, 1)
+    T[0].color_edge("CA", 1)
+    T[0].color_edge("BC", 1)
+    T[3].color_edge("AB", 1)
+    T[3].color_edge("BC", 1)
+    T[5].color_edge("AB", 1)
+    T[5].color_edge("CA", 1)
+    
+    draw_arrow(ax, T[0].CC, T[0].CA, 2)
+    draw_arrow(ax, T[0].CC, T[0].BC, 2)
+    draw_arrow(ax, T[1].CC, T[1].AB, 2)
+    draw_arrow(ax, T[1].CC, T[1].BC, 2)
+    draw_arrow(ax, T[2].CC, T[2].CA, 2)
+    draw_arrow(ax, T[2].CC, T[2].BC, 2)
+    draw_arrow(ax, T[3].CC, T[3].AB, 2)
+    draw_arrow(ax, T[3].CC, T[3].BC, 2)
+    draw_arrow(ax, T[4].CC, T[4].AB, 2)
+    draw_arrow(ax, T[4].CC, T[4].CA, 2)
+    draw_arrow(ax, T[5].CC, T[5].AB, 2)
+    draw_arrow(ax, T[5].CC, T[5].CA, 2)
+    
+    for i in range(6):
+        T[i].color_cell(2)
+        T[i].color_cell(4)
+    
 
+    fig.save()
+    
+    # ---------------------------------------------------------------------------
+    
+    fig, ax, T = generate_mesh_figure(1, 2, "v2e2v", static_dir)
+    
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CA, T[0].C, 1)
+    draw_arrow(ax, T[0].BC, T[0].C, 1)
+    draw_arrow(ax, T[3].AB, T[0].C, 1)
+    draw_arrow(ax, T[3].BC, T[0].C, 1)
+    draw_arrow(ax, T[5].AB, T[0].C, 1)
+    draw_arrow(ax, T[5].CA, T[0].C, 1)
+    T[0].color_edge("CA", 1)
+    T[0].color_edge("BC", 1)
+    T[3].color_edge("AB", 1)
+    T[3].color_edge("BC", 1)
+    T[5].color_edge("AB", 1)
+    T[5].color_edge("CA", 1)
+    
+    draw_arrow(ax, T[0].A, T[0].CA, 2)
+    draw_arrow(ax, T[0].B, T[0].BC, 2)
+    draw_arrow(ax, T[1].A, T[1].AB, 2)
+    draw_arrow(ax, T[1].C, T[1].BC, 2)
+    draw_arrow(ax, T[2].A, T[2].CA, 2)
+    draw_arrow(ax, T[2].B, T[2].BC, 2)
+    draw_arrow(ax, T[3].A, T[3].AB, 2)
+    draw_arrow(ax, T[3].C, T[3].BC, 2)
+    draw_arrow(ax, T[4].B, T[4].AB, 2)
+    draw_arrow(ax, T[4].C, T[4].CA, 2)
+    draw_arrow(ax, T[5].B, T[5].AB, 2)
+    draw_arrow(ax, T[5].C, T[5].CA, 2)
+    
+    T[0].color_vertex("A", 2)
+    T[0].color_vertex("B", 2)
+    T[3].color_vertex("A", 2)
+    T[3].color_vertex("C", 2)
+    T[5].color_vertex("B", 2)
+    T[5].color_vertex("C", 2)
+    
+    fig.save()
+
+    # ---------------------------------------------------------------------------
+    fig, ax, T = generate_mesh_figure(1, 2, "v2e2vo", static_dir)
+
+    T[0].color_vertex("C")
+    draw_arrow(ax, T[0].CA, T[0].C, 1)
+    draw_arrow(ax, T[0].BC, T[0].C, 1)
+    draw_arrow(ax, T[3].AB, T[0].C, 1)
+    draw_arrow(ax, T[3].BC, T[0].C, 1)
+    draw_arrow(ax, T[5].AB, T[0].C, 1)
+    draw_arrow(ax, T[5].CA, T[0].C, 1)
+    T[0].color_edge("CA", 1)
+    T[0].color_edge("BC", 1)
+    T[3].color_edge("AB", 1)
+    T[3].color_edge("BC", 1)
+    T[5].color_edge("AB", 1)
+    T[5].color_edge("CA", 1)
+    
+    draw_arrow(ax, T[0].A, T[0].CA, 2)
+    draw_arrow(ax, T[0].B, T[0].BC, 2)
+    draw_arrow(ax, T[1].A, T[1].AB, 2)
+    draw_arrow(ax, T[1].C, T[1].BC, 2)
+    draw_arrow(ax, T[2].A, T[2].CA, 2)
+    draw_arrow(ax, T[2].B, T[2].BC, 2)
+    draw_arrow(ax, T[3].A, T[3].AB, 2)
+    draw_arrow(ax, T[3].C, T[3].BC, 2)
+    draw_arrow(ax, T[4].B, T[4].AB, 2)
+    draw_arrow(ax, T[4].C, T[4].CA, 2)
+    draw_arrow(ax, T[5].B, T[5].AB, 2)
+    draw_arrow(ax, T[5].C, T[5].CA, 2)
+    
+    T[0].color_vertex("A", 2)
+    T[0].color_vertex("B", 2)
+    T[3].color_vertex("A", 2)
+    T[3].color_vertex("C", 2)
+    T[5].color_vertex("B", 2)
+    T[5].color_vertex("C", 2)
+    
+    draw_arrow(ax, T[0].C, T[0].CA, 3)
+    draw_arrow(ax, T[0].C, T[0].BC, 3)
+    draw_arrow(ax, T[0].C, T[3].BC, 3)
+    draw_arrow(ax, T[0].C, T[3].AB, 3)
+    draw_arrow(ax, T[0].C, T[5].CA, 3)
+    draw_arrow(ax, T[0].C, T[5].AB, 3)
+    T[0].color_vertex("C", 3)
+    
+    fig.save()
 
 # ===============================================================================
 def generate_page(static_dir: str):
@@ -560,4 +1133,3 @@ def generate_page(static_dir: str):
 # ===============================================================================
 if __name__ == "__main__":
     generate_figures()
-    plt.show()
