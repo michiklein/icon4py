@@ -618,15 +618,11 @@ class GridManager:
         grid = self._initialize_global(limited_area, on_gpu)
 
         global_connectivities = {
-            dims.C2E2C: self._get_index_field(ConnectivityName.C2E2C),
             dims.C2E: self._get_index_field(ConnectivityName.C2E),
             dims.E2C: self._get_index_field(ConnectivityName.E2C),
             dims.V2E: self._get_index_field(ConnectivityName.V2E),
             dims.E2V: self._get_index_field(ConnectivityName.E2V),
             dims.V2C: self._get_index_field(ConnectivityName.V2C),
-            dims.C2V: self._get_index_field(ConnectivityName.C2V),
-            dims.V2E2V: self._get_index_field(ConnectivityName.V2E2V),
-            dims.E2V: self._get_index_field(ConnectivityName.E2V),
             dims.C2V: self._get_index_field(ConnectivityName.C2V),
         }
         xp = data_alloc.array_ns(on_gpu)
@@ -685,41 +681,29 @@ class GridManager:
 def _add_derived_connectivities(
     grid: icon.IconGrid, array_ns: ModuleType = np
 ) -> icon.IconGrid:
-    e2c2v = _construct_diamond_vertices(
-        grid.connectivities[dims.E2VDim],
-        grid.connectivities[dims.C2VDim],
+    e2c2v = _e2c2v_connectivity(
         grid.connectivities[dims.E2CDim],
-        array_ns=array_ns,
+        grid.connectivities[dims.C2VDim],
     )
-    e2c2e = _construct_diamond_edges(
+    e2c2e = _e2c2e_connectivity(
         grid.connectivities[dims.E2CDim],
         grid.connectivities[dims.C2EDim],
-        array_ns=array_ns,
     )
     e2c2e0 = array_ns.column_stack((array_ns.asarray(range(e2c2e.shape[0])), e2c2e))
 
-    c2e2c2e = _construct_triangle_edges(
-        grid.connectivities[dims.C2E2CDim],
-        grid.connectivities[dims.C2EDim],
-        array_ns=array_ns,
-    )
-    c2e2c0 = array_ns.column_stack(
-        (
-            array_ns.asarray(range(grid.connectivities[dims.C2E2CDim].shape[0])),
-            (grid.connectivities[dims.C2E2CDim]),
-        )
-    )
-    c2e2c2e2c = _construct_butterfly_cells(
-        grid.connectivities[dims.C2E2CDim], array_ns=array_ns
-    )
+    # c2e2c2e = _construct_triangle_edges(
+    #     grid.connectivities[dims.C2E2CDim],
+    #     grid.connectivities[dims.C2EDim],
+    #     array_ns=array_ns,
+    # )
+    # c2e2c2e2c = _construct_butterfly_cells(
+    #     grid.connectivities[dims.C2E2CDim], array_ns=array_ns
+    # )
     v2e2c = _v2e2c_connectivity(grid.connectivities[dims.V2CDim])
     e2v2c = _e2v2c_connectivity(
         grid.connectivities[dims.E2VDim], grid.connectivities[dims.V2CDim]
     )
-    v2e2v = _v2e2v_connectivity(
-        grid.connectivities[dims.V2EDim], grid.connectivities[dims.E2VDim]
-    )
-    v2e2v0 = array_ns.column_stack((array_ns.asarray(range(v2e2v.shape[0])), v2e2v))
+
 
     v2c2v = _v2e2v_connectivity(
         grid.connectivities[dims.V2EDim], grid.connectivities[dims.E2VDim]
@@ -742,12 +726,26 @@ def _add_derived_connectivities(
     c2v2e = _c2v2e_connectivity(
         grid.connectivities[dims.C2VDim], grid.connectivities[dims.V2EDim]
     )
+    v2e2c2v = _v2e2c2v_connectivity(
+        grid.connectivities[dims.V2EDim], grid.connectivities[dims.E2CDim], grid.connectivities[dims.C2VDim], grid.connectivities[dims.E2VDim]
+    )
+    v2e2c2v0 = array_ns.column_stack((array_ns.asarray(range(v2e2c2v.shape[0])), v2e2c2v))
+    
+    #replacing the ones from icon
+    v2e2v = _v2e2v_connectivity(
+        grid.connectivities[dims.V2EDim], grid.connectivities[dims.E2VDim]
+    )
+    v2e2v0 = array_ns.column_stack((array_ns.asarray(range(v2e2v.shape[0])), v2e2v))
+    c2e2c = _c2e2c_connectivity(
+        grid.connectivities[dims.C2EDim], grid.connectivities[dims.E2CDim]
+    )
+    c2e2c0 = array_ns.column_stack((array_ns.asarray(range(c2e2c.shape[0])), c2e2c))
 
     grid.with_connectivities(
         {
             dims.C2E2CODim: c2e2c0,
-            dims.C2E2C2EDim: c2e2c2e,
-            dims.C2E2C2E2CDim: c2e2c2e2c,
+            #dims.C2E2C2EDim: c2e2c2e,
+            #dims.C2E2C2E2CDim: c2e2c2e2c,
             dims.E2C2VDim: e2c2v,
             dims.E2C2EDim: e2c2e,
             dims.E2C2EODim: e2c2e0,
@@ -764,6 +762,9 @@ def _add_derived_connectivities(
             dims.C2V2CDim: c2v2c,
             dims.C2V2CODim: c2v2c0,
             dims.C2V2EDim: c2v2e,
+            dims.V2E2C2VDim: v2e2c2v,
+            dims.V2E2C2VODim: v2e2c2v0,
+            dims.C2E2CDim: c2e2c,
         }
     )
 
@@ -1014,40 +1015,6 @@ def _e2v2c_connectivity(
 
     return result
 
-
-def _v2e2v_connectivity(
-    v2e: data_alloc.NDArray, e2v: data_alloc.NDArray
-) -> data_alloc.NDArray:
-    """
-    Construct the connectivity table for the vertices surrounding a vertex. The order is arbitrary.
-
-    Args:
-        v2e: ndarray containing the connectivity table for vertex-to-edge
-        e2v: ndarray containing the connectivity table for edge-to-vertex
-
-    Returns: ndarray containing the connectivity table for vertex-to-edge-to-vertex
-    """
-
-    naive_array = np.hstack(
-        (
-            e2v[v2e[:, 0]],
-            e2v[v2e[:, 1]],
-            e2v[v2e[:, 2]],
-            e2v[v2e[:, 3]],
-            e2v[v2e[:, 4]],
-            e2v[v2e[:, 5]],
-        )
-    )
-
-    result = np.delete(
-        naive_array, [1, 3, 5, 6, 8, 10], axis=1
-    )  # delete the origin vertex
-    # result = np.array(  # we delete the dupes because they are the origin
-    #     [[x for x in row if row.tolist().count(x) == 1] for row in naive_array]
-    # )
-    return result
-
-
 def _v2c2e_connectivity(
     v2c: data_alloc.NDArray, c2e: data_alloc.NDArray
 ) -> data_alloc.NDArray:
@@ -1198,3 +1165,142 @@ def _c2e2v_connectivity(c2v: data_alloc.NDArray) -> data_alloc.NDArray:
     Returns: ndarray containing the connectivity table for cell-to-edge-to-vertex
     """
     return c2v
+
+def _v2e2c2v_connectivity( #TODO rest
+    v2e: data_alloc.NDArray, e2c: data_alloc.NDArray, c2v: data_alloc.NDArray, e2v: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the cells surrounding a v2e.
+
+    Args:
+        v2e: ndarray containing the connectivity table for vertex-to-edge
+        e2v: ndarray containing the connectivity table for edge-to-vertex
+        v2c: ndarray containing the connectivity table for vertex-to-cell
+
+    Returns: ndarray containing the connectivity table for vertex-to-edge-to-vertex-to-cell
+    """
+    e2c2v = _e2c2v_connectivity(e2c, c2v)
+    naive_array = np.hstack(
+        (
+            e2c2v[v2e[:, 0]],
+            e2c2v[v2e[:, 1]],
+            e2c2v[v2e[:, 2]],
+            e2c2v[v2e[:, 3]],
+            e2c2v[v2e[:, 4]],
+            e2c2v[v2e[:, 5]],
+        )
+    )
+
+    result = naive_array[:, [0, 2, 3, 6, 10, 15]]  # delete the origin
+    return result
+
+# alternatives
+# diamond edges and vertices
+def _e2c2e_connectivity(
+    e2c: data_alloc.NDArray, c2e: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the edges surrounding an edge-to-cell.
+
+    Args:
+        e2c: ndarray containing the connectivity table for edge-to-cell
+        c2e: ndarray containing the connectivity table for cell-to-edge
+
+    Returns: ndarray containing the connectivity table for edge-to-cell-to-edge
+    """
+    naive_array = np.hstack(
+        (
+            c2e[e2c[:, 0]],
+            c2e[e2c[:, 1]],
+        )
+    )
+    result = np.zeros((naive_array.shape[0], 4), dtype=gtx.int32)
+    for i in range(0, naive_array.shape[0]):  # three cases for the edge types
+        if i % 2 == 0:
+            result[i] = naive_array[i, [0, 1, 3, 5]]
+        if i % 2 == 1:
+            result[i] = naive_array[i, [1, 2, 3, 5]]
+        if i % 2 == 2:
+            result[i] = naive_array[i, [1, 2, 3, 4]]
+    return result
+
+
+def _e2c2v_connectivity(e2c: data_alloc.NDArray, c2v: data_alloc.NDArray) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the vertices surrounding an edge-to-cell.
+
+    Args:
+        e2c: ndarray containing the connectivity table for edge-to-cell
+        c2v: ndarray containing the connectivity table for cell-to-vertex
+
+    Returns: ndarray containing the connectivity table for edge-to-cell-to-vertex
+    """
+    naive_array = np.hstack(
+        (
+            c2v[e2c[:, 0]],
+            c2v[e2c[:, 1]],
+        )
+    )
+    result = np.zeros((naive_array.shape[0], 4), dtype=gtx.int32)
+    for i in range(0, naive_array.shape[0]):  # three cases for the edge types
+        if i % 2 == 0:
+            result[i] = naive_array[i, [0, 2, 1, 5]]
+        if i % 2 == 1:
+            result[i] = naive_array[i, [0, 2, 1, 3]]
+        if i % 2 == 2:
+            result[i] = naive_array[i, [0, 1, 2, 3]]
+    
+    return result
+
+#stuff that is in icon, but inconsistent
+def _v2e2v_connectivity(
+    v2e: data_alloc.NDArray, e2v: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the vertices surrounding a vertex-to-edge.
+
+    Args:
+        v2e: ndarray containing the connectivity table for vertex-to-edge
+        e2v: ndarray containing the connectivity table for edge-to-vertex
+
+    Returns: ndarray containing the connectivity table for vertex-to-edge-to-vertex
+    """
+    naive_array = np.hstack(
+        (
+            e2v[v2e[:, 0]],
+            e2v[v2e[:, 1]],
+            e2v[v2e[:, 2]],
+            e2v[v2e[:, 3]],
+            e2v[v2e[:, 4]],
+            e2v[v2e[:, 5]],
+        )
+    )
+    # delete the origin
+    return naive_array[:, [0, 2, 4, 7, 9, 11]]
+
+def _c2e2c_connectivity(
+    c2e: data_alloc.NDArray, e2c: data_alloc.NDArray
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for the cells surrounding a cell-to-edge.
+
+    Args:
+        c2e: ndarray containing the connectivity table for cell-to-edge
+        e2c: ndarray containing the connectivity table for edge-to-cell
+
+    Returns: ndarray containing the connectivity table for cell-to-edge-to-cell
+    """
+    naive_array = np.hstack(
+        (
+            e2c[c2e[:, 0]],
+            e2c[c2e[:, 1]],
+            e2c[c2e[:, 2]],
+        )
+    )
+    result = np.zeros((naive_array.shape[0], 3), dtype=gtx.int32)
+    for i in range(0, naive_array.shape[0]):  # two cases for the cell types
+        if i % 2 == 0:
+            result[i] = naive_array[i, [1, 2, 4]]
+        if i % 2 == 1:
+            result[i] = naive_array[i, [1, 2, 5]]
+    return result

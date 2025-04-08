@@ -234,6 +234,18 @@ class IconGrid(base.BaseGrid):
                 dims.CellDim,
                 dims.VertexDim,
             ),
+            "V2E2C2V": (
+                self._get_offset_provider,
+                dims.V2E2C2VDim,
+                dims.VertexDim,
+                dims.CellDim,
+            ),
+            "V2E2C2VO": (
+                self._get_offset_provider,
+                dims.V2E2C2VODim,
+                dims.VertexDim,
+                dims.VertexDim,
+            ),
         }
 
     def __repr__(self):
