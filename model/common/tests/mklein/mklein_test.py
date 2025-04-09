@@ -8,6 +8,21 @@ import numpy as np
 import time
 import netCDF4
 
+
+def get_coords_v(grid):
+    nc = netCDF4.Dataset(grid, mode="r")
+    
+    
+def get_coords_e(grid):
+    
+def get_coords_c(grid):
+
+
+def trim_grid_file(grid):
+    
+    
+def reorder_neighbor_tables(grid):
+
 def get_torus_cartesian_dimensions(filename):
     nc = netCDF4.Dataset(filename, mode="r")
     sorted_y_coordinates = np.sort(nc["cartesian_y_vertices"][:])
@@ -16,7 +31,7 @@ def get_torus_cartesian_dimensions(filename):
     return (longitude_dimension, latitude_dimension)
 
 def init_grid_manager(
-    fname, num_levels=65, transformation=ToZeroBasedIndexTransformation()
+    fname, num_levels=1, transformation=ToZeroBasedIndexTransformation()
 ):
     grid_manager = GridManager(
         transformation,
@@ -32,25 +47,16 @@ def get_torus_grid(filename, num_levels, transformation):
     simple_grid = grid_manager.grid
     return simple_grid
 
+def neighbor_sums(grid):
 
-# Prompt user for grid file path
-grid_file = input("Path to grid file: ")
 
-# Suggest available tables in the prompt
-table_name = input(f"Choose table: ")
 
-start = time.perf_counter()
+grid_file = "/Users/michaelklein/Documents/MASTERTHESIS/all_torus_files/big_torus_100000_100000_64.nc"
+
 # Load the torus grid
-torus_grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
+torus_grid_raw = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
+torus_grid_trimmed = trim_grid_file(torus_grid_raw)
+torus_grid = reorder_neighbor_tables(torus_grid_trimmed)
 
 
-# Print the chosen table
-try:
-    print(f"\n--- Table '{table_name}' ---\n")
-    print(torus_grid.get_offset_provider(table_name).table)
-except AttributeError:
-    print(f"Error: Table '{table_name}' not found in the grid file.")
-end = time.perf_counter()
-print(f"Time taken: {end - start} seconds")
 
-print(get_torus_cartesian_dimensions(grid_file))

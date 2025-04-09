@@ -1219,7 +1219,7 @@ def _e2c2e_connectivity(
         if i % 2 == 0:
             result[i] = naive_array[i, [0, 1, 3, 5]]
         if i % 2 == 1:
-            result[i] = naive_array[i, [1, 2, 3, 5]]
+            result[i] = naive_array[i, [1, 2, 3, 5]]    
         if i % 2 == 2:
             result[i] = naive_array[i, [1, 2, 3, 4]]
     return result
