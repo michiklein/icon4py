@@ -758,7 +758,7 @@ def _add_derived_connectivities(
             dims.V2C2EDim: v2c2e,
             dims.E2V2EDim: e2v2e,
             dims.E2V2EODim: e2v2e0,
-            dims.C2V2EDim: c2e2v,
+            dims.C2E2VDim: c2e2v,
             dims.C2V2CDim: c2v2c,
             dims.C2V2CODim: c2v2c0,
             dims.C2V2EDim: c2v2e,

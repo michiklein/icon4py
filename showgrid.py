@@ -51,8 +51,8 @@ def sort_e2v(e2v_table, per_orientation=False):
 
 
 np.set_printoptions(threshold=np.inf)  # type: ignore [arg-type]
-
-sorted_e2v = sort_e2v(grid.get_offset_provider("E2V").table, per_orientation=True)
+print(dir(grid.get_offset_provider("E2V")))
+sorted_e2v = sort_e2v(grid.get_offset_provider("E2V").ndarray , per_orientation=True)
 
 plot_torus(
     vertice_coords,
