@@ -81,7 +81,7 @@ def reorder_c2x(grid, grid_file, c_idx):
     vertex_of_cell = grid.vertex_of_cell
 
     for cid in c_idx:
-        # --- Reorder edge_of_cell ---
+        #c2e
         edges = edge_of_cell[cid]
         coords = edge_coords[edges]
         idx = sorted(range(3), key=lambda i: (coords[i][1], coords[i][0]))
@@ -98,7 +98,7 @@ def reorder_c2x(grid, grid_file, c_idx):
         third = next(i for i in range(3) if i not in [top, bottom])
         edge_of_cell[cid] = [edges[top], edges[bottom], edges[third]]
 
-        # --- Reorder vertex_of_cell ---
+        #c2v
         verts = vertex_of_cell[cid]
         coords = vertex_coords[verts]
         idx = sorted(range(3), key=lambda i: (coords[i][1], coords[i][0]))
@@ -124,20 +124,20 @@ def reorder_e2x(grid, grid_file, e_idx):
     adjacent_cells = grid.adjacent_cell_of_edge
 
     for eid in e_idx:
-        # --- Reorder edge_vertices: lower vertex first ---
+        #e2v
         verts = edge_vertices[eid]
         coords = vertex_coords[verts]
         if coords[0][1] < coords[1][1] or (coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]):
             edge_vertices[eid] = [verts[1], verts[0]]
 
-        # --- Reorder adjacent_cell_of_edge: lower cell first ---
+        #e2c
         cells = adjacent_cells[eid]
         coords = cell_coords[cells]
         if coords[0][1] < coords[1][1] or (coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]):
             adjacent_cells[eid] = [cells[1], cells[0]]
 
 
-def reorder_vertex_connections_in_grid(grid, grid_file, v_idx):
+def reorder_v2x(grid, grid_file, v_idx):
     vertex_coords = get_coords_v(grid_file)
     edge_coords = get_coords_e(grid_file)
     cell_coords = get_coords_c(grid_file)
@@ -148,7 +148,7 @@ def reorder_vertex_connections_in_grid(grid, grid_file, v_idx):
     for vid in v_idx:
         center = vertex_coords[vid]
 
-        # --- Reorder cells_of_vertex ---
+        #v2c
         neighbors = cells_of_vertex[vid]
         coords = cell_coords[neighbors]
         rel = coords - center
@@ -156,7 +156,7 @@ def reorder_vertex_connections_in_grid(grid, grid_file, v_idx):
         order = np.argsort(angles)
         grid.cells_of_vertex[vid] = neighbors[order]
 
-        # --- Reorder edges_of_vertex ---
+        #v2e
         neighbors = edges_of_vertex[vid]
         coords = edge_coords[neighbors]
         rel = coords - center
@@ -192,3 +192,7 @@ grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 vertices, edges, cells = trim_grid(grid_file)
 
 print(get_coords_v(grid_file)[vertices])
+
+reorder_c2x(grid, grid_file, cells)
+reorder_e2x(grid, grid_file, edges)
+reorder_v2x(grid, grid_file, vertices)
