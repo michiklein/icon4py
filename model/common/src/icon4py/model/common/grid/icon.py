@@ -78,7 +78,7 @@ class IconGrid(base.BaseGrid):
                 dims.EdgeDim,
             ),
             "E2EC": (
-                self._get_offset_provider_for_sparse_fields,
+                self._get_connectivity_sparse_fields,
                 dims.E2CDim,
                 dims.EdgeDim,
                 dims.ECDim,
@@ -114,19 +114,19 @@ class IconGrid(base.BaseGrid):
                 dims.VertexDim,
             ),
             "E2ECV": (
-                self._get_offset_provider_for_sparse_fields,
+                self._get_connectivity_sparse_fields,
                 dims.E2C2VDim,
                 dims.EdgeDim,
                 dims.ECVDim,
             ),
             "C2CEC": (
-                self._get_offset_provider_for_sparse_fields,
+                self._get_connectivity_sparse_fields,
                 dims.C2E2CDim,
                 dims.CellDim,
                 dims.CECDim,
             ),
             "C2CE": (
-                self._get_offset_provider_for_sparse_fields,
+                self._get_connectivity_sparse_fields,
                 dims.C2EDim,
                 dims.CellDim,
                 dims.CEDim,
@@ -151,7 +151,7 @@ class IconGrid(base.BaseGrid):
             ),
             "Koff": (lambda: dims.KDim,),  # Koff is a special case
             "C2CECEC": (
-                self._get_offset_provider_for_sparse_fields,
+                self._get_connectivity_sparse_fields,
                 dims.C2E2C2E2CDim,
                 dims.CellDim,
                 dims.CECECDim,
