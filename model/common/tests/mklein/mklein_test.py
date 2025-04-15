@@ -77,12 +77,11 @@ def reorder_c2x(grid, grid_file, c_idx):
     edge_coords = get_coords_e(grid_file)
     vertex_coords = get_coords_v(grid_file)
 
-    edge_of_cell = grid.edge_of_cell
-    vertex_of_cell = grid.vertex_of_cell
-
+    # timer
+    start = time.time()
     for cid in c_idx:
-        #c2e
-        edges = edge_of_cell[cid]
+        # c2e
+        edges = grid.get_offset_provider("C2E").ndarray[cid]
         coords = edge_coords[edges]
         idx = sorted(range(3), key=lambda i: (coords[i][1], coords[i][0]))
         top = (
@@ -96,10 +95,14 @@ def reorder_c2x(grid, grid_file, c_idx):
             else (idx[1] if coords[idx[1]][0] < coords[idx[2]][0] else idx[2])
         )
         third = next(i for i in range(3) if i not in [top, bottom])
-        edge_of_cell[cid] = [edges[top], edges[bottom], edges[third]]
+        grid.get_offset_provider("C2E").ndarray[cid] = [
+            edges[top],
+            edges[bottom],
+            edges[third],
+        ]
 
-        #c2v
-        verts = vertex_of_cell[cid]
+        # c2v
+        verts = grid.get_offset_provider("C2V").ndarray[cid]
         coords = vertex_coords[verts]
         idx = sorted(range(3), key=lambda i: (coords[i][1], coords[i][0]))
         top = (
@@ -113,56 +116,75 @@ def reorder_c2x(grid, grid_file, c_idx):
             else (idx[1] if coords[idx[1]][0] < coords[idx[2]][0] else idx[2])
         )
         third = next(i for i in range(3) if i not in [top, bottom])
-        vertex_of_cell[cid] = [verts[top], verts[bottom], verts[third]]
+        grid.get_offset_provider("C2V").ndarray[cid] = [
+            verts[top],
+            verts[bottom],
+            verts[third],
+        ]
+    end = time.time()
+    print(f"c2x reorder time: {end - start:.4f} seconds")
+    print("c2x reordered")
 
 
 def reorder_e2x(grid, grid_file, e_idx):
     vertex_coords = get_coords_v(grid_file)
     cell_coords = get_coords_c(grid_file)
-
-    edge_vertices = grid.edge_vertices
-    adjacent_cells = grid.adjacent_cell_of_edge
-
+    # timer
+    start = time.time()
     for eid in e_idx:
-        #e2v
-        verts = edge_vertices[eid]
+        # e2v
+        verts = grid.get_offset_provider("E2V").ndarray[eid]
         coords = vertex_coords[verts]
-        if coords[0][1] < coords[1][1] or (coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]):
-            edge_vertices[eid] = [verts[1], verts[0]]
+        if coords[0][1] < coords[1][1] or (
+            coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]
+        ):
+            grid.get_offset_provider("E2V").ndarray[eid] = [verts[1], verts[0]]
+        else:
+            grid.get_offset_provider("E2V").ndarray[eid] = [verts[0], verts[1]]
 
-        #e2c
-        cells = adjacent_cells[eid]
+        # e2c
+        cells = grid.get_offset_provider("E2C").ndarray[eid]
         coords = cell_coords[cells]
-        if coords[0][1] < coords[1][1] or (coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]):
-            adjacent_cells[eid] = [cells[1], cells[0]]
+        if coords[0][1] < coords[1][1] or (
+            coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]
+        ):
+            grid.get_offset_provider("E2C").ndarray[eid] = [cells[1], cells[0]]
+        else:
+            grid.get_offset_provider("E2C").ndarray[eid] = [cells[0], cells[1]]
+    
+    end = time.time()
+    print(f"e2x reorder time: {end - start:.4f} seconds")
+    print("e2x reordered")
 
 
 def reorder_v2x(grid, grid_file, v_idx):
     vertex_coords = get_coords_v(grid_file)
     edge_coords = get_coords_e(grid_file)
     cell_coords = get_coords_c(grid_file)
-
-    cells_of_vertex = grid.cells_of_vertex
-    edges_of_vertex = grid.edges_of_vertex
-
+    # timer
+    start = time.time()
     for vid in v_idx:
         center = vertex_coords[vid]
 
-        #v2c
-        neighbors = cells_of_vertex[vid]
+        # v2c
+        neighbors = grid.get_offset_provider("V2C").ndarray[vid]
         coords = cell_coords[neighbors]
         rel = coords - center
         angles = np.arctan2(-rel[:, 0], -rel[:, 1])  # angle from top (y axis)
         order = np.argsort(angles)
-        grid.cells_of_vertex[vid] = neighbors[order]
+        grid.get_offset_provider("V2C").ndarray[vid] = neighbors[order]
 
-        #v2e
-        neighbors = edges_of_vertex[vid]
+        # v2e
+        neighbors = grid.get_offset_provider("V2E").ndarray[vid]
         coords = edge_coords[neighbors]
         rel = coords - center
         angles = np.arctan2(-rel[:, 0], -rel[:, 1])
         order = np.argsort(angles)
-        grid.edges_of_vertex[vid] = neighbors[order]
+        grid.get_offset_provider("V2E").ndarray[vid] = neighbors[order]
+    
+    end = time.time()
+    print(f"v2x reorder time: {end - start:.4f} seconds")
+    print("v2x reordered")
 
 
 def init_grid_manager(
@@ -187,7 +209,7 @@ def neighbor_sums(grid):
     return None
 
 
-grid_file = "/Users/michaelklein/Documents/MASTERTHESIS/all_torus_files/big_torus_100000_100000_64.nc"
+grid_file = "../all_torus_files/big_torus_100000_100000_64.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 vertices, edges, cells = trim_grid(grid_file)
 
