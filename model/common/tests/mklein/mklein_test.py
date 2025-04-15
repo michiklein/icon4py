@@ -7,6 +7,7 @@ from icon4py.model.common.grid.vertical import VerticalGridConfig  # type: ignor
 import numpy as np
 import time
 import netCDF4
+import os
 
 
 def get_torus_cartesian_dimensions(grid):
@@ -123,7 +124,6 @@ def reorder_c2x(grid, grid_file, c_idx):
         ]
     end = time.time()
     print(f"c2x reorder time: {end - start:.4f} seconds")
-    print("c2x reordered")
 
 
 def reorder_e2x(grid, grid_file, e_idx):
@@ -151,10 +151,9 @@ def reorder_e2x(grid, grid_file, e_idx):
             grid.get_offset_provider("E2C").ndarray[eid] = [cells[1], cells[0]]
         else:
             grid.get_offset_provider("E2C").ndarray[eid] = [cells[0], cells[1]]
-    
+
     end = time.time()
     print(f"e2x reorder time: {end - start:.4f} seconds")
-    print("e2x reordered")
 
 
 def reorder_v2x(grid, grid_file, v_idx):
@@ -181,10 +180,9 @@ def reorder_v2x(grid, grid_file, v_idx):
         angles = np.arctan2(-rel[:, 0], -rel[:, 1])
         order = np.argsort(angles)
         grid.get_offset_provider("V2E").ndarray[vid] = neighbors[order]
-    
+
     end = time.time()
     print(f"v2x reorder time: {end - start:.4f} seconds")
-    print("v2x reordered")
 
 
 def init_grid_manager(
@@ -205,16 +203,98 @@ def get_torus_grid(filename, num_levels, transformation):
     return simple_grid
 
 
-def neighbor_sums(grid):
-    return None
+def neighbor_sums(grid, v_idx, e_idx, c_idx):
+    import numpy as np
+    import os
+    import time
+
+    output_lines = []
+    summary_lines = []
+    timing_summary = []
+    os.makedirs("results", exist_ok=True)
+
+    appendix = input("Enter a filename appendix for the results (e.g., 'test1'): ").strip()
+    filename = f"results/neighbor_sums_{appendix}.txt"
+
+    id_sets = {
+        "V": v_idx,
+        "E": e_idx,
+        "C": c_idx,
+    }
+
+    tables = ["V2C", "V2E", "E2C", "E2V", "C2E", "C2V"]
+
+    rng = np.random.default_rng(42)
+    value_map = {}
+    for entity in ["V", "E", "C"]:
+        if entity == "V":
+            size = grid.num_vertices
+        elif entity == "E":
+            size = grid.num_edges
+        elif entity == "C":
+            size = grid.num_cells
+        else:
+            continue
+        value_map[entity] = rng.random(size)
+
+    processed_any = False
+
+    for first in tables:
+        for second in tables:
+            if first[2] != second[0]:
+                continue
+
+            base_type = first[:2]
+            base_ids = id_sets.get(base_type[0], [])
+            if len(base_ids) == 0:
+                continue
+
+            provider1 = grid.get_offset_provider(first).ndarray
+            provider2 = grid.get_offset_provider(second).ndarray
+            value_key = second[2:]
+            values = value_map[value_key]
+
+            print(f"Processing {first} -> {second}...")
+            start = time.time()
+            per_index_sums = []
+
+            try:
+                for idx in base_ids:
+                    acc = 0.0
+                    for mid in provider1[idx]:
+                        for leaf in provider2[mid]:
+                            acc += values[leaf]
+                    per_index_sums.append((idx, acc))
+
+                duration = time.time() - start
+                timing_summary.append(f"{first}->{second}:{duration:.4f}s")
+                output_lines.append(f"{first} -> {second} (time: {duration:.4f}s):")
+                output_lines.extend([f"{idx} {val:.6f}" for idx, val in per_index_sums])
+                output_lines.append("")
+                processed_any = True
+            except Exception as e:
+                print(f"Error in {first} -> {second}: {e}")
+
+    if not processed_any:
+        msg = "No valid neighbor chains were processed. Check input indices or table definitions."
+        print(msg)
+        output_lines.append(msg)
+    else:
+        output_lines.insert(0, "Summary of combinations and times:")
+        output_lines.insert(1, ", ".join(timing_summary))
+        output_lines.insert(2, "")
+
+    with open(filename, "w") as f:
+        f.write("\n".join(output_lines))
 
 
-grid_file = "../all_torus_files/big_torus_100000_100000_64.nc"
+
+grid_file = "../all_torus_files/torus_100000_100000_512.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 vertices, edges, cells = trim_grid(grid_file)
-
-print(get_coords_v(grid_file)[vertices])
 
 reorder_c2x(grid, grid_file, cells)
 reorder_e2x(grid, grid_file, edges)
 reorder_v2x(grid, grid_file, vertices)
+
+neighbor_sums(grid, vertices, edges, cells)
