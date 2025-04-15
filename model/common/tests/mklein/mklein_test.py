@@ -1,6 +1,5 @@
 from icon4py.model.common.grid.grid_manager import (  # type: ignore [import-not-found]
     GridManager,
-    IndexTransformation,
     ToZeroBasedIndexTransformation,
 )
 from icon4py.model.common.grid.vertical import VerticalGridConfig  # type: ignore [import-not-found]
@@ -202,18 +201,17 @@ def get_torus_grid(filename, num_levels, transformation):
     simple_grid = grid_manager.grid
     return simple_grid
 
-
 def neighbor_sums(grid, v_idx, e_idx, c_idx):
     import numpy as np
     import os
     import time
 
     output_lines = []
-    summary_lines = []
     timing_summary = []
     os.makedirs("results", exist_ok=True)
 
     appendix = input("Enter a filename appendix for the results (e.g., 'test1'): ").strip()
+    include_details = input("Include per-index results in the output file? (y/n): ").strip().lower() == 'y'
     filename = f"results/neighbor_sums_{appendix}.txt"
 
     id_sets = {
@@ -237,8 +235,6 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
             continue
         value_map[entity] = rng.random(size)
 
-    processed_any = False
-
     for first in tables:
         for second in tables:
             if first[2] != second[0]:
@@ -254,7 +250,6 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
             value_key = second[2:]
             values = value_map[value_key]
 
-            print(f"Processing {first} -> {second}...")
             start = time.time()
             per_index_sums = []
 
@@ -268,26 +263,19 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
 
                 duration = time.time() - start
                 timing_summary.append(f"{first}->{second}:{duration:.4f}s")
-                output_lines.append(f"{first} -> {second} (time: {duration:.4f}s):")
-                output_lines.extend([f"{idx} {val:.6f}" for idx, val in per_index_sums])
-                output_lines.append("")
-                processed_any = True
+                if include_details:
+                    output_lines.append(f"{first} -> {second} (time: {duration:.4f}s):")
+                    output_lines.extend([f"{idx} {val:.6f}" for idx, val in per_index_sums])
+                    output_lines.append("")
             except Exception as e:
                 print(f"Error in {first} -> {second}: {e}")
 
-    if not processed_any:
-        msg = "No valid neighbor chains were processed. Check input indices or table definitions."
-        print(msg)
-        output_lines.append(msg)
-    else:
-        output_lines.insert(0, "Summary of combinations and times:")
-        output_lines.insert(1, ", ".join(timing_summary))
-        output_lines.insert(2, "")
+    output_lines.insert(0, "Summary of combinations and times:")
+    output_lines.insert(1, ", ".join(timing_summary))
+    output_lines.insert(2, "")
 
     with open(filename, "w") as f:
         f.write("\n".join(output_lines))
-
-
 
 grid_file = "../all_torus_files/torus_100000_100000_512.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
