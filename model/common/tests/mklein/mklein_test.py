@@ -252,7 +252,6 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
 
     print(f"Results written to {filename}")
 
-# --- Now immediately your original code, no __main__ wrapper:
 
 grid_file = "../all_torus_files/torus_100000_100000_512.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
