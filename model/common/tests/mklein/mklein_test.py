@@ -13,8 +13,6 @@ import gt4py.next as gtx
 from stencils_combined import *
 from gt4py.next import Dimension
 
-# --- Reordering Functions ---
-
 def reorder_edges_by_type(edges, _):
     type_order = ['east', 'north', 'southeast']
     type_buckets = {t: [] for t in type_order}
@@ -47,8 +45,6 @@ def reorder_trimmed_edges_and_cells(vertices, edges, cells):
     edges_reordered = reorder_edges_by_type(edges, None)
     cells_reordered = reorder_cells_by_type(cells, None)
     return np.array(vertices), np.array(edges_reordered), np.array(cells_reordered)
-
-# --- Coordinate and Grid Helpers ---
 
 def get_torus_cartesian_dimensions(grid):
     nc = netCDF4.Dataset(grid, mode="r")
