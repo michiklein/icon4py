@@ -2,6 +2,8 @@ from gt4py.next.ffront.decorator import field_operator, program
 from icon4py.model.common import field_type_aliases as fa
 from icon4py.model.common.dimension import C2V, C2E, V2C, V2E, E2C, E2V
 
+b_end = "numpy"
+
 
 @field_operator
 def _v2c2e_sum(edge_input: fa.EdgeField[float]) -> fa.VertexField[float]:
@@ -27,7 +29,7 @@ def _v2c2e_sum(edge_input: fa.EdgeField[float]) -> fa.VertexField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def v2c2e_sum_program(
     edge_input: fa.EdgeField[float], vertex_out: fa.VertexField[float]
 ):
@@ -58,7 +60,7 @@ def _v2c2v_sum(vertex_input: fa.VertexField[float]) -> fa.VertexField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def v2c2v_sum_program(
     vertex_input: fa.VertexField[float], vertex_out: fa.VertexField[float]
 ):
@@ -83,7 +85,7 @@ def _v2e2c_sum(cell_input: fa.CellField[float]) -> fa.VertexField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def v2e2c_sum_program(
     cell_input: fa.CellField[float], vertex_out: fa.VertexField[float]
 ):
@@ -108,7 +110,7 @@ def _v2e2v_sum(vertex_input: fa.VertexField[float]) -> fa.VertexField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def v2e2v_sum_program(
     vertex_input: fa.VertexField[float], vertex_out: fa.VertexField[float]
 ):
@@ -127,7 +129,7 @@ def _e2c2e_sum(edge_input: fa.EdgeField[float]) -> fa.EdgeField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def e2c2e_sum_program(edge_input: fa.EdgeField[float], edge_out: fa.EdgeField[float]):
     _e2c2e_sum(edge_input, out=edge_out)
 
@@ -144,7 +146,7 @@ def _e2c2v_sum(vertex_input: fa.VertexField[float]) -> fa.EdgeField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def e2c2v_sum_program(
     vertex_input: fa.VertexField[float], edge_out: fa.EdgeField[float]
 ):
@@ -169,7 +171,7 @@ def _e2v2c_sum(cell_input: fa.CellField[float]) -> fa.EdgeField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def e2v2c_sum_program(cell_input: fa.CellField[float], edge_out: fa.EdgeField[float]):
     _e2v2c_sum(cell_input, out=edge_out)
 
@@ -192,7 +194,7 @@ def _e2v2e_sum(edge_input: fa.EdgeField[float]) -> fa.EdgeField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def e2v2e_sum_program(edge_input: fa.EdgeField[float], edge_out: fa.EdgeField[float]):
     _e2v2e_sum(edge_input, out=edge_out)
 
@@ -209,7 +211,7 @@ def _c2e2c_sum(cell_input: fa.CellField[float]) -> fa.CellField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def c2e2c_sum_program(cell_input: fa.CellField[float], cell_out: fa.CellField[float]):
     _c2e2c_sum(cell_input, out=cell_out)
 
@@ -226,7 +228,7 @@ def _c2e2v_sum(vertex_input: fa.VertexField[float]) -> fa.CellField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def c2e2v_sum_program(
     vertex_input: fa.VertexField[float], cell_out: fa.CellField[float]
 ):
@@ -257,7 +259,7 @@ def _c2v2c_sum(cell_input: fa.CellField[float]) -> fa.CellField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def c2v2c_sum_program(cell_input: fa.CellField[float], cell_out: fa.CellField[float]):
     _c2v2c_sum(cell_input, out=cell_out)
 
@@ -286,6 +288,6 @@ def _c2v2e_sum(edge_input: fa.EdgeField[float]) -> fa.CellField[float]:
     )
 
 
-@program
+@program(backend=b_end)
 def c2v2e_sum_program(edge_input: fa.EdgeField[float], cell_out: fa.CellField[float]):
     _c2v2e_sum(edge_input, out=cell_out)
