@@ -307,7 +307,7 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, dimsizes):
     print(f"Results written to {filename}")
 
 
-grid_file = "../all_torus_files/big_torus_100000_100000_64.nc"
+grid_file = "../all_torus_files/torus_100000_100000_256.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 
 vertices, edges, cells = trim_grid(grid_file)
