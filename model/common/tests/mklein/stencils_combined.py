@@ -3,6 +3,7 @@ from icon4py.model.common import field_type_aliases as fa
 from icon4py.model.common.dimension import C2V, C2E, V2C, V2E, E2C, E2V
 import gt4py.next as gtx
 from gt4py.next import common as gtx_common
+from gt4py.next.program_processors.runners import dace as dace_be
 
 b_end = gtx.gtfn_cpu
 
