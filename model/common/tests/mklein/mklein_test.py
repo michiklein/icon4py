@@ -238,7 +238,7 @@ PROGRAMS = {
 def neighbor_sums(grid, v_idx, e_idx, c_idx, dimsizes):
     os.makedirs("results", exist_ok=True)
     appendix = input("Enter filename appendix (e.g., 'test1'): ").strip()
-    include_details = input("Include per-index results? (y/n): ").strip().lower() == "y"
+    include_details = True
     filename = f"results/neighbor_sums_{appendix or 'default'}.txt"
 
     id_sets = {"V": v_idx, "E": e_idx, "C": c_idx}
@@ -284,8 +284,8 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, dimsizes):
                     input_name: input_field,
                     output_name: result_field,
                     "offset_provider": grid.offset_providers,
-                    "num_edges": num_edges,
-                    "num_cells": num_cells,
+                    "num_edges": np.int64(len(e_idx)),
+                    "num_cells": np.int64(len(c_idx)),
                 }
             )
 
@@ -300,7 +300,7 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, dimsizes):
                 output_lines.append("")
 
     with open(filename, "w") as f:
-        f.write("Summary of neighbor combinations and timings:\n")
+        f.write(f"Summary of neighbor combinations and timings ({appendix or 'default'}):\n")
         f.write("\n".join(timing_summary) + "\n\n")
         f.write("\n".join(output_lines))
 

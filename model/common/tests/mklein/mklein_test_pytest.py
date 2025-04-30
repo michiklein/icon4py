@@ -14,6 +14,7 @@ from stencils_combined import *
 from gt4py.next import Dimension
 
 
+
 def reorder_edges_by_type(edges, _):
     type_order = ["east", "north", "southeast"]
     type_buckets = {t: [] for t in type_order}
@@ -275,8 +276,8 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, dimsizes):
                 first[0]
             ]
 
-            input_field = gtx.as_field(domain_map[second[2]], value_map[second[2]])
-            result_field = gtx.zeros(domain_map[first[0]])
+            input_field = gtx.as_field(domain_map[second[2]], value_map[second[2]], allocator=b_end)
+            result_field = gtx.zeros(domain_map[first[0]], allocator=b_end)
 
             start = time.perf_counter()
             program(
