@@ -237,7 +237,7 @@ PROGRAMS = {
 }
 
 
-def neighbor_sums(grid, v_idx, e_idx, c_idx, dimsizes):
+def neighbor_sums(grid, v_idx, e_idx, c_idx):
     os.makedirs("results", exist_ok=True)
     appendix = input("Enter filename appendix (e.g., 'test1'): ").strip()
     include_details = True
@@ -322,18 +322,8 @@ grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 vertices, edges, cells = trim_grid(grid_file)
 vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells)
 
-num_edges = len(edges)
-num_cells = len(cells)
-
-dimsizes = {
-    Dimension("EdgeDim"): num_edges,
-    Dimension("CellDim"): num_cells,
-    Dimension("NumEdges"): num_edges,
-    Dimension("NumCells"): num_cells,
-}
-
 reorder_c2x(grid, grid_file, cells)
 reorder_e2x(grid, grid_file, edges)
 reorder_v2x(grid, grid_file, vertices)
 
-neighbor_sums(grid, vertices, edges, cells, dimsizes)
+neighbor_sums(grid, vertices, edges, cells)
