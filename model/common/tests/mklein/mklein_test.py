@@ -4,6 +4,7 @@ import time
 import netCDF4
 import os
 import sys
+import re
 
 from icon4py.model.common.grid.grid_manager import (  # type: ignore [import-not-found]
     GridManager,
@@ -85,8 +86,8 @@ def get_coords_c(grid):
     return np.stack((x, y), axis=-1)
 
 
-def trim_grid(grid):
-    nx, ny = get_torus_cartesian_dimensions(grid)
+def trim_grid(grid_file, grid):
+    nx, ny = get_torus_cartesian_dimensions(grid_file)
     halo = 2
     usable_x = nx - 2 * halo
     usable_y = ny - 2 * halo
@@ -96,18 +97,41 @@ def trim_grid(grid):
     start_j = (ny - side) // 2
     end_i = start_i + side
     end_j = start_j + side
-    v_idx, e_idx, c_idx = [], [], []
+    
+    # First select vertices in the square region
+    v_idx = []
     for i in range(start_i, end_i):
         for j in range(start_j, end_j):
             flat = i * ny + j
             v_idx.append(flat)
-            e_idx.append(flat)
-            c_idx.append(flat)
+    
+    v_idx = xp.array(v_idx)
+    vertex_set = set(v_idx.get().tolist() if xp.__name__ == "cupy" else v_idx.tolist())
+    
+    # Find edges that connect selected vertices
+    e_idx = []
+    for eid in range(grid.num_edges):
+        vertices = grid.get_offset_provider("E2V").ndarray[eid]
+        if all(v in vertex_set for v in vertices):
+            e_idx.append(eid)
+    
+    # Find cells that connect selected vertices
+    c_idx = []
+    for cid in range(grid.num_cells):
+        vertices = grid.get_offset_provider("C2V").ndarray[cid]
+        if all(v in vertex_set for v in vertices):
+            c_idx.append(cid)
+    
+    e_idx = xp.array(e_idx)
+    c_idx = xp.array(c_idx)
+    
     expected = side**2
     actual = len(v_idx)
     status = "ok" if actual == expected else "mismatch"
     print(f"{actual} vertices (expected {expected}) - {status}")
-    return xp.array(v_idx), xp.array(e_idx), xp.array(c_idx)
+    print(f"Selected {len(v_idx)} vertices, {len(e_idx)} edges, and {len(c_idx)} cells")
+    
+    return v_idx, e_idx, c_idx
 
 
 def reorder_c2x(grid, grid_file, c_idx):
@@ -207,6 +231,54 @@ def reorder_v2x(grid, grid_file, v_idx):
     end = time.time()
     print(f"v2x reorder time: {end - start:.4f} seconds")
 
+def reindex_edges(grid, e_idx):
+    edge_map = {int(old): new for new, old in enumerate(e_idx)}
+
+    for name in ["C2E", "V2E"]:
+        table = grid.get_offset_provider(name).ndarray
+        for i in range(table.shape[0]):
+            for j in range(table.shape[1]):
+                val = table[i, j]
+                if val in edge_map:
+                    table[i, j] = edge_map[val]
+
+    for name in ["E2V", "E2C"]:
+        table = grid.get_offset_provider(name).ndarray
+        new_table = table.copy()
+        swapped = set()
+
+        for old_id, new_id in edge_map.items():
+            if old_id == new_id or old_id in swapped or new_id in swapped:
+                continue
+            new_table[old_id], new_table[new_id] = table[new_id], table[old_id]
+            swapped.update((old_id, new_id))
+
+        table[...] = new_table
+
+def reindex_cells(grid, c_idx):
+    cell_map = {int(old): new for new, old in enumerate(c_idx)}
+
+    for name in ["E2C", "V2C"]:
+        table = grid.get_offset_provider(name).ndarray
+        for i in range(table.shape[0]):
+            for j in range(table.shape[1]):
+                val = table[i, j]
+                if val in cell_map:
+                    table[i, j] = cell_map[val]
+
+    for name in ["C2E", "C2V"]:
+        table = grid.get_offset_provider(name).ndarray
+        new_table = table.copy()
+        swapped = set()
+
+        for old_id, new_id in cell_map.items():
+            if old_id == new_id or (old_id in swapped or new_id in swapped):
+                continue
+
+            new_table[old_id], new_table[new_id] = table[new_id], table[old_id]
+            swapped.update({old_id, new_id})
+
+        table[...] = new_table
 
 def init_grid_manager(
     fname, num_levels=1, transformation=ToZeroBasedIndexTransformation()
@@ -239,9 +311,22 @@ PROGRAMS = {
 
 def neighbor_sums(grid, v_idx, e_idx, c_idx):
     os.makedirs("results", exist_ok=True)
-    appendix = input("Enter filename appendix (e.g., 'test1'): ").strip()
-    include_details = True
-    filename = f"results/neighbor_sums_{appendix or 'default'}.txt"
+
+    # Determine backend and device
+    backend_str = str(b_end).lower()
+    backend_type = "gtfn" if "gtfn" in backend_str else "dace"
+    device_type = "gpu" if "gpu" in backend_str else "cpu"
+
+    # Auto-increment file index
+    base_filename = f"neighbor_sums_{backend_type}_{device_type}"
+    existing_files = os.listdir("results")
+    existing_nums = [
+        int(match.group(1))
+        for fname in existing_files
+        if (match := re.match(rf"{re.escape(base_filename)}_(\d+)\.txt", fname))
+    ]
+    next_num = max(existing_nums, default=0) + 1
+    filename = f"results/{base_filename}_{next_num:03d}.txt"
 
     id_sets = {"V": v_idx, "E": e_idx, "C": c_idx}
     tables = ["V2C", "V2E", "E2C", "E2V", "C2E", "C2V"]
@@ -259,9 +344,9 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
             value_map[k] = cp.asarray(value_map[k])
 
     domain_map = {
-        "V": gtx.domain({Dimension("Vertex"): grid.num_vertices}),
-        "E": gtx.domain({Dimension("Edge"): grid.num_edges}),
-        "C": gtx.domain({Dimension("Cell"): grid.num_cells}),
+        "V": gtx.domain({Dimension("Vertex"): len(v_idx)}),
+        "E": gtx.domain({Dimension("Edge"): len(e_idx)}), 
+        "C": gtx.domain({Dimension("Cell"): len(c_idx)}),
     }
 
     output_lines = []
@@ -303,13 +388,13 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
             result = result_field.ndarray
             timing_summary.append(f"{first}->{second}: {elapsed:.6f}s")
 
-            if include_details:
-                output_lines.append(f"{first} -> {second} ({elapsed:.6f}s)")
-                output_lines.extend(f"{idx}: {result[idx]:.6f}" for idx in base_ids)
-                output_lines.append("")
+            
+            output_lines.append(f"{first} -> {second} ({elapsed:.6f}s)")
+            output_lines.extend(f"{idx}: {result[idx]:.6f}" for idx in base_ids)
+            output_lines.append("")
 
     with open(filename, "w") as f:
-        f.write(f"Summary of neighbor combinations and timings ({appendix or 'default'}):\n")
+        f.write(f"Summary of neighbor combinations and timings ({backend_type}, {device_type}):\n")
         f.write("\n".join(timing_summary) + "\n\n")
         f.write("\n".join(output_lines))
 
@@ -319,11 +404,14 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
 grid_file = "../all_torus_files/torus_100000_100000_512.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 
-vertices, edges, cells = trim_grid(grid_file)
+vertices, edges, cells = trim_grid(grid_file, grid)
 vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells)
+print(len(vertices), len(edges), len(cells))
 
 reorder_c2x(grid, grid_file, cells)
 reorder_e2x(grid, grid_file, edges)
 reorder_v2x(grid, grid_file, vertices)
+reindex_cells(grid, cells)
+reindex_edges(grid, edges)
 
 neighbor_sums(grid, vertices, edges, cells)
