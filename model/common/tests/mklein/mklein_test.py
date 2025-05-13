@@ -17,39 +17,115 @@ from gt4py.next import Dimension
 
 xp = cp if "gpu" in str(b_end).lower() else np #gpu or cpu?
 
-def reorder_edges_by_type(edges, _):
+def reorder_edges_by_type(edges, vertex_coords):
+    # Define the type order - this is the order we want in the final output
     type_order = ["east", "north", "southeast"]
     type_buckets = {t: [] for t in type_order}
-
-    for i, edge in enumerate(edges):
-        edge_type = type_order[i % 3]
-        type_buckets[edge_type].append(edge)
-
+    
+    # We need at least 2 edges to determine the pattern
+    if len(edges) >= 2:
+        # Analyze first two edges
+        first_edge = edges[0]
+        second_edge = edges[1]
+        
+        # Get vertex coordinates for first edge
+        v1_1, v1_2 = grid.get_offset_provider("E2V").ndarray[first_edge]
+        coords1_1, coords1_2 = vertex_coords[v1_1], vertex_coords[v1_2]
+        dx1, dy1 = coords1_2[0] - coords1_1[0], coords1_2[1] - coords1_1[1]
+        
+        # Get vertex coordinates for second edge
+        v2_1, v2_2 = grid.get_offset_provider("E2V").ndarray[second_edge]
+        coords2_1, coords2_2 = vertex_coords[v2_1], vertex_coords[v2_2]
+        dx2, dy2 = coords2_2[0] - coords2_1[0], coords2_2[1] - coords2_1[1]
+        
+        # Classify first edge
+        if abs(dx1) > abs(dy1):  # More horizontal
+            first_type = "east"
+        elif dx1 > 0 and dy1 > 0:  # Diagonal up-right
+            first_type = "southeast"
+        else:  # Mostly vertical
+            first_type = "north"
+            
+        # Classify second edge
+        if abs(dx2) > abs(dy2):  # More horizontal
+            second_type = "east"
+        elif dx2 > 0 and dy2 > 0:  # Diagonal up-right
+            second_type = "southeast"
+        else:  # Mostly vertical
+            second_type = "north"
+        
+        # Determine the original sequence (how edges appear in the input)
+        original_sequence = []
+        original_sequence.append(first_type)
+        original_sequence.append(second_type)
+        
+        # Predict the third type (the one missing from the first two)
+        remaining_type = [t for t in type_order if t not in [first_type, second_type]]
+        if len(remaining_type) == 1:
+            third_type = remaining_type[0]
+        else:
+            # If first and second are the same, predict based on standard pattern
+            third_type = type_order[(type_order.index(first_type) + 2) % 3]
+        
+        original_sequence.append(third_type)
+        
+        # Now classify each edge by its position in the sequence
+        for i, edge in enumerate(edges):
+            edge_type = original_sequence[i % 3]
+            type_buckets[edge_type].append(edge)
+    else:
+        # If not enough edges, fall back to the original method
+        for i, edge in enumerate(edges):
+            edge_type = type_order[i % 3]
+            type_buckets[edge_type].append(edge)
+    
+    # Combine in the specified order - always ["east", "north", "southeast"]
     reordered_edges = []
     for t in type_order:
         reordered_edges.extend(type_buckets[t])
-
+        
     return reordered_edges
 
-
-def reorder_cells_by_type(cells, _):
+def reorder_cells_by_type(cells, vertex_coords):
     type_order = ["up", "down"]
     type_buckets = {t: [] for t in type_order}
-
-    for i, cell in enumerate(cells):
-        cell_type = type_order[i % 2]
-        type_buckets[cell_type].append(cell)
-
+    
+    # Determine type of first cell based on vertex coordinates
+    if len(cells) > 0:
+        first_cell = cells[0]
+        vertices = grid.get_offset_provider("C2V").ndarray[first_cell]
+        coords = [vertex_coords[v] for v in vertices]
+        
+        # Calculate center point
+        center_x = sum(c[0] for c in coords) / len(coords)
+        center_y = sum(c[1] for c in coords) / len(coords)
+        
+        # Find topmost vertex
+        top_idx = max(range(len(coords)), key=lambda i: coords[i][1])
+        
+        # If topmost vertex is above center, it's pointing up
+        is_up = coords[top_idx][1] > center_y
+        starting_type = "up" if is_up else "down"
+        start_idx = type_order.index(starting_type)
+        
+        # Assign cells to buckets based on the established pattern
+        for i, cell in enumerate(cells):
+            cell_type = type_order[(start_idx + i) % 2]
+            type_buckets[cell_type].append(cell)
+    
+    # Combine in the specified order
     reordered_cells = []
     for t in type_order:
         reordered_cells.extend(type_buckets[t])
-
+        
     return reordered_cells
 
-
-def reorder_trimmed_edges_and_cells(vertices, edges, cells):
-    edges_reordered = reorder_edges_by_type(edges, None)
-    cells_reordered = reorder_cells_by_type(cells, None)
+def reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file):
+    # Get vertex coordinates for geometric checks
+    vertex_coords = get_coords_v(grid_file)
+    
+    edges_reordered = reorder_edges_by_type(edges, vertex_coords)
+    cells_reordered = reorder_cells_by_type(cells, vertex_coords)
     return xp.array(vertices), xp.array(edges_reordered), xp.array(cells_reordered)
 
 
@@ -128,7 +204,7 @@ def trim_grid(grid_file, grid):
     expected = side**2
     actual = len(v_idx)
     status = "ok" if actual == expected else "mismatch"
-    print(f"{actual} vertices (expected {expected}) - {status}")
+    print(f"expected {expected} vertices")
     print(f"Selected {len(v_idx)} vertices, {len(e_idx)} edges, and {len(c_idx)} cells")
     
     return v_idx, e_idx, c_idx
@@ -279,6 +355,32 @@ def reindex_cells(grid, c_idx):
             swapped.update({old_id, new_id})
 
         table[...] = new_table
+        
+def reindex_vertices(grid, v_idx):
+    vertex_map = {int(old): new for new, old in enumerate(v_idx)}
+
+    for name in ["E2V", "C2V"]:
+        table = grid.get_offset_provider(name).ndarray
+        for i in range(table.shape[0]):
+            for j in range(table.shape[1]):
+                val = table[i, j]
+                if val in vertex_map:
+                    table[i, j] = vertex_map[val]
+
+    for name in ["V2E", "V2C"]:
+        table = grid.get_offset_provider(name).ndarray
+        new_table = table.copy()
+        swapped = set()
+
+        for old_id, new_id in vertex_map.items():
+            if old_id == new_id or old_id in swapped or new_id in swapped:
+                continue
+
+            new_table[old_id], new_table[new_id] = table[new_id], table[old_id]
+            swapped.update((old_id, new_id))
+
+        table[...] = new_table
+
 
 def init_grid_manager(
     fname, num_levels=1, transformation=ToZeroBasedIndexTransformation()
@@ -308,7 +410,6 @@ PROGRAMS = {
     "v2e2v": v2e2v_sum_program,
 }
 
-
 def neighbor_sums(grid, v_idx, e_idx, c_idx):
     os.makedirs("results", exist_ok=True)
 
@@ -327,28 +428,33 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
     ]
     next_num = max(existing_nums, default=0) + 1
     filename = f"results/{base_filename}_{next_num:03d}.txt"
-
+    
+    if xp.__name__ == "cupy":
+        xp.get_default_memory_pool().free_all_blocks()
+    
     id_sets = {"V": v_idx, "E": e_idx, "C": c_idx}
     tables = ["V2C", "V2E", "E2C", "E2V", "C2E", "C2V"]
     rng = np.random.default_rng(42)
+    
     value_map = {
-    "V": xp.asarray(rng.random(grid.num_vertices)),
-    "E": xp.asarray(rng.random(grid.num_edges)),
-    "C": xp.asarray(rng.random(grid.num_cells)),
+        "V": xp.asarray(rng.random(grid.num_vertices)),
+        "E": xp.asarray(rng.random(grid.num_edges)),
+        "C": xp.asarray(rng.random(grid.num_cells)),
     }
+
+    
     if xp.__name__ == "cupy":
-        for k in value_map:
-            value_map[k] = cp.asarray(value_map[k])
-    if "gpu" in str(b_end).lower():
         for k in value_map:
             value_map[k] = cp.asarray(value_map[k])
 
     domain_map = {
-        "V": gtx.domain({Dimension("Vertex"): len(v_idx)}),
-        "E": gtx.domain({Dimension("Edge"): len(e_idx)}), 
-        "C": gtx.domain({Dimension("Cell"): len(c_idx)}),
-    }
+    "V": gtx.domain({Dimension("Vertex"): grid.num_vertices}),
+    "E": gtx.domain({Dimension("Edge"): grid.num_edges}),
+    "C": gtx.domain({Dimension("Cell"): grid.num_cells}),
+}
 
+
+    # Rest of the function remains the same
     output_lines = []
     timing_summary = []
 
@@ -399,19 +505,23 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
         f.write("\n".join(output_lines))
 
     print(f"Results written to {filename}")
-
-
 grid_file = "../all_torus_files/torus_100000_100000_512.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 
 vertices, edges, cells = trim_grid(grid_file, grid)
-vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells)
-print(len(vertices), len(edges), len(cells))
+vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file)
 
 reorder_c2x(grid, grid_file, cells)
 reorder_e2x(grid, grid_file, edges)
 reorder_v2x(grid, grid_file, vertices)
 reindex_cells(grid, cells)
 reindex_edges(grid, edges)
+# reindex_vertices(grid, vertices)
 
+if xp.__name__ == "cupy":
+    cp.get_default_memory_pool().free_all_blocks()
+if xp.__name__ == "cupy":
+    for dim_name, connectivity in grid.connectivities.items():
+        if isinstance(connectivity, np.ndarray):
+            grid.connectivities[dim_name] = cp.asarray(connectivity)
 neighbor_sums(grid, vertices, edges, cells)

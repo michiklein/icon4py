@@ -5,7 +5,7 @@ import gt4py.next as gtx
 from gt4py.next import common as gtx_common
 from gt4py.next.program_processors.runners import dace as dace_be
 
-b_end = dace_be.run_dace_gpu
+b_end = gtx.gtfn_gpu
 
 
 # ------- V STENCILS -------
