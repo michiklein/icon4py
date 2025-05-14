@@ -28,7 +28,7 @@ from gt4py.next import Dimension
 
 xp = cp if "gpu" in str(b_end).lower() else np #gpu or cpu?
 
-def reorder_edges_by_type(edges, vertex_coords):
+def reorder_edges_by_type(edges, vertex_coords, grid):
     # Define final order of edge types
     type_order = ["east", "north", "southeast"]
     type_buckets = {t: [] for t in type_order}
@@ -41,12 +41,22 @@ def reorder_edges_by_type(edges, vertex_coords):
         
         # Get vertex coordinates for first edge
         v1_1, v1_2 = grid.get_offset_provider("E2V").ndarray[first_edge]
-        coords1_1, coords1_2 = vertex_coords[v1_1], vertex_coords[v1_2]
+        
+        # Convert indices to int to avoid CuPy-NumPy conversion issues
+        v1_1_int = int(v1_1)
+        v1_2_int = int(v1_2)
+        coords1_1, coords1_2 = vertex_coords[v1_1_int], vertex_coords[v1_2_int]
+        
         dx1, dy1 = coords1_2[0] - coords1_1[0], coords1_2[1] - coords1_1[1]
         
         # Get vertex coordinates for second edge
         v2_1, v2_2 = grid.get_offset_provider("E2V").ndarray[second_edge]
-        coords2_1, coords2_2 = vertex_coords[v2_1], vertex_coords[v2_2]
+        
+        # Convert indices to int
+        v2_1_int = int(v2_1)
+        v2_2_int = int(v2_2)
+        coords2_1, coords2_2 = vertex_coords[v2_1_int], vertex_coords[v2_2_int]
+        
         dx2, dy2 = coords2_2[0] - coords2_1[0], coords2_2[1] - coords2_1[1]
         
         # Classify first edge
@@ -99,7 +109,7 @@ def reorder_edges_by_type(edges, vertex_coords):
         
     return reordered_edges
 
-def reorder_cells_by_type(cells, vertex_coords):
+def reorder_cells_by_type(cells, vertex_coords, grid):
     type_order = ["up", "down"]
     type_buckets = {t: [] for t in type_order}
     
@@ -107,7 +117,10 @@ def reorder_cells_by_type(cells, vertex_coords):
     if len(cells) > 0:
         first_cell = int(cells[0])  # Convert to int
         vertices = grid.get_offset_provider("C2V").ndarray[first_cell]
-        coords = [vertex_coords[v] for v in vertices]
+        
+        # Convert vertices to integers for indexing into NumPy array
+        vertices_int = [int(v) for v in vertices]
+        coords = [vertex_coords[v] for v in vertices_int]
         
         # Calculate center point
         center_x = sum(c[0] for c in coords) / len(coords)
@@ -134,12 +147,12 @@ def reorder_cells_by_type(cells, vertex_coords):
         
     return reordered_cells
 
-def reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file):
+def reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file, grid):
     # Get vertex coordinates for geometric checks
     vertex_coords = get_coords_v(grid_file)
     
-    edges_reordered = reorder_edges_by_type(edges, vertex_coords)
-    cells_reordered = reorder_cells_by_type(cells, vertex_coords)
+    edges_reordered = reorder_edges_by_type(edges, vertex_coords, grid)
+    cells_reordered = reorder_cells_by_type(cells, vertex_coords, grid)
     return xp.array(vertices), xp.array(edges_reordered), xp.array(cells_reordered)
 
 
@@ -547,25 +560,26 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
 
     print(f"Results written to {filename}")
 
-grid_file = "../all_torus_files/torus_100000_100000_512.nc"
-grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
-
-vertices, edges, cells = trim_grid(grid_file, grid)
-vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file)
-
-reorder_c2x(grid, grid_file)
-reorder_e2x(grid, grid_file)
-reorder_v2x(grid, grid_file)
-reindex_cells(grid, cells)
-reindex_edges(grid, edges)
-reindex_vertices(grid, vertices)
-
-grid = overwrite_chained_connectivities(grid)
-
-if xp.__name__ == "cupy":
-    cp.get_default_memory_pool().free_all_blocks()  # Added missing line
-    for dim_name, connectivity in grid.connectivities.items():
-        if isinstance(connectivity, np.ndarray):
-            grid.connectivities[dim_name] = cp.asarray(connectivity)
-
-neighbor_sums(grid, vertices, edges, cells)
+if __name__ == "__main__":
+    grid_file = "../all_torus_files/torus_100000_100000_1024.nc"
+    grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
+    
+    vertices, edges, cells = trim_grid(grid_file, grid)
+    vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file, grid)
+    
+    reorder_c2x(grid, grid_file)
+    reorder_e2x(grid, grid_file)
+    reorder_v2x(grid, grid_file)
+    reindex_cells(grid, cells)
+    reindex_edges(grid, edges)
+    reindex_vertices(grid, vertices)
+    
+    grid = overwrite_chained_connectivities(grid)
+    
+    if xp.__name__ == "cupy":
+        cp.get_default_memory_pool().free_all_blocks() 
+        for dim_name, connectivity in grid.connectivities.items():
+            if isinstance(connectivity, np.ndarray):
+                grid.connectivities[dim_name] = cp.asarray(connectivity)
+    
+    neighbor_sums(grid, vertices, edges, cells)

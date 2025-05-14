@@ -9,13 +9,13 @@ from gt4py.next import Dimension
 from stencils_combined import v2e2c_sum_program
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
-grid_file = "../all_torus_files/big_torus_100000_100000_64.nc"
+grid_file = "../all_torus_files/torus_100000_100000_1024.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 vertices, edges, cells = trim_grid(grid_file, grid)
-vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file)
-reorder_c2x(grid, grid_file, cells)
-reorder_e2x(grid, grid_file, edges)
-reorder_v2x(grid, grid_file, vertices)
+vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file, grid)
+reorder_c2x(grid, grid_file)
+reorder_e2x(grid, grid_file)
+reorder_v2x(grid, grid_file)
 reindex_cells(grid, cells)
 reindex_edges(grid, edges)
 reindex_vertices(grid, vertices)
@@ -31,7 +31,8 @@ vertex_domain = gtx.domain({Dimension("Vertex"): grid.num_vertices})
 cell_domain = gtx.domain({Dimension("Cell"): grid.num_cells})
 cell_input = gtx.as_field(cell_domain, cell_values, allocator=b_end)
 vertex_output = gtx.zeros(vertex_domain, allocator=b_end)
-for _ in range(10000):
+print("start")
+for _ in range(1000):
     v2e2c_sum_program(
         cell_input=cell_input,
         vertex_out=vertex_output,
@@ -39,3 +40,4 @@ for _ in range(10000):
         num_edges=np.int64(len(edges)),
         num_cells=np.int64(len(cells))
     )
+print("end")

@@ -31,7 +31,7 @@ vertex_domain = gtx.domain({Dimension("Vertex"): grid.num_vertices})
 edge_domain = gtx.domain({Dimension("Edge"): grid.num_edges})
 edge_input = gtx.as_field(edge_domain, edge_values, allocator=b_end)
 vertex_output = gtx.zeros(vertex_domain, allocator=b_end)
-for _ in range(10000):
+for _ in range(1):
     v2c2e_sum_program(
         edge_input=edge_input,
         vertex_out=vertex_output,
