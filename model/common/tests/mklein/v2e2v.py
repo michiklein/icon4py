@@ -1,8 +1,5 @@
 import numpy as np
 import cupy as cp
-import sys
-import os
-sys.path.append('..')
 from mklein_test import *
 import gt4py.next as gtx
 from gt4py.next import Dimension
