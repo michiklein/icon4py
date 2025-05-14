@@ -9,6 +9,17 @@ import re
 from icon4py.model.common.grid.grid_manager import (  # type: ignore [import-not-found]
     GridManager,
     ToZeroBasedIndexTransformation,
+    _v2e2v_connectivity,
+    _v2e2c_connectivity,
+    _v2c2e_connectivity,
+    _e2v2e_connectivity,
+    _e2v2c_connectivity,
+    _e2c2e_connectivity,
+    _e2c2v_connectivity,
+    _c2v2e_connectivity,
+    _c2v2c_connectivity,
+    _c2e2v_connectivity,
+    _c2e2c_connectivity,
 )
 from icon4py.model.common.grid.vertical import VerticalGridConfig  # type: ignore [import-not-found]
 import gt4py.next as gtx
@@ -25,8 +36,8 @@ def reorder_edges_by_type(edges, vertex_coords):
     # We need at least 2 edges to determine the pattern
     if len(edges) >= 2:
         # Analyze first two edges
-        first_edge = edges[0]
-        second_edge = edges[1]
+        first_edge = int(edges[0])  # Convert to int
+        second_edge = int(edges[1])  # Convert to int
         
         # Get vertex coordinates for first edge
         v1_1, v1_2 = grid.get_offset_provider("E2V").ndarray[first_edge]
@@ -72,12 +83,14 @@ def reorder_edges_by_type(edges, vertex_coords):
         # Now classify each edge by its position in the sequence
         for i, edge in enumerate(edges):
             edge_type = original_sequence[i % 3]
-            type_buckets[edge_type].append(edge)
+            edge_int = int(edge)  # Convert to int
+            type_buckets[edge_type].append(edge_int)
     else:
         # If not enough edges, fall back to the original method
         for i, edge in enumerate(edges):
             edge_type = type_order[i % 3]
-            type_buckets[edge_type].append(edge)
+            edge_int = int(edge)  # Convert to int
+            type_buckets[edge_type].append(edge_int)
     
     # Combine in the specified order - always ["east", "north", "southeast"]
     reordered_edges = []
@@ -92,7 +105,7 @@ def reorder_cells_by_type(cells, vertex_coords):
     
     # Determine type of first cell based on vertex coordinates
     if len(cells) > 0:
-        first_cell = cells[0]
+        first_cell = int(cells[0])  # Convert to int
         vertices = grid.get_offset_provider("C2V").ndarray[first_cell]
         coords = [vertex_coords[v] for v in vertices]
         
@@ -111,7 +124,8 @@ def reorder_cells_by_type(cells, vertex_coords):
         # Assign cells to buckets based on the established pattern
         for i, cell in enumerate(cells):
             cell_type = type_order[(start_idx + i) % 2]
-            type_buckets[cell_type].append(cell)
+            cell_int = int(cell)  # Convert to int
+            type_buckets[cell_type].append(cell_int)
     
     # Combine in the specified order
     reordered_cells = []
@@ -209,12 +223,13 @@ def trim_grid(grid_file, grid):
     return v_idx, e_idx, c_idx
 
 
-def reorder_c2x(grid, grid_file, c_idx):
+def reorder_c2x(grid, grid_file):
     edge_coords = get_coords_e(grid_file)
     vertex_coords = get_coords_v(grid_file)
     start = time.time()
-    for cid in c_idx:
-        edges = grid.get_offset_provider("C2E").ndarray[int(cid)]
+    for cid in range(grid.num_cells):
+        cid_int = int(cid)  # Convert to int
+        edges = grid.get_offset_provider("C2E").ndarray[cid_int]
         coords = edge_coords[edges]
         idx = sorted(range(3), key=lambda i: (coords[i][1], coords[i][0]))
         top = (
@@ -228,13 +243,13 @@ def reorder_c2x(grid, grid_file, c_idx):
             else (idx[1] if coords[idx[1]][0] < coords[idx[2]][0] else idx[2])
         )
         third = next(i for i in range(3) if i not in [top, bottom])
-        grid.get_offset_provider("C2E").ndarray[int(cid)] = [
+        grid.get_offset_provider("C2E").ndarray[cid_int] = [
             edges[top],
             edges[bottom],
             edges[third],
         ]
 
-        verts = grid.get_offset_provider("C2V").ndarray[int(cid)]
+        verts = grid.get_offset_provider("C2V").ndarray[cid_int]
         coords = vertex_coords[verts]
         idx = sorted(range(3), key=lambda i: (coords[i][1], coords[i][0]))
         top = (
@@ -248,7 +263,7 @@ def reorder_c2x(grid, grid_file, c_idx):
             else (idx[1] if coords[idx[1]][0] < coords[idx[2]][0] else idx[2])
         )
         third = next(i for i in range(3) if i not in [top, bottom])
-        grid.get_offset_provider("C2V").ndarray[int(cid)] = [
+        grid.get_offset_provider("C2V").ndarray[cid_int] = [
             verts[top],
             verts[bottom],
             verts[third],
@@ -257,52 +272,54 @@ def reorder_c2x(grid, grid_file, c_idx):
     print(f"c2x reorder time: {end - start:.4f} seconds")
 
 
-def reorder_e2x(grid, grid_file, e_idx):
+def reorder_e2x(grid, grid_file):
     vertex_coords = get_coords_v(grid_file)
     cell_coords = get_coords_c(grid_file)
     start = time.time()
-    for eid in e_idx:
-        verts = grid.get_offset_provider("E2V").ndarray[int(eid)]
+    for eid in range(grid.num_edges):
+        eid_int = int(eid)  # Convert to int
+        verts = grid.get_offset_provider("E2V").ndarray[eid_int]
         coords = vertex_coords[verts]
         if coords[0][1] < coords[1][1] or (
             coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]
         ):
-            grid.get_offset_provider("E2V").ndarray[int(eid)] = [verts[1], verts[0]]
+            grid.get_offset_provider("E2V").ndarray[eid_int] = [verts[1], verts[0]]
         else:
-            grid.get_offset_provider("E2V").ndarray[int(eid)] = [verts[0], verts[1]]
+            grid.get_offset_provider("E2V").ndarray[eid_int] = [verts[0], verts[1]]
 
-        cells = grid.get_offset_provider("E2C").ndarray[int(eid)]
+        cells = grid.get_offset_provider("E2C").ndarray[eid_int]
         coords = cell_coords[cells]
         if coords[0][1] < coords[1][1] or (
             coords[0][1] == coords[1][1] and coords[0][0] > coords[1][0]
         ):
-            grid.get_offset_provider("E2C").ndarray[int(eid)] = [cells[1], cells[0]]
+            grid.get_offset_provider("E2C").ndarray[eid_int] = [cells[1], cells[0]]
         else:
-            grid.get_offset_provider("E2C").ndarray[int(eid)] = [cells[0], cells[1]]
+            grid.get_offset_provider("E2C").ndarray[eid_int] = [cells[0], cells[1]]
     end = time.time()
     print(f"e2x reorder time: {end - start:.4f} seconds")
 
 
-def reorder_v2x(grid, grid_file, v_idx):
+def reorder_v2x(grid, grid_file):
     vertex_coords = get_coords_v(grid_file)
     edge_coords = get_coords_e(grid_file)
     cell_coords = get_coords_c(grid_file)
     start = time.time()
-    for vid in v_idx:
-        center = vertex_coords[int(vid)]
-        neighbors = grid.get_offset_provider("V2C").ndarray[int(vid)]
+    for vid in range(grid.num_vertices):
+        vid_int = int(vid)  # Convert to int
+        center = vertex_coords[vid_int]
+        neighbors = grid.get_offset_provider("V2C").ndarray[vid_int]
         coords = cell_coords[neighbors]
         rel = coords - center
         angles = np.arctan2(-rel[:, 0], -rel[:, 1])
         order = np.argsort(angles)
-        grid.get_offset_provider("V2C").ndarray[int(vid)] = neighbors[order]
+        grid.get_offset_provider("V2C").ndarray[vid_int] = neighbors[order]
 
-        neighbors = grid.get_offset_provider("V2E").ndarray[int(vid)]
+        neighbors = grid.get_offset_provider("V2E").ndarray[vid_int]
         coords = edge_coords[neighbors]
         rel = coords - center
         angles = np.arctan2(-rel[:, 0], -rel[:, 1])
         order = np.argsort(angles)
-        grid.get_offset_provider("V2E").ndarray[int(vid)] = neighbors[order]
+        grid.get_offset_provider("V2E").ndarray[vid_int] = neighbors[order]
     end = time.time()
     print(f"v2x reorder time: {end - start:.4f} seconds")
 
@@ -393,6 +410,28 @@ def get_torus_grid(filename, num_levels, transformation):
     grid_manager = init_grid_manager(filename, num_levels, transformation)
     return grid_manager.grid
 
+def overwrite_chained_connectivities(grid):
+    v2e = grid.get_offset_provider("V2E").ndarray
+    v2c = grid.get_offset_provider("V2C").ndarray
+    e2v = grid.get_offset_provider("E2V").ndarray
+    e2c = grid.get_offset_provider("E2C").ndarray
+    c2v = grid.get_offset_provider("C2V").ndarray
+    c2e = grid.get_offset_provider("C2E").ndarray
+    
+    grid.connectivities["V2E2V"] = _v2e2v_connectivity(v2e, e2v)
+    grid.connectivities["V2E2C"] = _v2e2c_connectivity(v2c)
+    grid.connectivities["V2C2E"] = _v2c2e_connectivity(v2c, c2e)
+    grid.connectivities["V2C2V"] = _v2e2v_connectivity(v2c, c2v)
+    grid.connectivities["E2V2E"] = _e2v2e_connectivity(e2v, v2e)
+    grid.connectivities["E2V2C"] = _e2v2c_connectivity(e2v, v2c)
+    grid.connectivities["E2C2E"] = _e2c2e_connectivity(e2c, c2e)
+    grid.connectivities["E2C2V"] = _e2c2v_connectivity(e2c, c2v)
+    grid.connectivities["C2V2E"] = _c2v2e_connectivity(c2v, v2e)
+    grid.connectivities["C2V2C"] = _c2v2c_connectivity(c2v, v2c)
+    grid.connectivities["C2E2V"] = _c2e2v_connectivity(c2v)
+    grid.connectivities["C2E2C"] = _c2e2c_connectivity(c2e, e2c)
+    
+    return grid
 
 PROGRAMS = {
     "c2e2c": c2e2c_sum_program,
@@ -427,7 +466,7 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
     ]
     next_num = max(existing_nums, default=0) + 1
     filename = f"results/{base_filename}_{next_num:03d}.txt"
-    
+
     if xp.__name__ == "cupy":
         xp.get_default_memory_pool().free_all_blocks()
     
@@ -436,9 +475,12 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
     rng = np.random.default_rng(42)
     
     value_map = {
-        "V": xp.asarray(rng.random(grid.num_vertices)),
-        "E": xp.asarray(rng.random(grid.num_edges)),
-        "C": xp.asarray(rng.random(grid.num_cells)),
+        # "V": xp.asarray(rng.random(grid.num_vertices)),
+        # "E": xp.asarray(rng.random(grid.num_edges)),
+        # "C": xp.asarray(rng.random(grid.num_cells)),
+        "V": xp.ones(grid.num_vertices),
+        "E": xp.ones(grid.num_edges),
+        "C": xp.ones(grid.num_cells),
     }
 
     
@@ -487,7 +529,6 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
                     "num_cells": np.int64(len(c_idx)),
                 }
             )
-
             elapsed = time.perf_counter() - start
 
             result = result_field.ndarray
@@ -495,7 +536,8 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
 
             
             output_lines.append(f"{first} -> {second} ({elapsed:.6f}s)")
-            output_lines.extend(f"{idx}: {result[idx]:.6f}" for idx in base_ids)
+            num_elements = len(base_ids)
+            output_lines.extend(f"{i}: {result[i]:.6f}" for i in range(num_elements))
             output_lines.append("")
 
     with open(filename, "w") as f:
@@ -504,23 +546,26 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
         f.write("\n".join(output_lines))
 
     print(f"Results written to {filename}")
+
 grid_file = "../all_torus_files/torus_100000_100000_512.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 
 vertices, edges, cells = trim_grid(grid_file, grid)
 vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file)
 
-reorder_c2x(grid, grid_file, cells)
-reorder_e2x(grid, grid_file, edges)
-reorder_v2x(grid, grid_file, vertices)
+reorder_c2x(grid, grid_file)
+reorder_e2x(grid, grid_file)
+reorder_v2x(grid, grid_file)
 reindex_cells(grid, cells)
 reindex_edges(grid, edges)
-# reindex_vertices(grid, vertices)
+reindex_vertices(grid, vertices)
+
+grid = overwrite_chained_connectivities(grid)
 
 if xp.__name__ == "cupy":
-    cp.get_default_memory_pool().free_all_blocks()
-if xp.__name__ == "cupy":
+    cp.get_default_memory_pool().free_all_blocks()  # Added missing line
     for dim_name, connectivity in grid.connectivities.items():
         if isinstance(connectivity, np.ndarray):
             grid.connectivities[dim_name] = cp.asarray(connectivity)
+
 neighbor_sums(grid, vertices, edges, cells)

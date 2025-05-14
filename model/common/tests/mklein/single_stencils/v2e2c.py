@@ -6,7 +6,7 @@ sys.path.append('..')
 from mklein_test import *
 import gt4py.next as gtx
 from gt4py.next import Dimension
-from stencils_combined import v2c2e_sum_program
+from stencils_combined import v2e2c_sum_program
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
 grid_file = "../all_torus_files/big_torus_100000_100000_64.nc"
@@ -26,14 +26,14 @@ if xp.__name__ == "cupy":
         if isinstance(connectivity, np.ndarray):
             grid.connectivities[dim_name] = cp.asarray(connectivity)
 rng = np.random.default_rng(1)
-edge_values = xp.asarray(rng.random(grid.num_edges))
+cell_values = xp.asarray(rng.random(grid.num_cells))
 vertex_domain = gtx.domain({Dimension("Vertex"): grid.num_vertices})
-edge_domain = gtx.domain({Dimension("Edge"): grid.num_edges})
-edge_input = gtx.as_field(edge_domain, edge_values, allocator=b_end)
+cell_domain = gtx.domain({Dimension("Cell"): grid.num_cells})
+cell_input = gtx.as_field(cell_domain, cell_values, allocator=b_end)
 vertex_output = gtx.zeros(vertex_domain, allocator=b_end)
 for _ in range(10000):
-    v2c2e_sum_program(
-        edge_input=edge_input,
+    v2e2c_sum_program(
+        cell_input=cell_input,
         vertex_out=vertex_output,
         offset_provider=grid.offset_providers,
         num_edges=np.int64(len(edges)),
