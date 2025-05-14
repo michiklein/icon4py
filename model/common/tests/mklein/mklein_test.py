@@ -18,7 +18,7 @@ from gt4py.next import Dimension
 xp = cp if "gpu" in str(b_end).lower() else np #gpu or cpu?
 
 def reorder_edges_by_type(edges, vertex_coords):
-    # Define the type order - this is the order we want in the final output
+    # Define final order of edge types
     type_order = ["east", "north", "southeast"]
     type_buckets = {t: [] for t in type_order}
     
@@ -203,7 +203,6 @@ def trim_grid(grid_file, grid):
     
     expected = side**2
     actual = len(v_idx)
-    status = "ok" if actual == expected else "mismatch"
     print(f"expected {expected} vertices")
     print(f"Selected {len(v_idx)} vertices, {len(e_idx)} edges, and {len(c_idx)} cells")
     

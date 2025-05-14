@@ -58,11 +58,6 @@ def test_E2C2V_sums():
     edge_field_smartest_sum_e = gtx.zeros(edge_domain)
     edge_field_smartest_sum_n = gtx.zeros(edge_domain)
 
-    # E2C2V_simple_sum.with_backend(model_backends.BACKENDS["gtfn_cpu"])(
-    #     vertex_field,
-    #     edge_field_simple_sum,
-    #     offset_provider=grid.offset_providers,
-    # )
     E2C2V_simple_sum(
         vertex_field,
         edge_field_simple_sum,
