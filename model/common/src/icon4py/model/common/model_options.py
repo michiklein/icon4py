@@ -6,8 +6,11 @@
 # Please, refer to the LICENSE file in the root directory.
 # SPDX-License-Identifier: BSD-3-Clause
 
-import numpy as np
+from gt4py.eve.utils import FrozenNamespace
 
 
-def compute_kstart_dd3d(scalfac_dd3d: np.array) -> int:
-    return np.min(np.where(scalfac_dd3d > 0.0))
+class RayleighType(FrozenNamespace[int]):
+    #: classical Rayleigh damping, which makes use of a reference state.
+    CLASSIC = 1
+    #: Klemp (2008) type Rayleigh damping
+    KLEMP = 2
