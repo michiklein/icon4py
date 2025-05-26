@@ -229,7 +229,6 @@ def trim_grid(grid_file, grid):
     c_idx = xp.array(c_idx)
     
     expected = side**2
-    actual = len(v_idx)
     print(f"expected {expected} vertices")
     print(f"Selected {len(v_idx)} vertices, {len(e_idx)} edges, and {len(c_idx)} cells")
     
@@ -488,12 +487,9 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
     rng = np.random.default_rng(42)
     
     value_map = {
-        # "V": xp.asarray(rng.random(grid.num_vertices)),
-        # "E": xp.asarray(rng.random(grid.num_edges)),
-        # "C": xp.asarray(rng.random(grid.num_cells)),
-        "V": xp.ones(grid.num_vertices),
-        "E": xp.ones(grid.num_edges),
-        "C": xp.ones(grid.num_cells),
+        "V": xp.asarray(rng.random(grid.num_vertices)),
+        "E": xp.asarray(rng.random(grid.num_edges)),
+        "C": xp.asarray(rng.random(grid.num_cells)),
     }
 
     
