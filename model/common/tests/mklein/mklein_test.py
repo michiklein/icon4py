@@ -27,6 +27,7 @@ from stencils_combined import *
 from gt4py.next import Dimension
 
 xp = cp if "gpu" in str(b_end).lower() else np #gpu or cpu?
+print(f"Using backend: {xp.__name__}")
 
 def reorder_edges_by_type(edges, vertex_coords, grid):
     # Define final order of edge types
@@ -533,9 +534,9 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx):
                 **{
                     input_name: input_field,
                     output_name: result_field,
-                    "offset_provider": grid.offset_providers,
                     "num_edges": np.int64(len(e_idx)),
                     "num_cells": np.int64(len(c_idx)),
+                    "offset_provider": grid.offset_providers,
                 }
             )
             elapsed = time.perf_counter() - start
@@ -573,9 +574,9 @@ if __name__ == "__main__":
     grid = overwrite_chained_connectivities(grid)
     
     if xp.__name__ == "cupy":
-        cp.get_default_memory_pool().free_all_blocks() 
-        for dim_name, connectivity in grid.connectivities.items():
-            if isinstance(connectivity, np.ndarray):
-                grid.connectivities[dim_name] = cp.asarray(connectivity)
-    
+        cp.get_default_memory_pool().free_all_blocks()
+        # Convert ALL connectivity arrays to CuPy
+        for name, connectivity in grid.connectivities.items():
+            connectivity.ndarray = cp.asarray(connectivity.ndarray)
+                    
     neighbor_sums(grid, vertices, edges, cells)

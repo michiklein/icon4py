@@ -18,7 +18,7 @@ from gt4py.next import Dimension
 from stencils_combined import v2e2v_sum_program
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
-grid_file = "../all_torus_files/big_torus_100000_100000_64.nc"
+grid_file = "../all_torus_files/torus_100000_100000_256.nc"
 grid = get_torus_grid(grid_file, 1, ToZeroBasedIndexTransformation())
 vertices, edges, cells = trim_grid(grid_file, grid)
 vertices, edges, cells = reorder_trimmed_edges_and_cells(vertices, edges, cells, grid_file, grid)
