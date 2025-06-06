@@ -1,6 +1,8 @@
+uv venv --python $(which python)
+
 cd ..
 pushd icon4py
-    uv sync --no-cache --extra all
+    uv sync --extra all --extra cuda12
     source .venv/bin/activate
 popd
 
