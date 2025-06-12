@@ -14,7 +14,7 @@ echo "Submitting batch reordering job for folder: $FOLDER"
 
 JOB_ID=$(sbatch --parsable << EOF
 #!/bin/bash -l
-#SBATCH --time=24:00:00
+#SBATCH --time=1:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -26,6 +26,7 @@ JOB_ID=$(sbatch --parsable << EOF
 #SBATCH --exclusive
 #SBATCH --job-name=reorder_batch
 #SBATCH --output=reorder_batch_%j.out
+#SBATCH --uenv=icon/25.2:v3 --view=default
 
 export GT4PY_BUILD_CACHE_DIR="\$(pwd)/GT4PYcache"
 export GT4PY_BUILD_CACHE_LIFETIME=persistent

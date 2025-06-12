@@ -1,3 +1,4 @@
+#MKLEIN MASTER THESIS
 import numpy as np
 import netCDF4
 import os
@@ -54,110 +55,72 @@ def get_torus_grid(filename, num_levels, transformation):
     return grid_manager.grid
 
 
-def reorder_c2x_parallel(grid, grid_file):
+def reorder_c2x(grid, grid_file):
+    # Sort edges/vertices by (y, x) coordinates, then arrange as [top, bottom, third]
     edge_coords = get_coords_e(grid_file)
     vertex_coords = get_coords_v(grid_file)
     start = time.time()
     
     num_cells = grid.num_cells
-    
     c2e_orig = grid.get_offset_provider("C2E").ndarray
     c2v_orig = grid.get_offset_provider("C2V").ndarray
     
-    c2e_new = np.zeros_like(c2e_orig)
-    c2v_new = np.zeros_like(c2v_orig)
-    
     print("Reordering C2E...")
-    edges_all = c2e_orig
+    c2e_start = time.time()
+    all_edge_coords = edge_coords[c2e_orig]
+    sort_keys = all_edge_coords[:, :, 1] * 1e6 + all_edge_coords[:, :, 0]
+    sort_indices = np.argsort(sort_keys, axis=1)
     
-    for cid in range(num_cells):
-        edges = edges_all[cid]
-        
-        valid_edges = edges[edges >= 0]
-        if len(valid_edges) < 3:
-            c2e_new[cid] = edges
-            continue
-            
-        coords = edge_coords[valid_edges]
-        idx = sorted(range(len(valid_edges)), key=lambda i: (coords[i][1], coords[i][0]))
-        
-        if len(idx) >= 2:
-            if coords[idx[0]][1] != coords[idx[1]][1]:
-                top = idx[0]
-            else:
-                top = idx[0] if coords[idx[0]][0] < coords[idx[1]][0] else idx[1]
-        else:
-            top = idx[0]
-            
-        if len(idx) >= 3:
-            if coords[idx[1]][1] != coords[idx[2]][1]:
-                bottom = idx[2]
-            else:
-                bottom = idx[1] if coords[idx[1]][0] < coords[idx[2]][0] else idx[2]
-        else:
-            bottom = idx[-1]
-            
-        if len(idx) == 3:
-            third = next(i for i in idx if i not in [top, bottom])
-            c2e_new[cid] = [valid_edges[top], valid_edges[bottom], valid_edges[third]]
-        else:
-            c2e_new[cid] = edges
+    batch_indices = np.arange(num_cells)[:, np.newaxis]
+    sorted_coords = all_edge_coords[batch_indices, sort_indices]
+    
+    y_diff_01 = sorted_coords[:, 0, 1] != sorted_coords[:, 1, 1]
+    x_smaller_01 = sorted_coords[:, 0, 0] < sorted_coords[:, 1, 0]
+    top_choice = np.where(y_diff_01, 0, np.where(x_smaller_01, 0, 1))
+    
+    y_diff_12 = sorted_coords[:, 1, 1] != sorted_coords[:, 2, 1]
+    x_smaller_12 = sorted_coords[:, 1, 0] < sorted_coords[:, 2, 0]
+    bottom_choice = np.where(y_diff_12, 2, np.where(x_smaller_12, 1, 2))
+    
+    third_choice = 3 - top_choice - bottom_choice
+    final_order = np.column_stack([top_choice, bottom_choice, third_choice])
+    c2e_new = c2e_orig[batch_indices, sort_indices][batch_indices, final_order]
+    grid.get_offset_provider("C2E").ndarray[:] = c2e_new
+    c2e_end = time.time()
     
     print("Reordering C2V...")
-    verts_all = c2v_orig
+    c2v_start = time.time()
+    all_vertex_coords = vertex_coords[c2v_orig]
+    sort_keys_v = all_vertex_coords[:, :, 1] * 1e6 + all_vertex_coords[:, :, 0]
+    sort_indices_v = np.argsort(sort_keys_v, axis=1)
+    sorted_coords_v = all_vertex_coords[batch_indices, sort_indices_v]
     
-    for cid in range(num_cells):
-        verts = verts_all[cid]
-        
-        valid_verts = verts[verts >= 0]
-        if len(valid_verts) < 3:
-            c2v_new[cid] = verts
-            continue
-            
-        coords = vertex_coords[valid_verts]
-        idx = sorted(range(len(valid_verts)), key=lambda i: (coords[i][1], coords[i][0]))
-        
-        if len(idx) >= 2:
-            if coords[idx[0]][1] != coords[idx[1]][1]:
-                top = idx[0]
-            else:
-                top = idx[0] if coords[idx[0]][0] < coords[idx[1]][0] else idx[1]
-        else:
-            top = idx[0]
-            
-        if len(idx) >= 3:
-            if coords[idx[1]][1] != coords[idx[2]][1]:
-                bottom = idx[2]
-            else:
-                bottom = idx[1] if coords[idx[1]][0] < coords[idx[2]][0] else idx[2]
-        else:
-            bottom = idx[-1]
-            
-        if len(idx) == 3:
-            third = next(i for i in idx if i not in [top, bottom])
-            c2v_new[cid] = [valid_verts[top], valid_verts[bottom], valid_verts[third]]
-        else:
-            c2v_new[cid] = verts
+    y_diff_01_v = sorted_coords_v[:, 0, 1] != sorted_coords_v[:, 1, 1]
+    x_smaller_01_v = sorted_coords_v[:, 0, 0] < sorted_coords_v[:, 1, 0]
+    top_choice_v = np.where(y_diff_01_v, 0, np.where(x_smaller_01_v, 0, 1))
     
-    grid.get_offset_provider("C2E").ndarray[:] = c2e_new
+    y_diff_12_v = sorted_coords_v[:, 1, 1] != sorted_coords_v[:, 2, 1]
+    x_smaller_12_v = sorted_coords_v[:, 1, 0] < sorted_coords_v[:, 2, 0]
+    bottom_choice_v = np.where(y_diff_12_v, 2, np.where(x_smaller_12_v, 1, 2))
+    
+    third_choice_v = 3 - top_choice_v - bottom_choice_v
+    final_order_v = np.column_stack([top_choice_v, bottom_choice_v, third_choice_v])
+    c2v_new = c2v_orig[batch_indices, sort_indices_v][batch_indices, final_order_v]
     grid.get_offset_provider("C2V").ndarray[:] = c2v_new
+    c2v_end = time.time()
     
     end = time.time()
-    print(f"c2x reorder time (parallel): {end - start:.4f} seconds")
+    print(f"c2x reorder time: {end - start:.4f} seconds")
 
 
-def reorder_e2x_parallel(grid, grid_file):
+def reorder_e2x(grid, grid_file):
+    # Order pairs so first element has higher y, or same y with lower x
     vertex_coords = get_coords_v(grid_file)
     cell_coords = get_coords_c(grid_file)
     start = time.time()
     
-    num_edges = grid.num_edges
-    
     e2v_orig = grid.get_offset_provider("E2V").ndarray
     e2c_orig = grid.get_offset_provider("E2C").ndarray
-    
-    e2v_new = np.zeros_like(e2v_orig)
-    e2c_new = np.zeros_like(e2c_orig)
     
     print("Reordering E2V...")
     verts_all = e2v_orig
@@ -168,6 +131,7 @@ def reorder_e2x_parallel(grid, grid_file):
     
     swap_mask = (y_diff < 0) | ((y_diff == 0) & (x_diff > 0))
     
+    e2v_new = np.zeros_like(e2v_orig)
     e2v_new[~swap_mask] = verts_all[~swap_mask]
     e2v_new[swap_mask] = verts_all[swap_mask][:, [1, 0]]
     
@@ -180,6 +144,7 @@ def reorder_e2x_parallel(grid, grid_file):
     
     swap_mask = (y_diff < 0) | ((y_diff == 0) & (x_diff > 0))
     
+    e2c_new = np.zeros_like(e2c_orig)
     e2c_new[~swap_mask] = cells_all[~swap_mask]
     e2c_new[swap_mask] = cells_all[swap_mask][:, [1, 0]]
     
@@ -187,17 +152,17 @@ def reorder_e2x_parallel(grid, grid_file):
     grid.get_offset_provider("E2C").ndarray[:] = e2c_new
     
     end = time.time()
-    print(f"e2x reorder time (parallel): {end - start:.4f} seconds")
+    print(f"e2x reorder time: {end - start:.4f} seconds")
 
 
-def reorder_v2x_parallel(grid, grid_file):
+def reorder_v2x(grid, grid_file):
+    # Sort neighbors by angle around vertex center (counterclockwise)
     vertex_coords = get_coords_v(grid_file)
     edge_coords = get_coords_e(grid_file)
     cell_coords = get_coords_c(grid_file)
     start = time.time()
     
     num_vertices = grid.num_vertices
-    
     v2c_orig = grid.get_offset_provider("V2C").ndarray
     v2e_orig = grid.get_offset_provider("V2E").ndarray
     
@@ -211,15 +176,10 @@ def reorder_v2x_parallel(grid, grid_file):
         chunk_vertices = np.arange(start_idx, end_idx)
         
         centers = vertex_coords[chunk_vertices]
-        
         neighbors = v2c_orig[chunk_vertices]
-        
         neighbor_coords = cell_coords[neighbors]
-        
         rel_coords = neighbor_coords - centers[:, np.newaxis, :]
-        
         angles = np.arctan2(-rel_coords[:, :, 0], rel_coords[:, :, 1])
-        
         sort_indices = np.argsort(angles, axis=1)
         
         for i, vid in enumerate(chunk_vertices):
@@ -231,15 +191,10 @@ def reorder_v2x_parallel(grid, grid_file):
         chunk_vertices = np.arange(start_idx, end_idx)
         
         centers = vertex_coords[chunk_vertices]
-        
         neighbors = v2e_orig[chunk_vertices]
-        
         neighbor_coords = edge_coords[neighbors]
-        
         rel_coords = neighbor_coords - centers[:, np.newaxis, :]
-        
         angles = np.arctan2(-rel_coords[:, :, 0], rel_coords[:, :, 1])
-        
         sort_indices = np.argsort(angles, axis=1)
         
         for i, vid in enumerate(chunk_vertices):
@@ -249,7 +204,7 @@ def reorder_v2x_parallel(grid, grid_file):
     grid.get_offset_provider("V2E").ndarray[:] = v2e_new
     
     end = time.time()
-    print(f"v2x reorder time (parallel): {end - start:.4f} seconds")
+    print(f"v2x reorder time: {end - start:.4f} seconds")
 
 
 def save_reordered_grid(grid, original_file, output_file):
@@ -287,6 +242,8 @@ def save_reordered_grid(grid, original_file, output_file):
         
         for nc_var_name, grid_name in connectivity_mapping.items():
             connectivity_data = grid.get_offset_provider(grid_name).ndarray
+            if nc[nc_var_name].shape != connectivity_data.shape:
+                connectivity_data = connectivity_data.T
             nc[nc_var_name][:] = connectivity_data
 
 
@@ -297,9 +254,9 @@ def reorder_grid_file(input_file, output_file=None):
     
     grid = get_torus_grid(input_file, 1, ToZeroBasedIndexTransformation())
     
-    reorder_c2x_parallel(grid, input_file)
-    reorder_e2x_parallel(grid, input_file)
-    reorder_v2x_parallel(grid, input_file)
+    reorder_c2x(grid, input_file)
+    reorder_e2x(grid, input_file)
+    reorder_v2x(grid, input_file)
     
     save_reordered_grid(grid, input_file, output_file)
     
