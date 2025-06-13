@@ -14,7 +14,7 @@ from stencils_combined import e2c2v_sum_program
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
 
-grid_file = "../all_torus_files/torus_100000_100000_256_reorderd.nc"
+grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
 levels = 80
 grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
 
