@@ -9,13 +9,12 @@ from mklein_test import (
     ToZeroBasedIndexTransformation,
 )
 import gt4py.next as gtx
-from gt4py.next import Dimension
 from stencils_combined import v2c2e_sum_program
 
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
 
-grid_file = "../all_torus_files/torus_100000_100000_256.nc"
+grid_file = "../all_torus_files/torus_100000_100000_256_reorderd.nc"
 levels = 80
 grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
 
@@ -45,7 +44,7 @@ edge_input = gtx.as_field(edge_domain, edge_values, allocator=b_end)
 vertex_output = gtx.zeros(vertex_domain, allocator=b_end)
 
 print("start")
-for i in range(1):
+for _ in range(1):
     v2c2e_sum_program(
         edge_input=edge_input,
         vertex_out=vertex_output,
