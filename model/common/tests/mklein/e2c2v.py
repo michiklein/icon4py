@@ -10,11 +10,12 @@ from mklein_test import (
 )
 import gt4py.next as gtx
 from stencils_combined import e2c2v_sum_program
+from gt4py.next import int32
 
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
 
-grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
+grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
 levels = 80
 grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
 
@@ -43,13 +44,24 @@ edge_domain = gtx.domain({EdgeDim: grid.num_edges, KDim: levels})
 vertex_input = gtx.as_field(vertex_domain, vertex_values, allocator=b_end)
 edge_output = gtx.zeros(edge_domain, allocator=b_end)
 
+if xp.__name__ == "cupy":
+        for name, provider in grid.offset_providers.items():
+            if hasattr(provider, 'ndarray'):
+                grid.offset_providers[name] = gtx.as_connectivity(
+                    provider.domain,
+                    codomain=provider.codomain, 
+                    data=provider.ndarray, 
+                    skip_value=-1,
+                    allocator=b_end
+                )
+                
 print("start")
 for _ in range(1):
     e2c2v_sum_program(
         vertex_input=vertex_input,
-        edge_output=edge_output,
+        edge_out=edge_output,
         offset_provider=grid.offset_providers,
-        num_edges=np.int64(len(edges)),
-        num_cells=np.int64(len(cells))
+        num_edges=int32(len(edges)),
+        num_cells=int32(len(cells))
     )
 print("end")

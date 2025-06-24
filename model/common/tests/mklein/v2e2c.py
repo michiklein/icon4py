@@ -10,7 +10,7 @@ from mklein_test import (
 )
 import gt4py.next as gtx
 from stencils_combined import v2e2c_sum_program
-
+from gt4py.next import int32
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
 
@@ -42,14 +42,24 @@ cell_domain = gtx.domain({CellDim: grid.num_cells, KDim: levels})
 
 cell_input = gtx.as_field(cell_domain, cell_values, allocator=b_end)
 vertex_output = gtx.zeros(vertex_domain, allocator=b_end)
-
+if xp.__name__ == "cupy":
+        for name, provider in grid.offset_providers.items():
+            if hasattr(provider, 'ndarray'):
+                grid.offset_providers[name] = gtx.as_connectivity(
+                    provider.domain,
+                    codomain=provider.codomain, 
+                    data=provider.ndarray, 
+                    skip_value=-1,
+                    allocator=b_end
+                )
+                
 print("start")
 for _ in range(1):
     v2e2c_sum_program(
         cell_input=cell_input,
         vertex_out=vertex_output,
         offset_provider=grid.offset_providers,
-        num_edges=np.int64(len(edges)),
-        num_cells=np.int64(len(cells))
+        num_edges=int32(len(edges)),
+        num_cells=int32(len(cells))
     )
 print("end")

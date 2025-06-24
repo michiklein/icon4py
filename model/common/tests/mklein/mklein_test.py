@@ -25,6 +25,7 @@ from icon4py.model.common.grid.vertical import VerticalGridConfig
 import gt4py.next as gtx
 from stencils_combined import *
 from icon4py.model.common.dimension import EdgeDim, VertexDim, CellDim, KDim
+from gt4py.next import int32
 
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
@@ -270,8 +271,8 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, levels):
                 **{
                     input_name: input_field,
                     output_name: result_field,
-                    "num_edges": np.int64(len(e_idx)),
-                    "num_cells": np.int64(len(c_idx)),
+                    "num_edges": int32(len(e_idx)),
+                    "num_cells": int32(len(c_idx)),
                     "offset_provider": grid.offset_providers,
                 }
             )
@@ -296,7 +297,7 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, levels):
 
 if __name__ == "__main__":
     
-    grid_file = "../all_torus_files/torus_100000_100000_1024.nc"
+    grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
     levels = 80
     grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
     
@@ -307,14 +308,15 @@ if __name__ == "__main__":
     reindex_edges(grid, edges)
     reindex_vertices(grid, vertices)
     
-
-    
     if xp.__name__ == "cupy":
-        cp.get_default_memory_pool().free_all_blocks()
-        for name, connectivity in grid.connectivities.items():
-            if hasattr(connectivity, 'ndarray'):
-                connectivity.ndarray = cp.asarray(connectivity.ndarray)
-            else:
-                grid.connectivities[name] = cp.asarray(connectivity)
-                    
+        for name, provider in grid.offset_providers.items():
+            if hasattr(provider, 'ndarray'):
+                grid.offset_providers[name] = gtx.as_connectivity(
+                    provider.domain,
+                    codomain=provider.codomain, 
+                    data=provider.ndarray, 
+                    skip_value=-1,
+                    allocator=b_end
+                )
+
     neighbor_sums(grid, vertices, edges, cells, levels)

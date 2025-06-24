@@ -20,21 +20,21 @@ mkdir -p nsys
 source .venv/bin/activate
 export CUDAFLAGS="--generate-line-info"
 
-srun ncu -o ncu/v2c2e_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
-srun ncu -o ncu/v2c2v_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
-srun ncu -o ncu/v2e2c_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py
-srun ncu -o ncu/v2e2v_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2e2v.py
+# srun ncu -o ncu/v2c2e_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
+# srun ncu -o ncu/v2c2v_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
+# srun ncu -o ncu/v2e2c_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py
+# srun ncu -o ncu/v2e2v_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2e2v.py
 
 srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2e_off .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2v_off .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c_off .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2v_off .venv/bin/python3.10 model/common/tests/mklein/v2e2v.py
 
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2c_off .venv/bin/python3.10 model/common/tests/mklein/c2e2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2v_off .venv/bin/python3.10 model/common/tests/mklein/c2e2v.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2c_off .venv/bin/python3.10 model/common/tests/mklein/c2v2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2e_off .venv/bin/python3.10 model/common/tests/mklein/c2v2e.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_off .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2c_off .venv/bin/python3.10 model/common/tests/mklein/c2e2c.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2v_off .venv/bin/python3.10 model/common/tests/mklein/c2e2v.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2c_off .venv/bin/python3.10 model/common/tests/mklein/c2v2c.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2e_off .venv/bin/python3.10 model/common/tests/mklein/c2v2e.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_off .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
 
