@@ -56,7 +56,7 @@ if xp.__name__ == "cupy":
                 )
                 
 print("start")
-for _ in range(1):
+for _ in range(1000):
     e2c2v_sum_program(
         vertex_input=vertex_input,
         edge_out=edge_output,

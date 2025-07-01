@@ -137,3 +137,5 @@ venv.bak/
 img/
 
 .DS_Store
+results
+nsys

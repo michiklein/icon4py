@@ -54,7 +54,7 @@ if xp.__name__ == "cupy":
                 )
                 
 print("start")
-for _ in range(1):
+for _ in range(1000):
     c2v2e_sum_program(
         edge_input=edge_input,
         cell_out=cell_output,
