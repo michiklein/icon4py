@@ -241,7 +241,7 @@ def save_reordered_grid(grid, original_file, output_file):
                     break
         
         for nc_var_name, grid_name in connectivity_mapping.items():
-            connectivity_data = grid.get_offset_provider(grid_name).ndarray
+            connectivity_data = grid.get_offset_provider(grid_name).ndarray + 1
             if nc[nc_var_name].shape != connectivity_data.shape:
                 connectivity_data = connectivity_data.T
             nc[nc_var_name][:] = connectivity_data

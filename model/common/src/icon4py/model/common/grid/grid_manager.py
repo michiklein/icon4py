@@ -962,7 +962,6 @@ def _patch_with_dummy_lastline(ar, array_ns: ModuleType = np):
 
 # START OF MICHAEL MASTERS CODE
 
-
 def _v2e2c_connectivity(v2c: data_alloc.NDArray) -> data_alloc.NDArray:
     """
     Construct the connectivity table for the cells neighboring a vertex.
@@ -1002,17 +1001,25 @@ def _e2v2c_connectivity(
     """
 
     naive_array = np.hstack((v2c[e2v[:, 0]], v2c[e2v[:, 1]]))
-    result = np.zeros((naive_array.shape[0], 10), dtype=gtx.int32)
-    for i in range(
-        0, naive_array.shape[0]
-    ):  # by ordering in a consistent way we can create the table as follows
-        if i % 3 == 0:
-            result[i] = naive_array[i, [3, 4, 0, 1, 2, 4, 8, 9, 10, 11]]
-        if i % 3 == 1:
-            result[i] = naive_array[i, [4, 5, 0, 1, 2, 3, 6, 9, 10, 11]]
-        if i % 3 == 2:
-            result[i] = naive_array[i, [0, 5, 1, 2, 3, 4, 6, 7, 10, 11]]
+    # result = np.zeros((naive_array.shape[0], 10), dtype=gtx.int32)
+    # for i in range(
+    #     0, naive_array.shape[0]
+    # ):  # by ordering in a consistent way we can create the table as follows
+    #     if i % 3 == 0:
+    #         result[i] = naive_array[i, [3, 4, 0, 1, 2, 4, 8, 9, 10, 11]]
+    #     if i % 3 == 1:
+    #         result[i] = naive_array[i, [4, 5, 0, 1, 2, 3, 6, 9, 10, 11]]
+    #     if i % 3 == 2:
+    #         result[i] = naive_array[i, [0, 5, 1, 2, 3, 4, 6, 7, 10, 11]]
 
+    # return result
+    result = np.array(
+        [
+            list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
+            + [x for x in row if row.tolist().count(x) == 1]
+            for row in naive_array
+        ]
+    )
     return result
 
 def _v2c2e_connectivity(
@@ -1051,11 +1058,17 @@ def _v2c2e_connectivity(
         )
     )
 
-    result = np.delete(naive_array, [4, 6, 9, 13, 15, 17], axis=1)  # delete duplicates
-    result = result[
-        :, [1, 3, 5, 7, 8, 10, 0, 3, 5, 8, 10, 11]
-    ]  # reorder so duplicates are in the front
-
+    # result = np.delete(naive_array, [4, 6, 9, 13, 15, 17], axis=1)  # delete duplicates
+    # result = result[
+    #     :, [1, 3, 5, 7, 8, 10, 0, 3, 5, 8, 10, 11]
+    # ]  # reorder so duplicates are in the front
+    result = np.array(
+        [
+            list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
+            + [x for x in row if row.tolist().count(x) == 1]
+            for row in naive_array
+        ]
+    )
     return result
 
 
@@ -1079,15 +1092,20 @@ def _e2v2e_connectivity(
     )
 
     result = np.zeros((naive_array.shape[0], 10), dtype=gtx.int32)
-    for i in range(
-        0, naive_array.shape[0]
-    ):  # remove the origin, but it is in a different place for each edge type
-        if i % 3 == 0:
-            result[i] = naive_array[i, [0, 1, 2, 4, 5, 7, 8, 9, 10, 11]]
-        if i % 3 == 1:
-            result[i] = naive_array[i, [0, 1, 2, 3, 5, 6, 8, 9, 10, 11]]
-        if i % 3 == 2:
-            result[i] = naive_array[i, [0, 1, 2, 3, 4, 6, 7, 9, 10, 11]]
+    # for i in range(
+    #     0, naive_array.shape[0]
+    # ):  # remove the origin, but it is in a different place for each edge type
+    #     if i % 3 == 0:
+    #         result[i] = naive_array[i, [0, 1, 2, 4, 5, 7, 8, 9, 10, 11]]
+    #     if i % 3 == 1:
+    #         result[i] = naive_array[i, [0, 1, 2, 3, 5, 6, 8, 9, 10, 11]]
+    #     if i % 3 == 2:
+    #         result[i] = naive_array[i, [0, 1, 2, 3, 4, 6, 7, 9, 10, 11]]
+    # return result
+    result = np.array([
+        [x for x in row if row.tolist().count(x) == 1]
+        for row in naive_array
+    ])
     return result
 
 
@@ -1111,16 +1129,24 @@ def _c2v2e_connectivity(
             v2e[c2v[:, 2]],
         )
     )
-    result = np.zeros((naive_array.shape[0], 15), dtype=gtx.int32)
-    for i in range(0, naive_array.shape[0]):  # two cases for the cell types
-        if i % 2 == 0:
-            result[i] = naive_array[
-                i, [3, 4, 11, 0, 1, 2, 6, 7, 8, 9, 10, 12, 15, 16, 17]
-            ]
-        if i % 2 == 1:
-            result[i] = naive_array[
-                i, [2, 3, 10, 0, 1, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17]
-            ]
+    # result = np.zeros((naive_array.shape[0], 15), dtype=gtx.int32)
+    # for i in range(0, naive_array.shape[0]):  # two cases for the cell types
+    #     if i % 2 == 1:
+    #         result[i] = naive_array[
+    #             i, [3, 4, 11, 0, 1, 2, 6, 7, 8, 9, 10, 12, 15, 16, 17]
+    #         ]
+    #     if i % 2 == 0:
+    #         result[i] = naive_array[
+    #             i, [2, 3, 10, 0, 1, 4, 5, 6, 7, 8, 9, 14, 15, 16, 17]
+    #         ]
+    # return result
+    result = np.array(
+        [
+            list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
+            + [x for x in row if row.tolist().count(x) == 1]
+            for row in naive_array
+        ]
+    )
     return result
 
 
@@ -1145,12 +1171,17 @@ def _c2v2c_connectivity(
         )
     )
 
-    result = np.zeros((naive_array.shape[0], 12), dtype=gtx.int32)
-    for i in range(0, naive_array.shape[0]):  # two cases for the cell types
-        if i % 2 == 0:
-            result[i] = naive_array[i, [3, 5, 11, 0, 1, 2, 8, 9, 10, 12, 16, 17]]
-        if i % 2 == 1:
-            result[i] = naive_array[i, [2, 4, 10, 0, 1, 5, 7, 8, 9, 15, 16, 17]]
+    # result = np.zeros((naive_array.shape[0], 12), dtype=gtx.int32)
+    # for i in range(0, naive_array.shape[0]):  # two cases for the cell types
+    #     if i % 2 == 0:
+    #         result[i] = naive_array[i, [3, 5, 11, 0, 1, 2, 8, 9, 10, 12, 16, 17]]
+    #     if i % 2 == 1:
+    #         result[i] = naive_array[i, [2, 4, 10, 0, 1, 5, 7, 8, 9, 15, 16, 17]]
+    # return result
+    result = np.array([
+        [x for x in row if row.tolist().count(x) == 1]
+        for row in naive_array
+    ])
     return result
 
 
@@ -1191,7 +1222,12 @@ def _v2e2c2v_connectivity( #TODO rest
         )
     )
 
-    result = naive_array[:, [0, 2, 3, 6, 10, 15]]  # delete the origin
+    # result = naive_array[:, [0, 2, 3, 6, 10, 15]]  # delete the origin
+    # return result
+    result = np.array([
+        [x for x in row if row.tolist().count(x) == 1]
+        for row in naive_array
+    ])
     return result
 
 # alternatives
@@ -1214,14 +1250,19 @@ def _e2c2e_connectivity(
             c2e[e2c[:, 1]],
         )
     )
-    result = np.zeros((naive_array.shape[0], 4), dtype=gtx.int32)
-    for i in range(0, naive_array.shape[0]):  # three cases for the edge types
-        if i % 2 == 0:
-            result[i] = naive_array[i, [0, 1, 3, 5]]
-        if i % 2 == 1:
-            result[i] = naive_array[i, [1, 2, 3, 5]]    
-        if i % 2 == 2:
-            result[i] = naive_array[i, [1, 2, 3, 4]]
+    # result = np.zeros((naive_array.shape[0], 4), dtype=gtx.int32)
+    # for i in range(0, naive_array.shape[0]):  # three cases for the edge types
+    #     if i % 2 == 0:
+    #         result[i] = naive_array[i, [0, 1, 3, 5]]
+    #     if i % 2 == 1:
+    #         result[i] = naive_array[i, [1, 2, 3, 5]]    
+    #     if i % 2 == 2:
+    #         result[i] = naive_array[i, [1, 2, 3, 4]]
+    # return result
+    result = np.array([
+        [x for x in row if row.tolist().count(x) == 1]
+        for row in naive_array
+    ])
     return result
 
 
@@ -1241,15 +1282,23 @@ def _e2c2v_connectivity(e2c: data_alloc.NDArray, c2v: data_alloc.NDArray) -> dat
             c2v[e2c[:, 1]],
         )
     )
-    result = np.zeros((naive_array.shape[0], 4), dtype=gtx.int32)
-    for i in range(0, naive_array.shape[0]):  # three cases for the edge types
-        if i % 2 == 0:
-            result[i] = naive_array[i, [0, 2, 1, 5]]
-        if i % 2 == 1:
-            result[i] = naive_array[i, [0, 2, 1, 3]]
-        if i % 2 == 2:
-            result[i] = naive_array[i, [0, 1, 2, 3]]
+    # result = np.zeros((naive_array.shape[0], 4), dtype=gtx.int32)
+    # for i in range(0, naive_array.shape[0]):  # three cases for the edge types
+    #     if i % 2 == 0:
+    #         result[i] = naive_array[i, [0, 2, 1, 5]]
+    #     if i % 2 == 1:
+    #         result[i] = naive_array[i, [0, 2, 1, 3]]
+    #     if i % 2 == 2:
+    #         result[i] = naive_array[i, [0, 1, 2, 3]]
     
+    # return result
+    result = np.array(
+        [
+            list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
+            + [x for x in row if row.tolist().count(x) == 1]
+            for row in naive_array
+        ]
+    )
     return result
 
 #stuff that is in icon, but inconsistent
@@ -1276,7 +1325,12 @@ def _v2e2v_connectivity(
         )
     )
     # delete the origin
-    return naive_array[:, [0, 2, 4, 7, 9, 11]]
+    # return naive_array[:, [0, 2, 4, 7, 9, 11]]
+    result = np.array([
+        [x for x in row if row.tolist().count(x) == 1]
+        for row in naive_array
+    ])
+    return result
 
 def _c2e2c_connectivity(
     c2e: data_alloc.NDArray, e2c: data_alloc.NDArray
@@ -1297,10 +1351,15 @@ def _c2e2c_connectivity(
             e2c[c2e[:, 2]],
         )
     )
-    result = np.zeros((naive_array.shape[0], 3), dtype=gtx.int32)
-    for i in range(0, naive_array.shape[0]):  # two cases for the cell types
-        if i % 2 == 0:
-            result[i] = naive_array[i, [1, 2, 4]]
-        if i % 2 == 1:
-            result[i] = naive_array[i, [1, 2, 5]]
+    # result = np.zeros((naive_array.shape[0], 3), dtype=gtx.int32)
+    # for i in range(0, naive_array.shape[0]):  # two cases for the cell types
+    #     if i % 2 == 1:
+    #         result[i] = naive_array[i, [1, 2, 4]]
+    #     if i % 2 == 0:
+    #         result[i] = naive_array[i, [1, 2, 5]]
+    # return result
+    result = np.array([
+        [x for x in row if row.tolist().count(x) == 1]
+        for row in naive_array
+    ])
     return result
