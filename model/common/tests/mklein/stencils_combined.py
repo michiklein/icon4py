@@ -159,7 +159,6 @@ def e2c2e_sum_program(
 
 @field_operator
 def _e2c2v_sum(vertex_input: fa.VertexKField[float], num_edges: int32) -> fa.EdgeKField[float]:
-    # return concat_where(dims.EdgeDim < num_edges /int32(3),  vertex_input(E2V[0]), vertex_input(E2V[1]))
     return (
         vertex_input(C2V[0])(E2C[0])
         + vertex_input(C2V[1])(E2C[0])
