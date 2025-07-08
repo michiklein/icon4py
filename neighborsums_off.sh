@@ -19,7 +19,7 @@ mkdir -p ncu
 mkdir -p nsys
 source .venv/bin/activate
 export CUDAFLAGS="--generate-line-info"
-export GT4PY_DISABLE_COLLAPSE_TABLES=1
+export GT4PY_ENABLE_COLLAPSE_TABLES=0
 
 # srun ncu -o ncu/v2c2e_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
 # srun ncu -o ncu/v2c2v_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
