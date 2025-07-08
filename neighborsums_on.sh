@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --time=1:00:00
+#SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -19,6 +19,7 @@ mkdir -p ncu
 mkdir -p nsys
 source .venv/bin/activate
 export CUDAFLAGS="--generate-line-info"
+export GT4PY_DISABLE_COLLAPSE_TABLES=0
 
 # srun ncu -o ncu/v2c2e_on --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
 # srun ncu -o ncu/v2c2v_on --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py

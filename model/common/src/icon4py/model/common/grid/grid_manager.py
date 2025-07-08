@@ -1012,7 +1012,6 @@ def _e2v2c_connectivity(
     #     if i % 3 == 2:
     #         result[i] = naive_array[i, [0, 5, 1, 2, 3, 4, 6, 7, 10, 11]]
 
-    # return result
     result = np.array(
         [
             list(dict.fromkeys([x for x in row if row.tolist().count(x) > 1]))
@@ -1105,7 +1104,7 @@ def _e2v2e_connectivity(
     result = np.array([
         [x for x in row if row.tolist().count(x) == 1]
         for row in naive_array
-    ])
+     ])
     return result
 
 
@@ -1177,7 +1176,6 @@ def _c2v2c_connectivity(
     #         result[i] = naive_array[i, [3, 5, 11, 0, 1, 2, 8, 9, 10, 12, 16, 17]]
     #     if i % 2 == 1:
     #         result[i] = naive_array[i, [2, 4, 10, 0, 1, 5, 7, 8, 9, 15, 16, 17]]
-    # return result
     result = np.array([
         [x for x in row if row.tolist().count(x) == 1]
         for row in naive_array
@@ -1223,9 +1221,8 @@ def _v2e2c2v_connectivity( #TODO rest
     )
 
     # result = naive_array[:, [0, 2, 3, 6, 10, 15]]  # delete the origin
-    # return result
     result = np.array([
-        [x for x in row if row.tolist().count(x) == 1]
+        [x for x in row if row.tolist().count(x) == 3]
         for row in naive_array
     ])
     return result

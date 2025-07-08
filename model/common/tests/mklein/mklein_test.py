@@ -307,6 +307,7 @@ if __name__ == "__main__":
     reindex_cells(grid, cells)
     reindex_edges(grid, edges)
     reindex_vertices(grid, vertices)
+    overwrite_chained_connectivities(grid)
     
     if xp.__name__ == "cupy":
         for name, provider in grid.offset_providers.items():
