@@ -2,13 +2,15 @@ from gt4py.next.ffront.decorator import field_operator, program
 from icon4py.model.common import field_type_aliases as fa
 from icon4py.model.common.dimension import C2V, C2E, V2C, V2E, E2C, E2V
 import gt4py.next as gtx
-from gt4py.next.program_processors.runners import dace as dace_be
+from gt4py.next.program_processors.runners.dace import (
+        run_dace_gpu_cached as run_dace_gpu,
+    )
 from gt4py.next.ffront.experimental import concat_where
 from icon4py.model.common import dimension as dims
 from gt4py.next import int32
 
-# b_end = gtx.gtfn_gpu
-b_end = dace_be.run_dace_gpu
+b_end = gtx.gtfn_gpu
+# b_end = run_dace_gpu
 
 
 # ------- V STENCILS -------
@@ -257,7 +259,7 @@ def c2e2c_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _c2e2c_sum(cell_input, num_edges, out=cell_out)
+    _c2e2c_sum(cell_input, num_cells, out=cell_out)
 
 
 @field_operator
@@ -279,7 +281,7 @@ def c2e2v_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _c2e2v_sum(vertex_input, num_edges, out=cell_out)
+    _c2e2v_sum(vertex_input, num_cells, out=cell_out)
 
 
 @field_operator
@@ -313,7 +315,7 @@ def c2v2c_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _c2v2c_sum(cell_input, num_edges, out=cell_out)
+    _c2v2c_sum(cell_input, num_cells, out=cell_out)
 
 
 @field_operator
@@ -347,4 +349,4 @@ def c2v2e_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _c2v2e_sum(edge_input, num_edges, out=cell_out)
+    _c2v2e_sum(edge_input, num_cells, out=cell_out)
