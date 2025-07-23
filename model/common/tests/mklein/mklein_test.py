@@ -29,7 +29,6 @@ from gt4py.next import int32
 
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
-print(f"Using backend: {xp.__name__}")
 
 def get_torus_cartesian_dimensions(grid):
     nc = netCDF4.Dataset(grid, mode="r")
@@ -307,7 +306,7 @@ if __name__ == "__main__":
     reindex_cells(grid, cells)
     reindex_edges(grid, edges)
     reindex_vertices(grid, vertices)
-    overwrite_chained_connectivities(grid)
+    
     
     if xp.__name__ == "cupy":
         for name, provider in grid.offset_providers.items():

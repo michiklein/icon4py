@@ -1177,9 +1177,9 @@ def _c2v2c_connectivity(
     #     if i % 2 == 1:
     #         result[i] = naive_array[i, [2, 4, 10, 0, 1, 5, 7, 8, 9, 15, 16, 17]]
     result = np.array([
-        [x for x in row if row.tolist().count(x) == 1]
+        [x for x in row if row.tolist().count(x) in (1, 2)]
         for row in naive_array
-    ])
+    ], dtype=object)
     return result
 
 

@@ -15,7 +15,7 @@ b_end = gtx.gtfn_gpu
 
 # ------- V STENCILS -------
 @field_operator
-def _v2c2e_sum(edge_input: fa.EdgeKField[float]) -> fa.VertexKField[float]:
+def _v2c2e_sum(edge_input: fa.EdgeKField[float], num_cells: int32) -> fa.VertexKField[float]:
     return (
         edge_input(C2E[0])(V2C[0])
         + edge_input(C2E[1])(V2C[0])
@@ -45,11 +45,11 @@ def v2c2e_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _v2c2e_sum(edge_input, out=vertex_out)
+    _v2c2e_sum(edge_input, num_cells, out=vertex_out)
 
 
 @field_operator
-def _v2c2v_sum(vertex_input: fa.VertexKField[float]) -> fa.VertexKField[float]:
+def _v2c2v_sum(vertex_input: fa.VertexKField[float], num_cells: int32) -> fa.VertexKField[float]:
     return (
         vertex_input(C2V[0])(V2C[0])
         + vertex_input(C2V[1])(V2C[0])
@@ -79,11 +79,11 @@ def v2c2v_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _v2c2v_sum(vertex_input, out=vertex_out)
+    _v2c2v_sum(vertex_input, num_cells, out=vertex_out)
 
 
 @field_operator
-def _v2e2c_sum(cell_input: fa.CellKField[float]) -> fa.VertexKField[float]:
+def _v2e2c_sum(cell_input: fa.CellKField[float], num_edges: int32) -> fa.VertexKField[float]:
     return (
         cell_input(E2C[0])(V2E[0])
         + cell_input(E2C[1])(V2E[0])
@@ -107,11 +107,11 @@ def v2e2c_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _v2e2c_sum(cell_input, out=vertex_out)
+    _v2e2c_sum(cell_input, num_edges, out=vertex_out)
 
 
 @field_operator
-def _v2e2v_sum(vertex_input: fa.VertexKField[float]) -> fa.VertexKField[float]:
+def _v2e2v_sum(vertex_input: fa.VertexKField[float], num_edges: int32) -> fa.VertexKField[float]:
     return (
         vertex_input(E2V[0])(V2E[0])
         + vertex_input(E2V[1])(V2E[0])
@@ -135,12 +135,12 @@ def v2e2v_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _v2e2v_sum(vertex_input, out=vertex_out)
+    _v2e2v_sum(vertex_input, num_edges, out=vertex_out)
 
 
 # ------- E STENCILS -------
 @field_operator
-def _e2c2e_sum(edge_input: fa.EdgeKField[float], num_edges: int32) -> fa.EdgeKField[float]:
+def _e2c2e_sum(edge_input: fa.EdgeKField[float], num_edges: int32, num_cells: int32) -> fa.EdgeKField[float]:
     return (
         edge_input(C2E[0])(E2C[0])
         + edge_input(C2E[1])(E2C[0])
@@ -158,11 +158,11 @@ def e2c2e_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _e2c2e_sum(edge_input, num_edges, out=edge_out)
+    _e2c2e_sum(edge_input, num_edges, num_cells, out=edge_out)
 
 
 @field_operator
-def _e2c2v_sum(vertex_input: fa.VertexKField[float], num_edges: int32) -> fa.EdgeKField[float]:
+def _e2c2v_sum(vertex_input: fa.VertexKField[float], num_edges: int32, num_cells: int32) -> fa.EdgeKField[float]:
     return (
         vertex_input(C2V[0])(E2C[0])
         + vertex_input(C2V[1])(E2C[0])
@@ -180,7 +180,7 @@ def e2c2v_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _e2c2v_sum(vertex_input, num_edges, out=edge_out)
+    _e2c2v_sum(vertex_input, num_edges, num_cells, out=edge_out)
 
 
 @field_operator
@@ -208,7 +208,7 @@ def e2v2c_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _e2v2c_sum(cell_input, num_cells, out=edge_out)
+    _e2v2c_sum(cell_input, num_edges, out=edge_out)
 
 
 @field_operator
@@ -241,7 +241,7 @@ def e2v2e_sum_program(
 
 # ------- C STENCILS -------
 @field_operator
-def _c2e2c_sum(cell_input: fa.CellKField[float], num_cells: int32) -> fa.CellKField[float]:
+def _c2e2c_sum(cell_input: fa.CellKField[float], num_cells: int32, num_edges: int32) -> fa.CellKField[float]:
     return (
         cell_input(E2C[0])(C2E[0])
         + cell_input(E2C[1])(C2E[0])
@@ -259,11 +259,11 @@ def c2e2c_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _c2e2c_sum(cell_input, num_cells, out=cell_out)
+    _c2e2c_sum(cell_input, num_cells, num_edges, out=cell_out)
 
 
 @field_operator
-def _c2e2v_sum(vertex_input: fa.VertexKField[float], num_cells: int32) -> fa.CellKField[float]:
+def _c2e2v_sum(vertex_input: fa.VertexKField[float], num_cells: int32, num_edges: int32) -> fa.CellKField[float]:
     return (
         vertex_input(E2V[0])(C2E[0])
         + vertex_input(E2V[1])(C2E[0])
@@ -281,7 +281,7 @@ def c2e2v_sum_program(
     num_cells: int32,
     num_edges: int32,
 ):
-    _c2e2v_sum(vertex_input, num_cells, out=cell_out)
+    _c2e2v_sum(vertex_input, num_cells, num_edges, out=cell_out)
 
 
 @field_operator
