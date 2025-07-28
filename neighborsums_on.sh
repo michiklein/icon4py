@@ -40,6 +40,7 @@ srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2e_on .venv/bin
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_on .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_on .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_on .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c2v_on .venv/bin/python3.10 model/common/tests/mklein/v2e2c2v.py
 
 end_time=$(date +%s)
 elapsed=$((end_time - start_time))

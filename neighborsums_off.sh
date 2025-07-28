@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --time=04:00:00
+#SBATCH --time=4:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -32,7 +32,6 @@ srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2e_off .venv/bi
 srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2v_off .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c_off .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2v_off .venv/bin/python3.10 model/common/tests/mklein/v2e2v.py
-
 srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2c_off .venv/bin/python3.10 model/common/tests/mklein/c2e2c.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2v_off .venv/bin/python3.10 model/common/tests/mklein/c2e2v.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2c_off .venv/bin/python3.10 model/common/tests/mklein/c2v2c.py
@@ -40,6 +39,7 @@ srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2e_off .venv/bi
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_off .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/v2e2c2v.py
 
 end_time=$(date +%s)
 elapsed=$((end_time - start_time))

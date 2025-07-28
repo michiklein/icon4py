@@ -350,3 +350,73 @@ def c2v2e_sum_program(
     num_edges: int32,
 ):
     _c2v2e_sum(edge_input, num_cells, out=cell_out)
+
+
+@field_operator
+def _v2e2c2v_sum(vertex_input: fa.VertexKField[float], num_edges: int32, num_cells: int32) -> fa.VertexKField[float]:
+    return (
+        vertex_input(C2V[0])(E2C[0])(V2E[0])
+        + vertex_input(C2V[1])(E2C[0])(V2E[0])
+        + vertex_input(C2V[2])(E2C[0])(V2E[0])
+        + vertex_input(C2V[0])(E2C[1])(V2E[0])
+        + vertex_input(C2V[1])(E2C[1])(V2E[0])
+        + vertex_input(C2V[2])(E2C[1])(V2E[0])
+        + vertex_input(C2V[0])(E2C[2])(V2E[0])
+        + vertex_input(C2V[1])(E2C[2])(V2E[0])
+        + vertex_input(C2V[2])(E2C[2])(V2E[0])
+        + vertex_input(C2V[0])(E2C[0])(V2E[1])
+        + vertex_input(C2V[1])(E2C[0])(V2E[1])
+        + vertex_input(C2V[2])(E2C[0])(V2E[1])
+        + vertex_input(C2V[0])(E2C[1])(V2E[1])
+        + vertex_input(C2V[1])(E2C[1])(V2E[1])
+        + vertex_input(C2V[2])(E2C[1])(V2E[1])
+        + vertex_input(C2V[0])(E2C[2])(V2E[1])
+        + vertex_input(C2V[1])(E2C[2])(V2E[1])
+        + vertex_input(C2V[2])(E2C[2])(V2E[1])
+        + vertex_input(C2V[0])(E2C[0])(V2E[2])
+        + vertex_input(C2V[1])(E2C[0])(V2E[2])
+        + vertex_input(C2V[2])(E2C[0])(V2E[2])
+        + vertex_input(C2V[0])(E2C[1])(V2E[2])
+        + vertex_input(C2V[1])(E2C[1])(V2E[2])
+        + vertex_input(C2V[2])(E2C[1])(V2E[2])
+        + vertex_input(C2V[0])(E2C[2])(V2E[2])
+        + vertex_input(C2V[1])(E2C[2])(V2E[2])
+        + vertex_input(C2V[2])(E2C[2])(V2E[2])
+        + vertex_input(C2V[0])(E2C[0])(V2E[3])
+        + vertex_input(C2V[1])(E2C[0])(V2E[3])
+        + vertex_input(C2V[2])(E2C[0])(V2E[3])
+        + vertex_input(C2V[0])(E2C[1])(V2E[3])
+        + vertex_input(C2V[1])(E2C[1])(V2E[3])
+        + vertex_input(C2V[2])(E2C[1])(V2E[3])
+        + vertex_input(C2V[0])(E2C[2])(V2E[3])
+        + vertex_input(C2V[1])(E2C[2])(V2E[3])
+        + vertex_input(C2V[2])(E2C[2])(V2E[3])
+        + vertex_input(C2V[0])(E2C[0])(V2E[4])
+        + vertex_input(C2V[1])(E2C[0])(V2E[4])
+        + vertex_input(C2V[2])(E2C[0])(V2E[4])
+        + vertex_input(C2V[0])(E2C[1])(V2E[4])
+        + vertex_input(C2V[1])(E2C[1])(V2E[4])
+        + vertex_input(C2V[2])(E2C[1])(V2E[4])
+        + vertex_input(C2V[0])(E2C[2])(V2E[4])
+        + vertex_input(C2V[1])(E2C[2])(V2E[4])
+        + vertex_input(C2V[2])(E2C[2])(V2E[4])
+        + vertex_input(C2V[0])(E2C[0])(V2E[5])
+        + vertex_input(C2V[1])(E2C[0])(V2E[5])
+        + vertex_input(C2V[2])(E2C[0])(V2E[5])
+        + vertex_input(C2V[0])(E2C[1])(V2E[5])
+        + vertex_input(C2V[1])(E2C[1])(V2E[5])
+        + vertex_input(C2V[2])(E2C[1])(V2E[5])
+        + vertex_input(C2V[0])(E2C[2])(V2E[5])
+        + vertex_input(C2V[1])(E2C[2])(V2E[5])
+        + vertex_input(C2V[2])(E2C[2])(V2E[5])
+    )
+
+
+@program(backend=b_end)
+def v2e2c2v_sum_program(
+    vertex_input: fa.VertexKField[float],
+    vertex_out: fa.VertexKField[float],
+    num_cells: int32,
+    num_edges: int32,
+):
+    _v2e2c2v_sum(vertex_input, num_edges, num_cells, out=vertex_out)
