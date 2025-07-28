@@ -5,6 +5,7 @@ import netCDF4
 import os
 import sys
 import re
+import argparse
 
 from icon4py.model.common.grid.grid_manager import (
     GridManager,
@@ -42,6 +43,20 @@ def get_coords_v(grid):
     nc = netCDF4.Dataset(grid, mode="r")
     x = nc["cartesian_x_vertices"][:]
     y = nc["cartesian_y_vertices"][:]
+    nc.close()
+    return np.stack((x, y), axis=-1)
+
+def get_coords_e(grid):
+    nc = netCDF4.Dataset(grid, mode="r")
+    x = nc["edge_middle_cartesian_x"][:]
+    y = nc["edge_middle_cartesian_y"][:]
+    nc.close()
+    return np.stack((x, y), axis=-1)
+
+def get_coords_c(grid):
+    nc = netCDF4.Dataset(grid, mode="r")
+    x = nc["cell_circumcenter_cartesian_x"][:]
+    y = nc["cell_circumcenter_cartesian_y"][:]
     nc.close()
     return np.stack((x, y), axis=-1)
 
@@ -294,7 +309,107 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, levels):
 
     print(f"Results written to {filename}")
 
+def sort_into_blocks_32(grid, grid_file):
+    """
+    Sort edges and cells into blocks of 32, maintaining the same ordering logic
+    as the current reordering functions but grouping into 32-element blocks.
+    """
+    print("Sorting edges and cells into blocks of 32...")
+    
+    # Get coordinates
+    edge_coords = get_coords_e(grid_file)
+    vertex_coords = get_coords_v(grid_file)
+    cell_coords = get_coords_c(grid_file)
+    
+    # Sort edges into blocks of 32
+    print("Sorting edges into blocks of 32...")
+    edge_sort_keys = edge_coords[:, 1] * 1e6 + edge_coords[:, 0]  # y * 1e6 + x
+    edge_sort_indices = np.argsort(edge_sort_keys)
+    
+    # Group into blocks of 32
+    num_edges = len(edge_sort_indices)
+    num_blocks = (num_edges + 31) // 32
+    edge_blocks = []
+    
+    for i in range(num_blocks):
+        start_idx = i * 32
+        end_idx = min(start_idx + 32, num_edges)
+        block_indices = edge_sort_indices[start_idx:end_idx]
+        edge_blocks.extend(block_indices)
+    
+    # Sort cells into blocks of 32
+    print("Sorting cells into blocks of 32...")
+    cell_sort_keys = cell_coords[:, 1] * 1e6 + cell_coords[:, 0]  # y * 1e6 + x
+    cell_sort_indices = np.argsort(cell_sort_keys)
+    
+    # Group into blocks of 32
+    num_cells = len(cell_sort_indices)
+    num_blocks = (num_cells + 31) // 32
+    cell_blocks = []
+    
+    for i in range(num_blocks):
+        start_idx = i * 32
+        end_idx = min(start_idx + 32, num_cells)
+        block_indices = cell_sort_indices[start_idx:end_idx]
+        cell_blocks.extend(block_indices)
+    
+    # Create mapping for reindexing
+    edge_map = {int(old): new for new, old in enumerate(edge_blocks)}
+    cell_map = {int(old): new for new, old in enumerate(cell_blocks)}
+    
+    # Apply edge reindexing
+    for name in ["C2E", "V2E"]:
+        table = grid.get_offset_provider(name).ndarray
+        for i in range(table.shape[0]):
+            for j in range(table.shape[1]):
+                val = table[i, j]
+                if val in edge_map:
+                    table[i, j] = edge_map[val]
+
+    for name in ["E2V", "E2C"]:
+        table = grid.get_offset_provider(name).ndarray
+        new_table = table.copy()
+        swapped = set()
+
+        for old_id, new_id in edge_map.items():
+            if old_id == new_id or old_id in swapped or new_id in swapped:
+                continue
+            new_table[old_id], new_table[new_id] = table[new_id], table[old_id]
+            swapped.update((old_id, new_id))
+
+        table[...] = new_table
+    
+    # Apply cell reindexing
+    for name in ["E2C", "V2C"]:
+        table = grid.get_offset_provider(name).ndarray
+        for i in range(table.shape[0]):
+            for j in range(table.shape[1]):
+                val = table[i, j]
+                if val in cell_map:
+                    table[i, j] = cell_map[val]
+
+    for name in ["C2E", "C2V"]:
+        table = grid.get_offset_provider(name).ndarray
+        new_table = table.copy()
+        swapped = set()
+
+        for old_id, new_id in cell_map.items():
+            if old_id == new_id or (old_id in swapped or new_id in swapped):
+                continue
+            new_table[old_id], new_table[new_id] = table[new_id], table[old_id]
+            swapped.update({old_id, new_id})
+
+        table[...] = new_table
+    
+    print(f"Sorted {num_edges} edges and {num_cells} cells into blocks of 32")
+
 if __name__ == "__main__":
+    
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Run neighbor sums with optional block sorting')
+    parser.add_argument('--block-sort', action='store_true', 
+                       help='Sort edges and cells into blocks of 32')
+    args = parser.parse_args()
     
     grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
     levels = 80
@@ -302,11 +417,15 @@ if __name__ == "__main__":
     
     vertices, edges, cells = trim_grid(grid_file, grid)
     
-    
-    reindex_cells(grid, cells)
-    reindex_edges(grid, edges)
-    reindex_vertices(grid, vertices)
-    
+    if args.block_sort:
+        # Use block sorting instead of regular reindexing
+        sort_into_blocks_32(grid, grid_file)
+        reindex_vertices(grid, vertices)
+    else:
+        # Use original reindexing
+        reindex_cells(grid, cells)
+        reindex_edges(grid, edges)
+        reindex_vertices(grid, vertices)
     
     if xp.__name__ == "cupy":
         for name, provider in grid.offset_providers.items():

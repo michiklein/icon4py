@@ -11,6 +11,8 @@
 #SBATCH --exclusive
 #SBATCH --uenv=icon/25.2:v3 --view=default
 
+start_time=$(date +%s)
+
 rm -rf GT4PYcacheoff
 export GT4PY_BUILD_CACHE_DIR="$(pwd)/GT4PYcacheoff"
 export GT4PY_BUILD_CACHE_LIFETIME=persistent
@@ -39,3 +41,9 @@ srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_off .venv/bi
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_off .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
 
+end_time=$(date +%s)
+elapsed=$((end_time - start_time))
+hours=$((elapsed / 3600))
+minutes=$(((elapsed % 3600) / 60))
+seconds=$((elapsed % 60))
+echo "Elapsed time: ${hours}h ${minutes}m ${seconds}s"

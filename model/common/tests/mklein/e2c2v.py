@@ -1,11 +1,13 @@
 import numpy as np
 import cupy as cp
+import argparse
 from mklein_test import (
     get_torus_grid,
     trim_grid,
     reindex_cells,
     reindex_edges,
     reindex_vertices,
+    sort_into_blocks_32,
     ToZeroBasedIndexTransformation,
 )
 import gt4py.next as gtx
@@ -15,53 +17,66 @@ from gt4py.next import int32
 b_end = gtx.gtfn_gpu
 xp = cp if "gpu" in str(b_end).lower() else np
 
-grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
-levels = 80
-grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
+if __name__ == "__main__":
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='Run e2c2v with optional block sorting')
+    parser.add_argument('--block-sort', action='store_true', 
+                       help='Sort edges and cells into blocks of 32')
+    args = parser.parse_args()
 
-vertices, edges, cells = trim_grid(grid_file, grid)
+    grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
+    levels = 80
+    grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
 
-reindex_cells(grid, cells)
-reindex_edges(grid, edges)
-reindex_vertices(grid, vertices)
+    vertices, edges, cells = trim_grid(grid_file, grid)
 
-if xp.__name__ == "cupy":
-    cp.get_default_memory_pool().free_all_blocks()
-    for name, connectivity in grid.connectivities.items():
-        if hasattr(connectivity, 'ndarray'):
-            connectivity.ndarray = cp.asarray(connectivity.ndarray)
-        else:
-            grid.connectivities[name] = cp.asarray(connectivity)
+    if args.block_sort:
+        # Use block sorting instead of regular reindexing
+        sort_into_blocks_32(grid, grid_file)
+        reindex_vertices(grid, vertices)
+    else:
+        # Use original reindexing
+        reindex_cells(grid, cells)
+        reindex_edges(grid, edges)
+        reindex_vertices(grid, vertices)
 
-rng = np.random.default_rng(1)
-vertex_values = xp.asarray(rng.random((grid.num_vertices, levels)))
+    if xp.__name__ == "cupy":
+        cp.get_default_memory_pool().free_all_blocks()
+        for name, connectivity in grid.connectivities.items():
+            if hasattr(connectivity, 'ndarray'):
+                connectivity.ndarray = cp.asarray(connectivity.ndarray)
+            else:
+                grid.connectivities[name] = cp.asarray(connectivity)
 
-from icon4py.model.common.dimension import VertexDim, EdgeDim, KDim
+    rng = np.random.default_rng(1)
+    vertex_values = xp.asarray(rng.random((grid.num_vertices, levels)))
 
-vertex_domain = gtx.domain({VertexDim: grid.num_vertices, KDim: levels})
-edge_domain = gtx.domain({EdgeDim: grid.num_edges, KDim: levels})
+    from icon4py.model.common.dimension import VertexDim, EdgeDim, KDim
 
-vertex_input = gtx.as_field(vertex_domain, vertex_values, allocator=b_end)
-edge_output = gtx.zeros(edge_domain, allocator=b_end)
+    vertex_domain = gtx.domain({VertexDim: grid.num_vertices, KDim: levels})
+    edge_domain = gtx.domain({EdgeDim: grid.num_edges, KDim: levels})
 
-if xp.__name__ == "cupy":
-        for name, provider in grid.offset_providers.items():
-            if hasattr(provider, 'ndarray'):
-                grid.offset_providers[name] = gtx.as_connectivity(
-                    provider.domain,
-                    codomain=provider.codomain, 
-                    data=provider.ndarray, 
-                    skip_value=-1,
-                    allocator=b_end
-                )
-                
-print("start")
-for _ in range(1000):
-    e2c2v_sum_program(
-        vertex_input=vertex_input,
-        edge_out=edge_output,
-        offset_provider=grid.offset_providers,
-        num_edges=int32(len(edges)),
-        num_cells=int32(len(cells))
-    )
-print("end")
+    vertex_input = gtx.as_field(vertex_domain, vertex_values, allocator=b_end)
+    edge_output = gtx.zeros(edge_domain, allocator=b_end)
+
+    if xp.__name__ == "cupy":
+            for name, provider in grid.offset_providers.items():
+                if hasattr(provider, 'ndarray'):
+                    grid.offset_providers[name] = gtx.as_connectivity(
+                        provider.domain,
+                        codomain=provider.codomain, 
+                        data=provider.ndarray, 
+                        skip_value=-1,
+                        allocator=b_end
+                    )
+                    
+    print("start")
+    for _ in range(1000):
+        e2c2v_sum_program(
+            vertex_input=vertex_input,
+            edge_out=edge_output,
+            offset_provider=grid.offset_providers,
+            num_edges=int32(len(edges)),
+            num_cells=int32(len(cells))
+        )
+    print("end")

@@ -11,6 +11,8 @@
 #SBATCH --exclusive
 #SBATCH --uenv=icon/25.2:v3 --view=default
 
+start_time=$(date +%s)
+
 rm -rf GT4PYcacheon
 export GT4PY_BUILD_CACHE_DIR="$(pwd)/GT4PYcacheon"
 export GT4PY_BUILD_CACHE_LIFETIME=persistent
@@ -20,6 +22,7 @@ mkdir -p nsys
 source .venv/bin/activate
 export CUDAFLAGS="--generate-line-info"
 export GT4PY_ENABLE_COLLAPSE_TABLES=1
+export GT4PY_COLLAPSE_TABLES_BLOCK_32=0
 
 # srun ncu -o ncu/v2c2e_on --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
 # srun ncu -o ncu/v2c2v_on --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
@@ -37,3 +40,10 @@ srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2e_on .venv/bin
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_on .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_on .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
 srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_on .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
+
+end_time=$(date +%s)
+elapsed=$((end_time - start_time))
+hours=$((elapsed / 3600))
+minutes=$(((elapsed % 3600) / 60))
+seconds=$((elapsed % 60))
+echo "Elapsed time: ${hours}h ${minutes}m ${seconds}s"
