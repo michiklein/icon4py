@@ -140,3 +140,4 @@ img/
 results
 nsys
 nsys32
+slurm-*.out

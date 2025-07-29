@@ -309,55 +309,55 @@ def neighbor_sums(grid, v_idx, e_idx, c_idx, levels):
 
     print(f"Results written to {filename}")
 
-def sort_into_blocks_32(grid, grid_file):
-    """
-    Sort edges and cells into blocks of 32, maintaining the same ordering logic
-    as the current reordering functions but grouping into 32-element blocks.
-    """
-    print("Sorting edges and cells into blocks of 32...")
+def sort_into_blocks_32(grid, grid_file, e_idx, c_idx):
+    """Sort trimmed edges/cells into 32-element blocks and renumber from 0."""
+    print("Sorting edges and cells into blocks of 32 for the trimmed subset...")
+    # ensure indices live on CPU for coordinate lookup
+    if xp.__name__ == "cupy":
+        e_idx_cpu = e_idx.get()
+        c_idx_cpu = c_idx.get()
+    else:
+        e_idx_cpu = e_idx
+        c_idx_cpu = c_idx
     
-    # Get coordinates
-    edge_coords = get_coords_e(grid_file)
-    vertex_coords = get_coords_v(grid_file)
-    cell_coords = get_coords_c(grid_file)
+    edge_coords_full = get_coords_e(grid_file)
+    cell_coords_full = get_coords_c(grid_file)
     
-    # Sort edges into blocks of 32
+    edge_coords = edge_coords_full[e_idx_cpu]
+    cell_coords = cell_coords_full[c_idx_cpu]
+
     print("Sorting edges into blocks of 32...")
-    edge_sort_keys = edge_coords[:, 1] * 1e6 + edge_coords[:, 0]  # y * 1e6 + x
-    edge_sort_indices = np.argsort(edge_sort_keys)
-    
-    # Group into blocks of 32
-    num_edges = len(edge_sort_indices)
+    edge_sort_keys = edge_coords[:, 1] * 1e6 + edge_coords[:, 0]
+    edge_sort_indices_local = np.argsort(edge_sort_keys)
+    edge_sorted_global = e_idx_cpu[edge_sort_indices_local]
+
+    num_edges = len(edge_sorted_global)
     num_blocks = (num_edges + 31) // 32
     edge_blocks = []
-    
     for i in range(num_blocks):
         start_idx = i * 32
         end_idx = min(start_idx + 32, num_edges)
-        block_indices = edge_sort_indices[start_idx:end_idx]
-        edge_blocks.extend(block_indices)
-    
-    # Sort cells into blocks of 32
+        block = edge_sorted_global[start_idx:end_idx]
+        edge_blocks.extend(block)
+
     print("Sorting cells into blocks of 32...")
-    cell_sort_keys = cell_coords[:, 1] * 1e6 + cell_coords[:, 0]  # y * 1e6 + x
-    cell_sort_indices = np.argsort(cell_sort_keys)
-    
-    # Group into blocks of 32
-    num_cells = len(cell_sort_indices)
+    cell_sort_keys = cell_coords[:, 1] * 1e6 + cell_coords[:, 0]
+    cell_sort_indices_local = np.argsort(cell_sort_keys)
+    cell_sorted_global = c_idx_cpu[cell_sort_indices_local]
+
+    num_cells = len(cell_sorted_global)
     num_blocks = (num_cells + 31) // 32
     cell_blocks = []
-    
     for i in range(num_blocks):
         start_idx = i * 32
         end_idx = min(start_idx + 32, num_cells)
-        block_indices = cell_sort_indices[start_idx:end_idx]
-        cell_blocks.extend(block_indices)
-    
-    # Create mapping for reindexing
+        block = cell_sorted_global[start_idx:end_idx]
+        cell_blocks.extend(block)
+
     edge_map = {int(old): new for new, old in enumerate(edge_blocks)}
     cell_map = {int(old): new for new, old in enumerate(cell_blocks)}
     
-    # Apply edge reindexing
+    # Update tables referencing edges
     for name in ["C2E", "V2E"]:
         table = grid.get_offset_provider(name).ndarray
         for i in range(table.shape[0]):
@@ -365,21 +365,19 @@ def sort_into_blocks_32(grid, grid_file):
                 val = table[i, j]
                 if val in edge_map:
                     table[i, j] = edge_map[val]
-
+    
     for name in ["E2V", "E2C"]:
         table = grid.get_offset_provider(name).ndarray
         new_table = table.copy()
         swapped = set()
-
         for old_id, new_id in edge_map.items():
             if old_id == new_id or old_id in swapped or new_id in swapped:
                 continue
             new_table[old_id], new_table[new_id] = table[new_id], table[old_id]
             swapped.update((old_id, new_id))
-
         table[...] = new_table
     
-    # Apply cell reindexing
+    # Update tables referencing cells
     for name in ["E2C", "V2C"]:
         table = grid.get_offset_provider(name).ndarray
         for i in range(table.shape[0]):
@@ -387,21 +385,24 @@ def sort_into_blocks_32(grid, grid_file):
                 val = table[i, j]
                 if val in cell_map:
                     table[i, j] = cell_map[val]
-
+    
     for name in ["C2E", "C2V"]:
         table = grid.get_offset_provider(name).ndarray
         new_table = table.copy()
         swapped = set()
-
         for old_id, new_id in cell_map.items():
             if old_id == new_id or (old_id in swapped or new_id in swapped):
                 continue
             new_table[old_id], new_table[new_id] = table[new_id], table[old_id]
             swapped.update({old_id, new_id})
-
         table[...] = new_table
     
-    print(f"Sorted {num_edges} edges and {num_cells} cells into blocks of 32")
+    print(f"Sorted {num_edges} edges and {num_cells} cells into 32-element blocks (subset).")
+    
+    # Return updated index arrays in the backend format (np or cp)
+    new_e_idx = xp.asarray(edge_blocks)
+    new_c_idx = xp.asarray(cell_blocks)
+    return new_e_idx, new_c_idx
 
 if __name__ == "__main__":
     
@@ -418,8 +419,8 @@ if __name__ == "__main__":
     vertices, edges, cells = trim_grid(grid_file, grid)
     
     if args.block_sort:
-        # Use block sorting instead of regular reindexing
-        sort_into_blocks_32(grid, grid_file)
+        # Use block sorting on the trimmed subset instead of regular reindexing
+        edges, cells = sort_into_blocks_32(grid, grid_file, edges, cells)
         reindex_vertices(grid, vertices)
     else:
         # Use original reindexing

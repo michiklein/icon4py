@@ -5,6 +5,23 @@ set -eo pipefail
 declare -a FILES=()
 declare -A RESULTS=()
 declare -A PROGRAM_DATA=()
+# Mapping of program names to their compression ratios (e.g., "12 -> 6").
+# These values are static and provided by the user.
+declare -A COMPRESSION=(
+    [v2e2v]="12 -> 6"
+    [v2e2c]="12 -> 6"
+    [v2c2v]="18 -> 6"
+    [v2c2e]="18 -> 12"
+    [e2v2e]="12 -> 10"
+    [e2v2c]="12 -> 10"
+    [e2c2e]="6 -> 4"
+    [e2c2v]="6 -> 4"
+    [c2v2e]="18 -> 15"
+    [c2v2c]="18 -> 12"
+    [c2e2v]="6 -> 3"
+    [c2e2c]="6 -> 3"
+    [v2e2c2v]="24 -> 6"
+)
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -157,7 +174,7 @@ parse_report() {
         
         if [[ $in_kern_section == true && $line =~ void.*gridtools && -n "$current_program" ]]; then
             print_color $GREEN "    Found gridtools line for $current_program"
-            
+
             local numbers=($line)
             if [[ ${#numbers[@]} -ge 5 ]]; then
                 local total_time_ns="${numbers[1]//,/}"
@@ -261,17 +278,18 @@ display_results() {
     echo "================================================================================"
     echo ""
     
-    printf "%-12s %-10s %-16s\n" "Program" "Status" "Median Time (μs)"
-    echo "--------------------------------------------------------------------------------"
+    printf "%-12s %-10s %-16s %-12s\n" "Program" "Status" "Median Time (μs)" "Compression"
+    echo "-------------------------------------------------------------------------------------------"
     
     for program in $(printf '%s\n' "${!PROGRAM_DATA[@]}" | sort); do
         for status in on on_32 off; do
             local key="${program}_${status}"
             if [[ -n "${RESULTS[${key}_median_us]:-}" ]]; then
-                printf "%-12s %-10s %-16s\n" \
+                printf "%-12s %-10s %-16s %-12s\n" \
                     "$program" \
                     "$status" \
-                    "${RESULTS[${key}_median_us]}"
+                    "${RESULTS[${key}_median_us]}" \
+                    "${COMPRESSION[$program]:-}"
             fi
         done
         
