@@ -696,9 +696,6 @@ def _add_derived_connectivities(
     #     grid.connectivities[dims.C2EDim],
     #     array_ns=array_ns,
     # )
-    # c2e2c2e2c = _construct_butterfly_cells(
-    #     grid.connectivities[dims.C2E2CDim], array_ns=array_ns
-    # )
     v2e2c = _v2e2c_connectivity(grid.connectivities[dims.V2CDim])
     e2v2c = _e2v2c_connectivity(
         grid.connectivities[dims.E2VDim], grid.connectivities[dims.V2CDim]
@@ -740,12 +737,16 @@ def _add_derived_connectivities(
         grid.connectivities[dims.C2EDim], grid.connectivities[dims.E2CDim]
     )
     c2e2c0 = array_ns.column_stack((array_ns.asarray(range(c2e2c.shape[0])), c2e2c))
+    
+    c2e2c2e2c = _c2e2c2e2c_connectivity(
+        c2e2c, array_ns=array_ns
+    )
 
     grid.with_connectivities(
         {
             dims.C2E2CODim: c2e2c0,
             #dims.C2E2C2EDim: c2e2c2e,
-            #dims.C2E2C2E2CDim: c2e2c2e2c,
+            dims.C2E2C2E2CDim: c2e2c2e2c,
             dims.E2C2VDim: e2c2v,
             dims.E2C2EDim: e2c2e,
             dims.E2C2EODim: e2c2e0,
@@ -1356,6 +1357,33 @@ def _c2e2c_connectivity(
     #         result[i] = naive_array[i, [1, 2, 5]]
     # return result
     result = np.array([
+        [x for x in row if row.tolist().count(x) == 1]
+        for row in naive_array
+    ])
+    return result
+
+
+def _c2e2c2e2c_connectivity(
+    c2e2c: data_alloc.NDArray, array_ns: ModuleType = np
+) -> data_alloc.NDArray:
+    """
+    Construct the connectivity table for C2E2C × C2E2C (cell-to-edge-to-cell × cell-to-edge-to-cell).
+
+    Args:
+        c2e2c: ndarray containing the connectivity table for cell-to-edge-to-cell
+
+    Returns: ndarray containing the connectivity table for C2E2C × C2E2C
+    """
+    naive_array = array_ns.hstack(
+        (
+            c2e2c[c2e2c[:, 0]],
+            c2e2c[c2e2c[:, 1]],
+            c2e2c[c2e2c[:, 2]],
+        )
+    )
+    
+    # Keep only the cells that appear once (unique neighbors)
+    result = array_ns.array([
         [x for x in row if row.tolist().count(x) == 1]
         for row in naive_array
     ])

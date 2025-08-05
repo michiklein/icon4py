@@ -101,6 +101,12 @@ class IconGrid(base.BaseGrid):
                 dims.VertexDim,
                 dims.EdgeDim,
             ),
+            "V2E2C2V": (
+                self._get_offset_provider,
+                dims.V2E2C2VDim,
+                dims.VertexDim,
+                dims.VertexDim,
+            ),
             "V2C": (
                 self._get_offset_provider,
                 dims.V2CDim,
@@ -238,7 +244,7 @@ class IconGrid(base.BaseGrid):
                 self._get_offset_provider,
                 dims.V2E2C2VDim,
                 dims.VertexDim,
-                dims.CellDim,
+                dims.VertexDim,
             ),
             "V2E2C2VO": (
                 self._get_offset_provider,
