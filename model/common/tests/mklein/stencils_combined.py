@@ -1,6 +1,6 @@
 from gt4py.next.ffront.decorator import field_operator, program
 from icon4py.model.common import field_type_aliases as fa
-from icon4py.model.common.dimension import C2V, C2E, V2C, V2E, E2C, E2V, E2C2V
+from icon4py.model.common.dimension import C2V, C2E, V2C, V2E, E2C, E2V, E2C2V, C2E2C
 import gt4py.next as gtx
 from gt4py.next.program_processors.runners.dace import (
         run_dace_gpu_cached as run_dace_gpu,
@@ -367,6 +367,18 @@ def _v2e2c2v_sum(vertex_input: fa.VertexKField[float], num_edges: int32, num_cel
         + vertex_input(E2C2V[1])(V2E[2])
         + vertex_input(E2C2V[2])(V2E[2])
         + vertex_input(E2C2V[3])(V2E[2])
+        + vertex_input(E2C2V[0])(V2E[3])
+        + vertex_input(E2C2V[1])(V2E[3])
+        + vertex_input(E2C2V[2])(V2E[3])
+        + vertex_input(E2C2V[3])(V2E[3])
+        + vertex_input(E2C2V[0])(V2E[4])
+        + vertex_input(E2C2V[1])(V2E[4])
+        + vertex_input(E2C2V[2])(V2E[4])
+        + vertex_input(E2C2V[3])(V2E[4])
+        + vertex_input(E2C2V[0])(V2E[5])
+        + vertex_input(E2C2V[1])(V2E[5])
+        + vertex_input(E2C2V[2])(V2E[5])
+        + vertex_input(E2C2V[3])(V2E[5])
     )
 
 
@@ -378,3 +390,28 @@ def v2e2c2v_sum_program(
     num_edges: int32,
 ):
     _v2e2c2v_sum(vertex_input, num_edges, num_cells, out=vertex_out)
+
+
+@field_operator
+def _c2e2c2e2c_sum(cell_input: fa.CellKField[float], num_edges: int32, num_cells: int32) -> fa.CellKField[float]:
+    return (
+        cell_input(C2E2C[0])(C2E2C[0])
+        + cell_input(C2E2C[1])(C2E2C[0])
+        + cell_input(C2E2C[2])(C2E2C[0])
+        + cell_input(C2E2C[0])(C2E2C[1])
+        + cell_input(C2E2C[1])(C2E2C[1])
+        + cell_input(C2E2C[2])(C2E2C[1])
+        + cell_input(C2E2C[0])(C2E2C[2])
+        + cell_input(C2E2C[1])(C2E2C[2])
+        + cell_input(C2E2C[2])(C2E2C[2])
+    )
+
+
+@program(backend=b_end)
+def c2e2c2e2c_sum_program(
+    cell_input: fa.CellKField[float],
+    cell_out: fa.CellKField[float],
+    num_cells: int32,
+    num_edges: int32,
+):
+    _c2e2c2e2c_sum(cell_input, num_edges, num_cells, out=cell_out)

@@ -1,6 +1,7 @@
 import numpy as np
 import cupy as cp
 import argparse
+import time
 from mklein_test import (
     get_torus_grid,
     trim_grid,
@@ -23,12 +24,14 @@ if __name__ == "__main__":
 
     grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
     levels = 80
+    load_start = time.perf_counter()
     grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
+    print(f"Grid loaded in {time.perf_counter() - load_start:.6f}s")
 
     vertices, edges, cells = trim_grid(grid_file, grid)
 
     if args.block_sort:
-        sort_into_blocks_32(grid, grid_file)
+        sort_into_blocks_32(grid, grid_file, edges, cells)
         reindex_vertices(grid, vertices)
     else:
         reindex_cells(grid, cells)
@@ -64,7 +67,7 @@ if __name__ == "__main__":
                         allocator=b_end
                     )
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         v2c2e_sum_program(
             edge_input=edge_input,
             vertex_out=vertex_output,
