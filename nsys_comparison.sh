@@ -20,6 +20,7 @@ declare -A COMPRESSION=(
     [c2v2c]="18 -> 12"
     [c2e2v]="6 -> 3"
     [c2e2c]="6 -> 3"
+    [c2e2c2e2c]="9 -> 6"
     [v2e2c2v]="24 -> 6"
 )
 

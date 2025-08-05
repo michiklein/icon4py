@@ -28,7 +28,8 @@ export GT4PY_COLLAPSE_TABLES_BLOCK_32=1
 # srun ncu -o ncu/v2c2v_on --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py --block-sort
 # srun ncu -o ncu/v2e2c_on --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py --block-sort
 # srun ncu -o ncu/v2e2v_on --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2e2v.py --block-sort
-
+srun nsys profile --stats=true --force-overwrite=true -o nsys32/c2e2c2e2c_on_32 .venv/bin/python3.10 model/common/tests/mklein/c2e2c2e2c.py --block-sort
+srun nsys profile --stats=true --force-overwrite=true -o nsys32/v2e2c2v_on_32 .venv/bin/python3.10 model/common/tests/mklein/v2e2c2v.py --block-sort
 srun nsys profile --stats=true --force-overwrite=true -o nsys32/v2c2e_on_32 .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py --block-sort
 srun nsys profile --stats=true --force-overwrite=true -o nsys32/v2c2v_on_32 .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py --block-sort
 srun nsys profile --stats=true --force-overwrite=true -o nsys32/v2e2c_on_32 .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py --block-sort
@@ -40,7 +41,8 @@ srun nsys profile --stats=true --force-overwrite=true -o nsys32/c2v2e_on_32 .ven
 srun nsys profile --stats=true --force-overwrite=true -o nsys32/e2c2v_on_32 .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py --block-sort
 srun nsys profile --stats=true --force-overwrite=true -o nsys32/e2v2c_on_32 .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py --block-sort
 srun nsys profile --stats=true --force-overwrite=true -o nsys32/e2v2e_on_32 .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py --block-sort
-srun nsys profile --stats=true --force-overwrite=true -o nsys32/v2e2c2v_on_32 .venv/bin/python3.10 model/common/tests/mklein/v2e2c2v.py --block-sort
+srun nsys profile --stats=true --force-overwrite=true -o nsys32/e2v2c_on_32 .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py --block-sort
+
 
 end_time=$(date +%s)
 elapsed=$((end_time - start_time))
