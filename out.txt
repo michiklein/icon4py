@@ -1,0 +1,94 @@
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+Grid loaded in 17.542920s
+Expected 1024 vertices
+Selected 1024 vertices, 2945 edges, and 1922 cells
+start
+before CollapseTables
+ calculate_nabla2_for_theta(
+  kh_smag_e,
+  inv_dual_edge_length,
+  theta_v,
+  geofac_div,
+  z_temp,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div) → 
+             cast_(
+               cast_(·⟪C2Eₒ, 0ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
+               × (·⟪C2Eₒ, 0ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 0ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
+               + cast_(·⟪C2Eₒ, 1ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
+                 × (·⟪C2Eₒ, 1ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 1ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
+               + cast_(·⟪C2Eₒ, 2ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
+                 × (·⟪C2Eₒ, 2ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 2ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 2ₒ⟫(geofac_div),
+               float64
+             ), u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div);
+}
+after CollapseTables
+ calculate_nabla2_for_theta(
+  kh_smag_e,
+  inv_dual_edge_length,
+  theta_v,
+  geofac_div,
+  z_temp,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, cell_idx, num_cells) → 
+             cast_(cast_(·⟪C2Eₒ, 0ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
+                   × (·(if ·cell_idx < ·num_cells / 2 then theta_v else theta_v)
+                      - ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 0ₒ⟫(theta_v) else ⟪C2E2Cₒ, 0ₒ⟫(theta_v)))
+                   × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
+                   + cast_(·⟪C2Eₒ, 1ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
+                     × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(theta_v) else theta_v)
+                        - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 1ₒ⟫(theta_v)))
+                     × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
+                   + cast_(·⟪C2Eₒ, 2ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
+                     × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(theta_v) else theta_v)
+                        - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 2ₒ⟫(theta_v)))
+                     × ·⟪C2CEₒ, 2ₒ⟫(geofac_div), float64),
+           u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, index(Cellₕ), num_cells);
+}
+after CollapseIfs
+ calculate_nabla2_for_theta(
+  kh_smag_e,
+  inv_dual_edge_length,
+  theta_v,
+  geofac_div,
+  z_temp,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, cell_idx, num_cells) → 
+                      cast_(cast_(·⟪C2Eₒ, 0ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
+                            × (·theta_v - ·⟪C2E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
+                            + cast_(·⟪C2Eₒ, 1ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
+                              × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(theta_v) else theta_v)
+                                 - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 1ₒ⟫(theta_v)))
+                              × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
+                            + cast_(·⟪C2Eₒ, 2ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
+                              × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(theta_v) else theta_v)
+                                 - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 2ₒ⟫(theta_v)))
+                              × ·⟪C2CEₒ, 2ₒ⟫(geofac_div), float64),
+                    u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩)(
+           kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, index(Cellₕ), num_cells
+         );
+}
+end

@@ -269,6 +269,102 @@ calculate_speedup() {
     fi
 }
 
+# -----------------------------------------------------------------------------
+# Generate Speed-up vs Compression plot
+# -----------------------------------------------------------------------------
+# This function builds a temporary data file containing pairs of
+#   (compression_percent, speedup_off_vs_on)
+# for every program that has both "on" and "off" results available.
+# It will first try to use gnuplot; if gnuplot is not present it will fall back
+# to python3 + matplotlib. The resulting PNG is written to
+#   speedup_vs_compression.png in the current working directory.
+# -----------------------------------------------------------------------------
+
+generate_plot() {
+    local tmp_data
+    tmp_data=$(mktemp)
+
+    # Build data file: compression_percent speedup program_name
+    for program in "${!PROGRAM_DATA[@]}"; do
+        local comp_spec="${COMPRESSION[$program]}"
+        local original compressed
+        if [[ $comp_spec =~ ([0-9]+)[[:space:]]*-\>?[[:space:]]*([0-9]+) ]]; then
+            original="${BASH_REMATCH[1]}"
+            compressed="${BASH_REMATCH[2]}"
+            if [[ $original -eq 0 ]]; then
+                continue
+            fi
+            # Compression percentage: reduction relative to original value
+            local pct
+            pct=$(echo "scale=2; (1 - $compressed / $original) * 100" | bc -l)
+        else
+            continue
+        fi
+
+        local on_time="${RESULTS[${program}_on_median_us]:-}"
+        local off_time="${RESULTS[${program}_off_median_us]:-}"
+        if [[ -n "$on_time" && -n "$off_time" && $(echo "$on_time > 0" | bc -l) -eq 1 ]]; then
+            local speed
+            speed=$(echo "scale=4; $off_time / $on_time" | bc -l)
+            echo "$pct $speed $program" >> "$tmp_data"
+        fi
+    done
+
+    if [[ ! -s "$tmp_data" ]]; then
+        print_color $YELLOW "No data available to generate plot."
+        rm -f "$tmp_data"
+        return
+    fi
+
+    # Try gnuplot first
+    if command -v gnuplot &> /dev/null; then
+        gnuplot -persist <<-GNUPLOT
+            set terminal pngcairo size 800,600 enhanced font 'Arial,10'
+            set output 'speedup_vs_compression.png'
+            set title 'Speed-up vs Compression'
+            set xlabel 'Compression (%)'
+            set ylabel 'Speed-up (off/on)'
+            set grid
+            set key off
+            plot '$tmp_data' using 1:2 with points pt 7 ps 1 notitle, \
+                 '' using 1:2:3 with labels offset 0.5,0.5 notitle
+GNUPLOT
+        print_color $GREEN "✓ Generated plot: speedup_vs_compression.png (using gnuplot)"
+
+    # Fall back to python3 + matplotlib
+    elif command -v python3 &> /dev/null; then
+        python3 - <<PY
+import matplotlib
+matplotlib.use('Agg')  # headless backend
+import matplotlib.pyplot as plt
+xs, ys, labels = [], [], []
+with open("${tmp_data}") as f:
+    for line in f:
+        parts = line.strip().split()
+        if len(parts) >= 3:
+            xs.append(float(parts[0]))
+            ys.append(float(parts[1]))
+            labels.append(parts[2])
+if xs:
+    plt.figure(figsize=(8, 6))
+    plt.scatter(xs, ys)
+    for x, y, lbl in zip(xs, ys, labels):
+        plt.text(x, y, lbl)
+    plt.xlabel('Compression (%)')
+    plt.ylabel('Speed-up (off/on)')
+    plt.title('Speed-up vs Compression')
+    plt.grid(True)
+    plt.savefig('speedup_vs_compression.png', dpi=150, bbox_inches='tight')
+    print('✓ Generated plot: speedup_vs_compression.png (using matplotlib)')
+PY
+    else
+        print_color $YELLOW "Plotting skipped: neither gnuplot nor python3 with matplotlib is available."
+    fi
+
+    rm -f "$tmp_data"
+}
+
+
 display_results() {
     if [[ ${#RESULTS[@]} -eq 0 ]]; then
         echo "No valid results to display."
@@ -347,6 +443,7 @@ main() {
     if [[ $success_count -gt 0 ]] || [[ ${#RESULTS[@]} -gt 0 ]]; then
         echo ""
         display_results
+        generate_plot
     else
         print_color $RED "No valid results found. Please check your files contain the expected format."
         exit 1

@@ -16,7 +16,9 @@ from icon4py.model.atmosphere.diffusion.stencils.calculate_nabla2_of_theta impor
     _calculate_nabla2_of_theta,
 )
 from icon4py.model.common import dimension as dims, field_type_aliases as fa
+from icon4py.model.common.dimension import C2CE, C2E, C2EDim, E2C, E2CDim
 from icon4py.model.common.type_alias import vpfloat, wpfloat
+from gt4py.next.ffront.fbuiltins import astype, neighbor_sum
 
 
 @field_operator
@@ -26,9 +28,29 @@ def _calculate_nabla2_for_theta(
     theta_v: fa.CellKField[wpfloat],
     geofac_div: gtx.Field[gtx.Dims[dims.CEDim], wpfloat],
 ) -> fa.CellKField[vpfloat]:
-    z_nabla2_e = _calculate_nabla2_for_z(kh_smag_e, inv_dual_edge_length, theta_v)
-    z_temp = _calculate_nabla2_of_theta(z_nabla2_e, geofac_div)
-    return z_temp
+   
+    return astype(
+        (
+            (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[0])
+            * geofac_div(C2CE[0])
+            + (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[1])
+            * geofac_div(C2CE[1])
+            + (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[2])
+            * geofac_div(C2CE[2])
+        ),
+        vpfloat,
+    )
+    return astype(
+        (
+            (theta_v(E2C[1]) - theta_v(E2C[0]))(C2E[0])
+            * geofac_div(C2CE[0])
+            + (theta_v(E2C[1]) - theta_v(E2C[0]))(C2E[1])
+            * geofac_div(C2CE[1])
+            + (theta_v(E2C[1]) - theta_v(E2C[0]))(C2E[2])
+            * geofac_div(C2CE[2])
+        ),
+        vpfloat,
+    )
 
 
 @program(grid_type=GridType.UNSTRUCTURED)
@@ -38,6 +60,7 @@ def calculate_nabla2_for_theta(
     theta_v: fa.CellKField[wpfloat],
     geofac_div: gtx.Field[gtx.Dims[dims.CEDim], wpfloat],
     z_temp: fa.CellKField[vpfloat],
+    num_cells: gtx.int32,
     horizontal_start: gtx.int32,
     horizontal_end: gtx.int32,
     vertical_start: gtx.int32,
@@ -158,16 +181,18 @@ if __name__ == "__main__":
     vertical_end = int32(levels)
 
     print("start")
-    calculate_nabla2_for_theta.with_backend(b_end)(
-        kh_smag_e,
-        inv_dual_edge_length,
-        theta_v,
-        geofac_div,
-        z_temp,
-        horizontal_start,
-        horizontal_end,
-        vertical_start,
-        vertical_end,
-        offset_provider=grid.offset_providers,
-    )
+    for _ in range(1000):
+        calculate_nabla2_for_theta.with_backend(b_end)(
+            kh_smag_e,
+            inv_dual_edge_length,
+            theta_v,
+            geofac_div,
+            z_temp,
+            int32(grid.num_cells),
+            horizontal_start,
+            horizontal_end,
+            vertical_start,
+            vertical_end,
+            offset_provider=grid.offset_providers,
+        )
     print("end")
