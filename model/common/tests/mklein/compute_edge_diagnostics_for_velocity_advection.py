@@ -29,21 +29,20 @@ from icon4py.model.common.type_alias import vpfloat, wpfloat
 
 @gtx.field_operator
 def _interpolate_to_half_levels(
-    wgtfac_e: fa.EdgeKField[ta.vpfloat],
+    wgtfac_e: fa.EdgeKField[ta.wpfloat],
     x: fa.EdgeKField[ta.wpfloat],
-) -> fa.EdgeKField[ta.vpfloat]:
-    wgtfac_e_wp = astype(wgtfac_e, wpfloat)
-    x_ie_wp = wgtfac_e_wp * x + (wpfloat("1.0") - wgtfac_e_wp) * x(Koff[-1])
-    return concat_where(dims.KDim > 0, astype(x_ie_wp, vpfloat), x)
+) -> fa.EdgeKField[ta.wpfloat]:
+    x_ie_wp = wgtfac_e * x + (wpfloat("1.0") - wgtfac_e) * x(Koff[-1])
+    return concat_where(dims.KDim > 0, x_ie_wp, x)
 
 
 @gtx.field_operator
 def _compute_horizontal_kinetic_energy(
     vn: fa.EdgeKField[ta.wpfloat],
-    vt: fa.EdgeKField[ta.vpfloat],
-) -> fa.EdgeKField[ta.vpfloat]:
-    z_kin_hor_e_wp = wpfloat("0.5") * (vn * vn + astype(vt * vt, wpfloat))
-    return astype(z_kin_hor_e_wp, vpfloat)
+    vt: fa.EdgeKField[ta.wpfloat],
+) -> fa.EdgeKField[ta.wpfloat]:
+    z_kin_hor_e = wpfloat("0.5") * (vn * vn + vt * vt)
+    return z_kin_hor_e
 
 
 @gtx.field_operator
@@ -71,7 +70,8 @@ def _compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_c
     fa.EdgeKField[ta.vpfloat],
     fa.EdgeKField[ta.vpfloat],
 ]:
-    tangential_wind = _compute_tangential_wind(vn, rbf_vec_coeff_e)
+    tangential_wind_vp = _compute_tangential_wind(vn, rbf_vec_coeff_e)
+    tangential_wind = astype(tangential_wind_vp, wpfloat)
     horizontal_kinetic_energy_at_edges_on_model_levels = _compute_horizontal_kinetic_energy(
         vn, tangential_wind
     )
@@ -83,23 +83,31 @@ def _compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_c
         else tangential_wind_on_half_levels
     )
 
+    contravariant_correction_vp = _compute_contravariant_correction(
+        vn,
+        astype(ddxn_z_full, vpfloat),
+        astype(ddxt_z_full, vpfloat),
+        astype(tangential_wind, vpfloat),
+    )
     contravariant_correction_at_edges_on_model_levels = concat_where(
         nflatlev <= dims.KDim,
-        _compute_contravariant_correction(vn, ddxn_z_full, ddxt_z_full, tangential_wind),
+        astype(contravariant_correction_vp, wpfloat),
         contravariant_correction_at_edges_on_model_levels,
     )
 
-    w_at_vertices = _mo_icon_interpolation_scalar_cells2verts_scalar_ri_dsl(w, c_intp)
+    w_at_vertices_vp = _mo_icon_interpolation_scalar_cells2verts_scalar_ri_dsl(w, c_intp)
+    w_at_vertices = astype(w_at_vertices_vp, wpfloat)
+    horizontal_advection_of_w_vp = _compute_horizontal_advection_term_for_vertical_velocity(
+        vn_on_half_levels,
+        inv_dual_edge_length,
+        w,
+        tangential_wind_on_half_levels,
+        inv_primal_edge_length,
+        tangent_orientation,
+        w_at_vertices,
+    )
     horizontal_advection_of_w_at_edges_on_half_levels = (
-        _compute_horizontal_advection_term_for_vertical_velocity(
-            vn_on_half_levels,
-            inv_dual_edge_length,
-            w,
-            tangential_wind_on_half_levels,
-            inv_primal_edge_length,
-            tangent_orientation,
-            w_at_vertices,
-        )
+        astype(horizontal_advection_of_w_vp, wpfloat)
         if not skip_compute_predictor_vertical_advection
         else horizontal_advection_of_w_at_edges_on_half_levels
     )
@@ -118,37 +126,36 @@ def _compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_c
 def _compute_horizontal_advection_of_w(
     w: fa.CellKField[ta.wpfloat],
     tangential_wind_on_half_levels: fa.EdgeKField[ta.wpfloat],
-    vn_on_half_levels: fa.EdgeKField[ta.vpfloat],
+    vn_on_half_levels: fa.EdgeKField[ta.wpfloat],
     c_intp: gtx.Field[gtx.Dims[dims.VertexDim, dims.V2CDim], ta.wpfloat],
     inv_dual_edge_length: fa.EdgeField[ta.wpfloat],
     inv_primal_edge_length: fa.EdgeField[ta.wpfloat],
     tangent_orientation: fa.EdgeField[ta.wpfloat],
-) -> fa.EdgeKField[ta.vpfloat]:
-    w_at_vertices = _mo_icon_interpolation_scalar_cells2verts_scalar_ri_dsl(w, c_intp)
+) -> fa.EdgeKField[ta.wpfloat]:
+    w_at_vertices_vp = _mo_icon_interpolation_scalar_cells2verts_scalar_ri_dsl(w, c_intp)
+    w_at_vertices = astype(w_at_vertices_vp, wpfloat)
 
-    horizontal_advection_of_w_at_edges_on_half_levels = (
-        _compute_horizontal_advection_term_for_vertical_velocity(
-            vn_on_half_levels,
-            inv_dual_edge_length,
-            w,
-            tangential_wind_on_half_levels,
-            inv_primal_edge_length,
-            tangent_orientation,
-            w_at_vertices,
-        )
+    horizontal_advection_of_w_vp = _compute_horizontal_advection_term_for_vertical_velocity(
+        vn_on_half_levels,
+        inv_dual_edge_length,
+        w,
+        tangential_wind_on_half_levels,
+        inv_primal_edge_length,
+        tangent_orientation,
+        w_at_vertices,
     )
 
-    return horizontal_advection_of_w_at_edges_on_half_levels
+    return astype(horizontal_advection_of_w_vp, wpfloat)
 
 
 @gtx.program(grid_type=gtx.GridType.UNSTRUCTURED)
 def compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_contravariant_correction(
-    tangential_wind: fa.EdgeKField[ta.vpfloat],
+    tangential_wind: fa.EdgeKField[ta.wpfloat],
     tangential_wind_on_half_levels: fa.EdgeKField[ta.wpfloat],
-    vn_on_half_levels: fa.EdgeKField[ta.vpfloat],
-    horizontal_kinetic_energy_at_edges_on_model_levels: fa.EdgeKField[ta.vpfloat],
-    contravariant_correction_at_edges_on_model_levels: fa.EdgeKField[ta.vpfloat],
-    horizontal_advection_of_w_at_edges_on_half_levels: fa.EdgeKField[ta.vpfloat],
+    vn_on_half_levels: fa.EdgeKField[ta.wpfloat],
+    horizontal_kinetic_energy_at_edges_on_model_levels: fa.EdgeKField[ta.wpfloat],
+    contravariant_correction_at_edges_on_model_levels: fa.EdgeKField[ta.wpfloat],
+    horizontal_advection_of_w_at_edges_on_half_levels: fa.EdgeKField[ta.wpfloat],
     vn: fa.EdgeKField[ta.wpfloat],
     w: fa.CellKField[ta.wpfloat],
     rbf_vec_coeff_e: gtx.Field[gtx.Dims[dims.EdgeDim, dims.E2C2EDim], ta.wpfloat],
@@ -162,6 +169,7 @@ def compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_co
     tangent_orientation: fa.EdgeField[ta.wpfloat],
     skip_compute_predictor_vertical_advection: bool,
     nflatlev: gtx.int32,
+    num_edges: gtx.int32,
     horizontal_start: gtx.int32,
     horizontal_end: gtx.int32,
     vertical_start: gtx.int32,
@@ -211,14 +219,15 @@ def compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_co
 
 @gtx.program(grid_type=gtx.GridType.UNSTRUCTURED)
 def compute_horizontal_advection_of_w(
-    horizontal_advection_of_w_at_edges_on_half_levels: fa.EdgeKField[ta.vpfloat],
+    horizontal_advection_of_w_at_edges_on_half_levels: fa.EdgeKField[ta.wpfloat],
     w: fa.CellKField[ta.wpfloat],
     tangential_wind_on_half_levels: fa.EdgeKField[ta.wpfloat],
-    vn_on_half_levels: fa.EdgeKField[ta.vpfloat],
+    vn_on_half_levels: fa.EdgeKField[ta.wpfloat],
     c_intp: gtx.Field[gtx.Dims[dims.VertexDim, dims.V2CDim], ta.wpfloat],
     inv_dual_edge_length: fa.EdgeField[ta.wpfloat],
     inv_primal_edge_length: fa.EdgeField[ta.wpfloat],
     tangent_orientation: fa.EdgeField[ta.wpfloat],
+    num_edges: gtx.int32,
     horizontal_start: gtx.int32,
     horizontal_end: gtx.int32,
     vertical_start: gtx.int32,
@@ -275,7 +284,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
+    grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
     levels = 80
 
     grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
@@ -304,7 +313,7 @@ if __name__ == "__main__":
                     provider.domain,
                     codomain=provider.codomain, 
                     data=provider.ndarray, 
-                    skip_value=-1,
+                    skip_value=None,
                     allocator=b_end
                 )
 
@@ -356,34 +365,26 @@ if __name__ == "__main__":
 
     horizontal_start = int32(0)
     horizontal_end = int32(grid.num_edges)
+    num_edges = int32(grid.num_edges)
     vertical_start = int32(0)
     vertical_end = int32(levels)
 
     print("start")
-    compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_contravariant_correction.with_backend(b_end)(
-        tangential_wind,
-        tangential_wind_on_half_levels,
-        vn_on_half_levels,
-        horizontal_kinetic_energy,
-        contravariant_correction,
-        horizontal_advection_of_w,
-        vn,
-        w,
-        rbf_vec_coeff_e,
-        wgtfac_e,
-        ddxn_z_full,
-        ddxt_z_full,
-        wgtfacq_e,
-        c_intp,
-        inv_dual_edge_length,
-        inv_primal_edge_length,
-        tangent_orientation,
-        False,  # skip_compute_predictor_vertical_advection
-        int32(0),  # nflatlev
-        horizontal_start,
-        horizontal_end,
-        vertical_start,
-        vertical_end,
-        offset_provider=grid.offset_providers,
-    )
+    for _ in range(1000):
+        compute_horizontal_advection_of_w.with_backend(b_end)(
+            horizontal_advection_of_w,
+            w,
+            tangential_wind_on_half_levels,
+            vn_on_half_levels,
+            c_intp,
+            inv_dual_edge_length,
+            inv_primal_edge_length,
+            tangent_orientation,
+            num_edges,
+            horizontal_start,
+            horizontal_end,
+            vertical_start,
+            vertical_end,
+            offset_provider=grid.offset_providers,
+        )
     print("end")

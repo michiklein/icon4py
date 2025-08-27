@@ -1,0 +1,188 @@
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+no collapse tables
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp
+           ) → 
+             cast_(
+               ·vn_on_half_levels × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + ·tangential_wind_on_half_levels × ·inv_primal_edge_length × ·tangent_orientation
+                 × (cast_(
+                      cast_((λ(_step_3) → _step_3(_step_3(_step_3(_step_3(_step_3(_step_3(0, 0ₒ), 1ₒ), 2ₒ), 3ₒ), 4ₒ), 5ₒ))(
+                              λ(_acc_1, _i_2) → 
+                                (λ(_fuse_maps_1, _fuse_maps_3, _fuse_maps_4) → _fuse_maps_1 + _fuse_maps_3 × _fuse_maps_4)(
+                                  _acc_1, ·⟪E2Vₒ, 0ₒ, V2Cₒ, _i_2⟫(w), list_get(_i_2, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                )
+                            ), float64), float64
+                    )
+                    - cast_(
+                        cast_((λ(_step_6) → _step_6(_step_6(_step_6(_step_6(_step_6(_step_6(0, 0ₒ), 1ₒ), 2ₒ), 3ₒ), 4ₒ), 5ₒ))(
+                                λ(_acc_4, _i_5) → 
+                                  (λ(_fuse_maps_5, _fuse_maps_7, _fuse_maps_8) → _fuse_maps_5 + _fuse_maps_7 × _fuse_maps_8)(
+                                    _acc_4, ·⟪E2Vₒ, 1ₒ, V2Cₒ, _i_5⟫(w), list_get(_i_5, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  )
+                              ), float64), float64
+                      )), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp);
+}
+end
+Generating '/tmp/nsys-report-436e.qdstrm'
+[1/8] [0%                          ] edge_diagnostics_off.nsys-rep[1/8] [0%                          ] edge_diagnostics_off.nsys-rep[1/8] [6%                          ] edge_diagnostics_off.nsys-rep[1/8] [9%                          ] edge_diagnostics_off.nsys-rep[1/8] [10%                         ] edge_diagnostics_off.nsys-rep[1/8] [11%                         ] edge_diagnostics_off.nsys-rep[1/8] [12%                         ] edge_diagnostics_off.nsys-rep[1/8] [13%                         ] edge_diagnostics_off.nsys-rep[1/8] [14%                         ] edge_diagnostics_off.nsys-rep[1/8] [11%                         ] edge_diagnostics_off.nsys-rep[1/8] [==21%                       ] edge_diagnostics_off.nsys-rep[1/8] [===22%                      ] edge_diagnostics_off.nsys-rep[1/8] [==19%                       ] edge_diagnostics_off.nsys-rep[1/8] [==20%                       ] edge_diagnostics_off.nsys-rep[1/8] [=17%                        ] edge_diagnostics_off.nsys-rep[1/8] [===24%                      ] edge_diagnostics_off.nsys-rep[1/8] [===23%                      ] edge_diagnostics_off.nsys-rep[1/8] [==20%                       ] edge_diagnostics_off.nsys-rep[1/8] [==21%                       ] edge_diagnostics_off.nsys-rep[1/8] [====27%                     ] edge_diagnostics_off.nsys-rep[1/8] [====25%                     ] edge_diagnostics_off.nsys-rep[1/8] [===23%                      ] edge_diagnostics_off.nsys-rep[1/8] [=17%                        ] edge_diagnostics_off.nsys-rep[1/8] [==18%                       ] edge_diagnostics_off.nsys-rep[1/8] [==19%                       ] edge_diagnostics_off.nsys-rep[1/8] [==20%                       ] edge_diagnostics_off.nsys-rep[1/8] [==21%                       ] edge_diagnostics_off.nsys-rep[1/8] [==18%                       ] edge_diagnostics_off.nsys-rep[1/8] [=16%                        ] edge_diagnostics_off.nsys-rep[1/8] [14%                         ] edge_diagnostics_off.nsys-rep[1/8] [12%                         ] edge_diagnostics_off.nsys-rep[1/8] [11%                         ] edge_diagnostics_off.nsys-rep[1/8] [10%                         ] edge_diagnostics_off.nsys-rep[1/8] [9%                          ] edge_diagnostics_off.nsys-rep[1/8] [==21%                       ] edge_diagnostics_off.nsys-rep[1/8] [9%                          ] edge_diagnostics_off.nsys-rep[1/8] [10%                         ] edge_diagnostics_off.nsys-rep[1/8] [9%                          ] edge_diagnostics_off.nsys-rep[1/8] [8%                          ] edge_diagnostics_off.nsys-rep[1/8] [9%                          ] edge_diagnostics_off.nsys-rep[1/8] [14%                         ] edge_diagnostics_off.nsys-rep[1/8] [=17%                        ] edge_diagnostics_off.nsys-rep[1/8] [==20%                       ] edge_diagnostics_off.nsys-rep[1/8] [===23%                      ] edge_diagnostics_off.nsys-rep[1/8] [====26%                     ] edge_diagnostics_off.nsys-rep[1/8] [=====29%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_off.nsys-rep[1/8] [======35%                   ] edge_diagnostics_off.nsys-rep[1/8] [======34%                   ] edge_diagnostics_off.nsys-rep[1/8] [======33%                   ] edge_diagnostics_off.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====29%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====29%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_off.nsys-rep[1/8] [======35%                   ] edge_diagnostics_off.nsys-rep[1/8] [=======37%                  ] edge_diagnostics_off.nsys-rep[1/8] [=======36%                  ] edge_diagnostics_off.nsys-rep[1/8] [======35%                   ] edge_diagnostics_off.nsys-rep[1/8] [=======36%                  ] edge_diagnostics_off.nsys-rep[1/8] [======35%                   ] edge_diagnostics_off.nsys-rep[1/8] [======34%                   ] edge_diagnostics_off.nsys-rep[1/8] [======33%                   ] edge_diagnostics_off.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====29%                    ] edge_diagnostics_off.nsys-rep[1/8] [====28%                     ] edge_diagnostics_off.nsys-rep[1/8] [====27%                     ] edge_diagnostics_off.nsys-rep[1/8] [====26%                     ] edge_diagnostics_off.nsys-rep[1/8] [====25%                     ] edge_diagnostics_off.nsys-rep[1/8] [===24%                      ] edge_diagnostics_off.nsys-rep[1/8] [===23%                      ] edge_diagnostics_off.nsys-rep[1/8] [===22%                      ] edge_diagnostics_off.nsys-rep[1/8] [==21%                       ] edge_diagnostics_off.nsys-rep[1/8] [==20%                       ] edge_diagnostics_off.nsys-rep[1/8] [==21%                       ] edge_diagnostics_off.nsys-rep[1/8] [===22%                      ] edge_diagnostics_off.nsys-rep[1/8] [===23%                      ] edge_diagnostics_off.nsys-rep[1/8] [===24%                      ] edge_diagnostics_off.nsys-rep[1/8] [====25%                     ] edge_diagnostics_off.nsys-rep[1/8] [====26%                     ] edge_diagnostics_off.nsys-rep[1/8] [====27%                     ] edge_diagnostics_off.nsys-rep[1/8] [====28%                     ] edge_diagnostics_off.nsys-rep[1/8] [=====29%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_off.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_off.nsys-rep[1/8] [======33%                   ] edge_diagnostics_off.nsys-rep[1/8] [======34%                   ] edge_diagnostics_off.nsys-rep[1/8] [======35%                   ] edge_diagnostics_off.nsys-rep[1/8] [=======36%                  ] edge_diagnostics_off.nsys-rep[1/8] [=======37%                  ] edge_diagnostics_off.nsys-rep[1/8] [=======38%                  ] edge_diagnostics_off.nsys-rep[1/8] [=======39%                  ] edge_diagnostics_off.nsys-rep[1/8] [========40%                 ] edge_diagnostics_off.nsys-rep[1/8] [========41%                 ] edge_diagnostics_off.nsys-rep[1/8] [========42%                 ] edge_diagnostics_off.nsys-rep[1/8] [=========43%                ] edge_diagnostics_off.nsys-rep[1/8] [=========44%                ] edge_diagnostics_off.nsys-rep[1/8] [=========45%                ] edge_diagnostics_off.nsys-rep[1/8] [=========46%                ] edge_diagnostics_off.nsys-rep[1/8] [==========47%               ] edge_diagnostics_off.nsys-rep[1/8] [==========48%               ] edge_diagnostics_off.nsys-rep[1/8] [==========49%               ] edge_diagnostics_off.nsys-rep[1/8] [===========50%              ] edge_diagnostics_off.nsys-rep[1/8] [===========51%              ] edge_diagnostics_off.nsys-rep[1/8] [===========52%              ] edge_diagnostics_off.nsys-rep[1/8] [===========53%              ] edge_diagnostics_off.nsys-rep[1/8] [============54%             ] edge_diagnostics_off.nsys-rep[1/8] [============55%             ] edge_diagnostics_off.nsys-rep[1/8] [============56%             ] edge_diagnostics_off.nsys-rep[1/8] [============57%             ] edge_diagnostics_off.nsys-rep[1/8] [=============58%            ] edge_diagnostics_off.nsys-rep[1/8] [=============59%            ] edge_diagnostics_off.nsys-rep[1/8] [=============60%            ] edge_diagnostics_off.nsys-rep[1/8] [==============61%           ] edge_diagnostics_off.nsys-rep[1/8] [==============62%           ] edge_diagnostics_off.nsys-rep[1/8] [==============63%           ] edge_diagnostics_off.nsys-rep[1/8] [==============64%           ] edge_diagnostics_off.nsys-rep[1/8] [===============65%          ] edge_diagnostics_off.nsys-rep[1/8] [===============66%          ] edge_diagnostics_off.nsys-rep[1/8] [===============67%          ] edge_diagnostics_off.nsys-rep[1/8] [================68%         ] edge_diagnostics_off.nsys-rep[1/8] [================69%         ] edge_diagnostics_off.nsys-rep[1/8] [================70%         ] edge_diagnostics_off.nsys-rep[1/8] [================71%         ] edge_diagnostics_off.nsys-rep[1/8] [=================72%        ] edge_diagnostics_off.nsys-rep[1/8] [=================73%        ] edge_diagnostics_off.nsys-rep[1/8] [=================74%        ] edge_diagnostics_off.nsys-rep[1/8] [==================75%       ] edge_diagnostics_off.nsys-rep[1/8] [==================76%       ] edge_diagnostics_off.nsys-rep[1/8] [==================77%       ] edge_diagnostics_off.nsys-rep[1/8] [==================78%       ] edge_diagnostics_off.nsys-rep[1/8] [===================79%      ] edge_diagnostics_off.nsys-rep[1/8] [===================80%      ] edge_diagnostics_off.nsys-rep[1/8] [===================81%      ] edge_diagnostics_off.nsys-rep[1/8] [===================82%      ] edge_diagnostics_off.nsys-rep[1/8] [====================83%     ] edge_diagnostics_off.nsys-rep[1/8] [====================84%     ] edge_diagnostics_off.nsys-rep[1/8] [====================85%     ] edge_diagnostics_off.nsys-rep[1/8] [=====================86%    ] edge_diagnostics_off.nsys-rep[1/8] [=====================87%    ] edge_diagnostics_off.nsys-rep[1/8] [=====================88%    ] edge_diagnostics_off.nsys-rep[1/8] [=====================89%    ] edge_diagnostics_off.nsys-rep[1/8] [======================90%   ] edge_diagnostics_off.nsys-rep[1/8] [========================100%] edge_diagnostics_off.nsys-rep[1/8] [========================100%] edge_diagnostics_off.nsys-rep
+[2/8] [0%                          ] edge_diagnostics_off.sqlite[2/8] [1%                          ] edge_diagnostics_off.sqlite[2/8] [2%                          ] edge_diagnostics_off.sqlite[2/8] [3%                          ] edge_diagnostics_off.sqlite[2/8] [4%                          ] edge_diagnostics_off.sqlite[2/8] [5%                          ] edge_diagnostics_off.sqlite[2/8] [6%                          ] edge_diagnostics_off.sqlite[2/8] [7%                          ] edge_diagnostics_off.sqlite[2/8] [8%                          ] edge_diagnostics_off.sqlite[2/8] [9%                          ] edge_diagnostics_off.sqlite[2/8] [10%                         ] edge_diagnostics_off.sqlite[2/8] [11%                         ] edge_diagnostics_off.sqlite[2/8] [12%                         ] edge_diagnostics_off.sqlite[2/8] [13%                         ] edge_diagnostics_off.sqlite[2/8] [14%                         ] edge_diagnostics_off.sqlite[2/8] [=15%                        ] edge_diagnostics_off.sqlite[2/8] [=16%                        ] edge_diagnostics_off.sqlite[2/8] [=17%                        ] edge_diagnostics_off.sqlite[2/8] [==18%                       ] edge_diagnostics_off.sqlite[2/8] [==19%                       ] edge_diagnostics_off.sqlite[2/8] [==20%                       ] edge_diagnostics_off.sqlite[2/8] [==21%                       ] edge_diagnostics_off.sqlite[2/8] [===22%                      ] edge_diagnostics_off.sqlite[2/8] [===23%                      ] edge_diagnostics_off.sqlite[2/8] [===24%                      ] edge_diagnostics_off.sqlite[2/8] [====25%                     ] edge_diagnostics_off.sqlite[2/8] [====26%                     ] edge_diagnostics_off.sqlite[2/8] [====27%                     ] edge_diagnostics_off.sqlite[2/8] [====28%                     ] edge_diagnostics_off.sqlite[2/8] [=====29%                    ] edge_diagnostics_off.sqlite[2/8] [=====30%                    ] edge_diagnostics_off.sqlite[2/8] [=====31%                    ] edge_diagnostics_off.sqlite[2/8] [=====32%                    ] edge_diagnostics_off.sqlite[2/8] [======33%                   ] edge_diagnostics_off.sqlite[2/8] [======34%                   ] edge_diagnostics_off.sqlite[2/8] [======35%                   ] edge_diagnostics_off.sqlite[2/8] [=======36%                  ] edge_diagnostics_off.sqlite[2/8] [=======37%                  ] edge_diagnostics_off.sqlite[2/8] [=======38%                  ] edge_diagnostics_off.sqlite[2/8] [=======39%                  ] edge_diagnostics_off.sqlite[2/8] [========40%                 ] edge_diagnostics_off.sqlite[2/8] [========41%                 ] edge_diagnostics_off.sqlite[2/8] [========42%                 ] edge_diagnostics_off.sqlite[2/8] [=========43%                ] edge_diagnostics_off.sqlite[2/8] [=========44%                ] edge_diagnostics_off.sqlite[2/8] [=========45%                ] edge_diagnostics_off.sqlite[2/8] [=========46%                ] edge_diagnostics_off.sqlite[2/8] [==========47%               ] edge_diagnostics_off.sqlite[2/8] [==========48%               ] edge_diagnostics_off.sqlite[2/8] [==========49%               ] edge_diagnostics_off.sqlite[2/8] [===========50%              ] edge_diagnostics_off.sqlite[2/8] [===========51%              ] edge_diagnostics_off.sqlite[2/8] [===========52%              ] edge_diagnostics_off.sqlite[2/8] [===========53%              ] edge_diagnostics_off.sqlite[2/8] [============54%             ] edge_diagnostics_off.sqlite[2/8] [============55%             ] edge_diagnostics_off.sqlite[2/8] [============56%             ] edge_diagnostics_off.sqlite[2/8] [============57%             ] edge_diagnostics_off.sqlite[2/8] [=============58%            ] edge_diagnostics_off.sqlite[2/8] [=============59%            ] edge_diagnostics_off.sqlite[2/8] [=============60%            ] edge_diagnostics_off.sqlite[2/8] [==============61%           ] edge_diagnostics_off.sqlite[2/8] [==============62%           ] edge_diagnostics_off.sqlite[2/8] [==============63%           ] edge_diagnostics_off.sqlite[2/8] [==============64%           ] edge_diagnostics_off.sqlite[2/8] [===============65%          ] edge_diagnostics_off.sqlite[2/8] [===============66%          ] edge_diagnostics_off.sqlite[2/8] [===============67%          ] edge_diagnostics_off.sqlite[2/8] [================68%         ] edge_diagnostics_off.sqlite[2/8] [================69%         ] edge_diagnostics_off.sqlite[2/8] [================70%         ] edge_diagnostics_off.sqlite[2/8] [================71%         ] edge_diagnostics_off.sqlite[2/8] [=================72%        ] edge_diagnostics_off.sqlite[2/8] [=================73%        ] edge_diagnostics_off.sqlite[2/8] [=================74%        ] edge_diagnostics_off.sqlite[2/8] [==================75%       ] edge_diagnostics_off.sqlite[2/8] [==================76%       ] edge_diagnostics_off.sqlite[2/8] [==================77%       ] edge_diagnostics_off.sqlite[2/8] [==================78%       ] edge_diagnostics_off.sqlite[2/8] [===================79%      ] edge_diagnostics_off.sqlite[2/8] [===================80%      ] edge_diagnostics_off.sqlite[2/8] [===================81%      ] edge_diagnostics_off.sqlite[2/8] [===================82%      ] edge_diagnostics_off.sqlite[2/8] [====================83%     ] edge_diagnostics_off.sqlite[2/8] [====================84%     ] edge_diagnostics_off.sqlite[2/8] [====================85%     ] edge_diagnostics_off.sqlite[2/8] [=====================86%    ] edge_diagnostics_off.sqlite[2/8] [=====================87%    ] edge_diagnostics_off.sqlite[2/8] [=====================88%    ] edge_diagnostics_off.sqlite[2/8] [=====================89%    ] edge_diagnostics_off.sqlite[2/8] [======================90%   ] edge_diagnostics_off.sqlite[2/8] [======================91%   ] edge_diagnostics_off.sqlite[2/8] [======================92%   ] edge_diagnostics_off.sqlite[2/8] [=======================93%  ] edge_diagnostics_off.sqlite[2/8] [=======================94%  ] edge_diagnostics_off.sqlite[2/8] [=======================95%  ] edge_diagnostics_off.sqlite[2/8] [=======================96%  ] edge_diagnostics_off.sqlite[2/8] [========================97% ] edge_diagnostics_off.sqlite[2/8] [========================98% ] edge_diagnostics_off.sqlite[2/8] [========================99% ] edge_diagnostics_off.sqlite[2/8] [========================100%] edge_diagnostics_off.sqlite[2/8] [========================100%] edge_diagnostics_off.sqlite
+SKIPPED: /capstor/scratch/cscs/mklein/icon4py/nsys/edge_diagnostics_off.sqlite does not contain NV Tools Extension (NVTX) data.
+[3/8] Executing 'nvtx_sum' stats report
+[4/8] Executing 'osrt_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)       Med (ns)      Min (ns)      Max (ns)       StdDev (ns)             Name         
+ --------  ---------------  ---------  -------------  -------------  ----------  --------------  ---------------  ----------------------
+     41.6  169,232,590,560      1,700   99,548,582.7  100,131,536.0       1,024   4,313,209,696    106,761,974.3  poll                  
+     18.5   75,292,408,064        261  288,476,659.2       39,840.0       8,992  19,163,218,784  1,661,890,844.9  waitpid               
+     15.3   62,404,327,904      1,051   59,376,144.5   12,603,744.0      11,840  47,788,462,144  1,473,667,413.1  sem_wait              
+     11.2   45,720,416,928     19,875    2,300,398.3        7,904.0       1,024     152,699,968      6,615,377.8  read                  
+      5.7   23,330,526,752         32  729,078,961.0  181,107,632.0  25,390,048   7,840,580,960  1,683,882,214.3  system                
+      5.3   21,460,984,288      1,897   11,313,117.7       11,168.0       1,024   9,584,578,528    224,391,801.8  select                
+      0.5    1,970,219,264        226    8,717,784.4        5,552.0       1,024     253,477,728     20,334,253.1  pread                 
+      0.4    1,539,277,536      1,816      847,619.8       10,720.0       1,024     635,722,048     19,489,163.0  ioctl                 
+      0.3    1,206,584,928      6,388      188,883.1      187,088.0       1,312     126,720,448      1,673,714.2  open64                
+      0.2      642,535,072     38,445       16,713.1        2,528.0       1,024      25,157,792        307,416.8  open                  
+      0.1      501,172,128      1,130      443,515.2       30,448.0      23,040       5,806,304      1,351,259.8  pthread_cond_timedwait
+      0.1      477,296,032      2,339      204,059.9        3,264.0       1,024      83,554,912      3,005,586.1  fread                 
+      0.1      465,634,400         34   13,695,129.4    1,650,432.0     180,064      79,257,952     21,063,713.5  fdatasync             
+      0.1      436,733,504      2,903      150,442.1        4,416.0       1,184     186,039,904      3,724,017.1  fopen64               
+      0.1      255,547,936      1,194      214,026.7        5,632.0       1,504      19,511,136      1,381,467.0  fopen                 
+      0.0      198,726,400      1,779      111,706.8        3,104.0       1,024      23,786,272        941,904.8  write                 
+      0.0      195,689,120      1,460      134,033.6        2,848.0       1,024      28,654,560      1,262,605.9  fclose                
+      0.0      166,712,992      3,571       46,685.2        2,048.0       1,024      30,375,552        896,256.5  putc                  
+      0.0      166,003,744         36    4,611,215.1      450,688.0     395,648      38,444,512      7,622,750.2  posix_spawn           
+      0.0      160,969,312         83    1,939,389.3        4,704.0       1,056      30,446,752      5,902,714.2  pread64               
+      0.0      147,784,736      2,739       53,955.7        4,672.0       1,024      21,122,912        872,936.3  getc                  
+      0.0      146,937,792         38    3,866,784.0        5,456.0       1,248      32,142,240      6,841,472.5  fputs_unlocked        
+      0.0       97,380,992        327      297,801.2        1,920.0       1,024      20,656,992      1,910,367.3  pwrite64              
+      0.0       82,417,408      2,167       38,033.0        9,888.0       1,056      26,223,584        680,862.7  fflush                
+      0.0       49,612,960        102      486,401.6      466,960.0     395,328         808,160         63,241.4  fork                  
+      0.0       48,379,392        150      322,529.3        6,768.0       1,024       7,622,080      1,097,639.2  writev                
+      0.0       32,311,232        396       81,594.0        1,712.0       1,024       9,181,088        652,577.3  fwrite                
+      0.0       31,348,864         38      824,970.1        2,208.0       1,056      21,066,240      3,707,558.4  fwrite_unlocked       
+      0.0       28,868,320        791       36,496.0        7,200.0       1,152       7,098,560        265,024.6  munmap                
+      0.0       25,050,560        383       65,406.2        9,024.0       1,888      20,910,496      1,068,011.0  mmap                  
+      0.0       23,344,128          2   11,672,064.0   11,672,064.0      10,976      23,333,152     16,491,268.8  sendfile64            
+      0.0       17,219,616      2,369        7,268.7        1,440.0       1,024      10,393,984        214,547.9  fgets                 
+      0.0       11,453,408      1,040       11,012.9        9,376.0       2,304          56,096          5,580.6  mmap64                
+      0.0       11,139,104          6    1,856,517.3       13,376.0       9,824      11,076,992      4,517,092.2  backtrace             
+      0.0       10,719,168      1,143        9,378.1        9,152.0       1,024          71,776          4,326.8  pthread_cond_signal   
+      0.0       10,286,816        641       16,048.1        1,600.0       1,024         987,200         83,385.4  fputs                 
+      0.0        4,535,648          9      503,960.9      448,576.0     271,360       1,295,360        310,983.7  pthread_create        
+      0.0        1,927,872         13      148,297.8      125,152.0     112,224         358,656         65,784.1  flock                 
+      0.0        1,515,584        522        2,903.4        2,080.0       1,184          12,768          1,695.0  pipe                  
+      0.0          898,400          4      224,600.0        1,664.0       1,024         894,048        446,299.0  fgetc                 
+      0.0          434,944          2      217,472.0      217,472.0       4,032         430,912        301,849.7  pthread_cond_broadcast
+      0.0          434,496          1      434,496.0      434,496.0     434,496         434,496              0.0  pthread_join          
+      0.0          365,184        135        2,705.1        2,336.0       1,024          33,440          2,913.1  recv                  
+      0.0          358,048         62        5,775.0        4,896.0       1,920          13,056          2,884.7  pipe2                 
+      0.0          330,240        136        2,428.2        1,312.0       1,024          49,088          6,551.2  sigaction             
+      0.0          236,384          2      118,192.0      118,192.0      95,296         141,088         32,379.8  pthread_cond_wait     
+      0.0          185,248         16       11,578.0       13,200.0       5,248          16,288          3,793.9  send                  
+      0.0          168,416        131        1,285.6        1,184.0       1,024           6,592            508.2  fcntl                 
+      0.0          160,352        112        1,431.7        1,344.0       1,024           4,416            478.9  signal                
+      0.0          127,072         12       10,589.3       10,256.0       8,224          12,960          1,432.8  fputc                 
+      0.0          118,272          6       19,712.0       21,888.0       4,192          31,360          9,160.3  connect               
+      0.0           78,016          3       26,005.3       27,360.0      20,832          29,824          4,646.5  fflush_unlocked       
+      0.0           75,648          9        8,405.3        7,520.0       2,080          16,672          4,487.6  socket                
+      0.0           14,144          9        1,571.6        1,216.0       1,056           3,872            907.8  dup2                  
+      0.0            9,568          1        9,568.0        9,568.0       9,568           9,568              0.0  pthread_mutex_lock    
+      0.0            8,352          3        2,784.0        2,816.0       2,720           2,816             55.4  getdelim              
+      0.0            7,264          2        3,632.0        3,632.0       3,328           3,936            429.9  bind                  
+      0.0            4,768          1        4,768.0        4,768.0       4,768           4,768              0.0  recvfrom              
+      0.0            2,592          2        1,296.0        1,296.0       1,248           1,344             67.9  listen                
+      0.0            1,024          1        1,024.0        1,024.0       1,024           1,024              0.0  dup                   
+
+[5/8] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)   Max (ns)    StdDev (ns)               Name            
+ --------  ---------------  ---------  -----------  ---------  --------  -----------  ------------  ----------------------------
+     84.0    3,755,624,000    300,116     12,513.9    8,352.0     6,720   31,840,960     241,565.0  cudaMemcpyAsync             
+     10.0      446,288,224    300,067      1,487.3    1,312.0     1,248   24,322,848      53,920.0  cudaStreamSynchronize       
+      3.4      152,477,856         90  1,694,198.4  121,088.0    39,776  132,567,552  13,951,931.1  cudaMalloc                  
+      1.1       47,464,896    300,113        158.2      160.0        96       41,248         161.1  cudaStreamIsCapturing_v10000
+      0.5       23,067,488      1,000     23,067.5   22,560.0    19,232       98,464       3,971.3  cudaLaunchKernel            
+      0.5       21,350,016      1,615     13,219.8    4,800.0     2,496   12,018,336     298,953.2  cuLaunchKernel              
+      0.4       19,051,744          8  2,381,468.0  453,216.0     8,288   10,921,024   3,918,753.5  cudaHostAlloc               
+      0.0        1,721,152         10    172,115.2  130,048.0    95,264      407,008     104,358.0  cuModuleLoadData            
+      0.0          467,488          5     93,497.6   64,576.0    62,272      141,696      41,329.9  cuModuleUnload              
+      0.0          277,056         87      3,184.6    2,560.0       864       20,000       3,130.8  cudaEventQuery              
+      0.0          209,792         46      4,560.7    2,544.0     2,144       18,272       4,088.1  cudaEventRecord             
+      0.0          171,648          2     85,824.0   85,824.0    78,240       93,408      10,725.4  cudaMemGetInfo              
+      0.0          141,408         46      3,074.1    1,792.0       992       16,544       3,029.7  cudaEventCreateWithFlags    
+      0.0          107,424          1    107,424.0  107,424.0   107,424      107,424           0.0  cuLibraryUnload             
+      0.0           85,216         45      1,893.7    1,312.0       768       12,800       1,881.2  cudaEventDestroy            
+      0.0           73,504        413        178.0       96.0        32        4,256         356.0  cuGetProcAddress_v2         
+      0.0            4,096          1      4,096.0    4,096.0     4,096        4,096           0.0  cuInit                      
+      0.0            3,264          3      1,088.0    1,120.0       608        1,536         464.8  cuModuleGetLoadingMode      
+
+[6/8] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)   Med (ns)   Min (ns)  Max (ns)   StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  ---------  ---------  --------  ---------  -----------  ----------------------------------------------------------------------------------------------------
+     63.1      635,848,640      1,000  635,848.6  635,840.0   632,864    639,552      1,039.4  void gridtools::fn::backend::gpu_impl_::kernel<gridtools::meta::list<gridtools::meta::list<gridtool…
+     36.4      366,552,350        416  881,135.5  511,728.0   387,904  2,245,376    629,516.2  cupy_max                                                                                            
+      0.2        2,078,656          8  259,832.0  359,072.0     5,344    380,416    164,119.5  cupy_copy__float64_float64                                                                          
+      0.2        1,889,344          6  314,890.7  317,520.0   295,040    331,840     13,928.7  cupy_fill                                                                                           
+      0.1          690,368         93    7,423.3    4,928.0     4,000     17,216      4,065.9  cupy_copy__int32_int32                                                                              
+      0.0          487,232        416    1,171.2    1,216.0       960      1,440         92.8  cupy_add__int32_int_int32                                                                           
+      0.0          289,312        260    1,112.7    1,056.0       960      1,280         99.4  cupy_less__int32_int_bool                                                                           
+      0.0          251,840        208    1,210.8    1,216.0       992      1,664        154.0  cupy_greater__int32_int_bool                                                                        
+      0.0          234,080        208    1,125.4    1,088.0       992      1,632        120.0  cupy_greater__int32_int32_bool                                                                      
+
+[7/8] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)   Count   Avg (ns)  Med (ns)  Min (ns)   Max (ns)   StdDev (ns)            Operation           
+ --------  ---------------  -------  --------  --------  --------  ----------  -----------  ------------------------------
+     99.7      768,083,522  300,067   2,559.7   1,408.0     1,344  29,426,848    146,139.7  [CUDA memcpy Device-to-Host]  
+      0.3        2,635,520       46  57,293.9  12,320.0     6,176     408,832    115,714.3  [CUDA memcpy Host-to-Device]  
+      0.0           21,120        3   7,040.0   7,008.0     6,336       7,776        720.5  [CUDA memcpy Device-to-Device]
+
+[8/8] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)   Count   Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)            Operation           
+ ----------  -------  --------  --------  --------  --------  -----------  ------------------------------
+    979.325       46    21.290     3.063     0.401   147.045       46.599  [CUDA memcpy Host-to-Device]  
+    129.929  300,067     0.000     0.000     0.000    10.109        0.050  [CUDA memcpy Device-to-Host]  
+      5.514        3     1.838     1.838     1.838     1.838        0.000  [CUDA memcpy Device-to-Device]
+
+Generated:
+    /capstor/scratch/cscs/mklein/icon4py/nsys/edge_diagnostics_off.nsys-rep
+    /capstor/scratch/cscs/mklein/icon4py/nsys/edge_diagnostics_off.sqlite
+Elapsed time: 0h 10m 45s

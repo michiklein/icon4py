@@ -1,0 +1,66 @@
+==PROF== Connected to process 26640 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Connected to process 29518 (/capstor/scratch/cscs/mklein/icon4py/GT4PYcacheoff/.gt4py_cache/compile_commands_cache_gridtools_gpu_master_nanobind_2_0_0_Release__da636645311ef39c328eb6d5ce0b750957e5cd350009b768ad13bd67c08b36df/build/CMakeFiles/3.27.9/CMakeDetermineCompilerABI_CUDA.bin)
+==PROF== Disconnected from process 29518
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+no collapse tables
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp
+           ) → 
+             cast_(
+               cast_(·vn_on_half_levels, float64) × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + cast_(·tangential_wind_on_half_levels, float64) × ·inv_primal_edge_length × ·tangent_orientation
+                 × cast_(
+                     cast_((λ(_step_3) → _step_3(_step_3(_step_3(_step_3(_step_3(_step_3(0, 0ₒ), 1ₒ), 2ₒ), 3ₒ), 4ₒ), 5ₒ))(
+                             λ(_acc_1, _i_2) → 
+                               (λ(_fuse_maps_1, _fuse_maps_3, _fuse_maps_4) → _fuse_maps_1 + _fuse_maps_3 × _fuse_maps_4)(
+                                 _acc_1, ·⟪E2Vₒ, 0ₒ, V2Cₒ, _i_2⟫(w), list_get(_i_2, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               )
+                           ), float64)
+                     - cast_((λ(_step_6) → _step_6(_step_6(_step_6(_step_6(_step_6(_step_6(0, 0ₒ), 1ₒ), 2ₒ), 3ₒ), 4ₒ), 5ₒ))(
+                               λ(_acc_4, _i_5) → 
+                                 (λ(_fuse_maps_5, _fuse_maps_7, _fuse_maps_8) → _fuse_maps_5 + _fuse_maps_7 × _fuse_maps_8)(
+                                   _acc_4, ·⟪E2Vₒ, 1ₒ, V2Cₒ, _i_5⟫(w), list_get(_i_5, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 )
+                             ), float64), float64
+                   ), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp);
+}
+end
+==PROF== Disconnected from process 26640
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/edge_diagnostics_off.ncu-rep
+Elapsed time: 0h 9m 9s

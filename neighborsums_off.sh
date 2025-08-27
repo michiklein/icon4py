@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --time=12:00:00
+#SBATCH --time=00:15:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
@@ -28,26 +28,27 @@ export GT4PY_COLLAPSE_TABLES_BLOCK_32=0
 #srun ncu -o ncu128/v2c2v_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
 #srun ncu -o ncu/v2e2c2v_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/v2e2c2v.py
 #srun ncu -o ncu/c2e2c2e2c_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/c2e2c2e2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2c2e2c_off .venv/bin/python3.10 model/common/tests/mklein/c2e2c2e2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/v2e2c2v.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2e_off .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2v_off .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c_off .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2v_off .venv/bin/python3.10 model/common/tests/mklein/v2e2v.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2c_off .venv/bin/python3.10 model/common/tests/mklein/c2e2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2v_off .venv/bin/python3.10 model/common/tests/mklein/c2e2v.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2c_off .venv/bin/python3.10 model/common/tests/mklein/c2v2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2e_off .venv/bin/python3.10 model/common/tests/mklein/c2v2e.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_off .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2c2e2c_off .venv/bin/python3.10 model/common/tests/mklein/c2e2c2e2c.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/v2e2c2v.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2e_off .venv/bin/python3.10 model/common/tests/mklein/v2c2e.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/v2c2v_off .venv/bin/python3.10 model/common/tests/mklein/v2c2v.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2c_off .venv/bin/python3.10 model/common/tests/mklein/v2e2c.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/v2e2v_off .venv/bin/python3.10 model/common/tests/mklein/v2e2v.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2c_off .venv/bin/python3.10 model/common/tests/mklein/c2e2c.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/c2e2v_off .venv/bin/python3.10 model/common/tests/mklein/c2e2v.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2c_off .venv/bin/python3.10 model/common/tests/mklein/c2v2c.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/c2v2e_off .venv/bin/python3.10 model/common/tests/mklein/c2v2e.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/e2c2v_off .venv/bin/python3.10 model/common/tests/mklein/e2c2v.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2e_off .venv/bin/python3.10 model/common/tests/mklein/e2v2e.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/e2v2c_off .venv/bin/python3.10 model/common/tests/mklein/e2v2c.py
 
 
 #srun ncu -o ncu/calculate_nabla2_for_theta_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/calculate_nabla2_for_theta.py
-srun nsys profile --stats=true --force-overwrite=true -o nsys/calculate_nabla2_for_theta_off .venv/bin/python3.10 model/common/tests/mklein/calculate_nabla2_for_theta.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/calculate_nabla2_for_theta_off .venv/bin/python3.10 model/common/tests/mklein/calculate_nabla2_for_theta.py
+#srun nsys profile --stats=true --force-overwrite=true -o nsys/apply_diffusion_w_off .venv/bin/python3.10 model/common/tests/mklein/apply_diffusion_to_w_and_compute_horizontal_gradients_for_turbulence.py
 #srun ncu -o ncu/edge_diagnostics_off --set full --import-source=on -k kernel .venv/bin/python3.10 model/common/tests/mklein/compute_edge_diagnostics_for_velocity_advection.py
-# srun nsys profile --stats=true --force-overwrite=true -o nsys/edge_diagnostics_off .venv/bin/python3.10 model/common/tests/mklein/compute_edge_diagnostics_for_velocity_advection.py
+srun nsys profile --stats=true --force-overwrite=true -o nsys/edge_diagnostics_off .venv/bin/python3.10 model/common/tests/mklein/compute_edge_diagnostics_for_velocity_advection.py
 
 end_time=$(date +%s)
 elapsed=$((end_time - start_time))

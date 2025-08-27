@@ -1,94 +1,212 @@
 /user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
   val = self.func(instance)
-Grid loaded in 17.542920s
-Expected 1024 vertices
-Selected 1024 vertices, 2945 edges, and 1922 cells
+Grid loaded in 276.282013s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
 start
-before CollapseTables
- calculate_nabla2_for_theta(
-  kh_smag_e,
-  inv_dual_edge_length,
-  theta_v,
-  geofac_div,
-  z_temp,
+after InlineLambdas and NormalizeShifts
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
   num_cells,
   horizontal_start,
   horizontal_end,
   vertical_start,
   vertical_end
 ) {
-  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
        ← as_fieldop(
-           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div) → 
-             cast_(
-               cast_(·⟪C2Eₒ, 0ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
-               × (·⟪C2Eₒ, 0ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 0ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
-               + cast_(·⟪C2Eₒ, 1ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
-                 × (·⟪C2Eₒ, 1ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 1ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
-               + cast_(·⟪C2Eₒ, 2ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
-                 × (·⟪C2Eₒ, 2ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 2ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 2ₒ⟫(geofac_div),
-               float64
-             ), u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
-         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div);
+           λ(__ct_flat_el_0___tcw_pos, w_old, diff_multfac_w, area, geofac_n2s, halo_idx, interior_idx) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ), w_old, diff_multfac_w, area, geofac_n2s, halo_idx, interior_idx);
 }
 after CollapseTables
- calculate_nabla2_for_theta(
-  kh_smag_e,
-  inv_dual_edge_length,
-  theta_v,
-  geofac_div,
-  z_temp,
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
   num_cells,
   horizontal_start,
   horizontal_end,
   vertical_start,
   vertical_end
 ) {
-  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
        ← as_fieldop(
-           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, cell_idx, num_cells) → 
-             cast_(cast_(·⟪C2Eₒ, 0ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
-                   × (·(if ·cell_idx < ·num_cells / 2 then theta_v else theta_v)
-                      - ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 0ₒ⟫(theta_v) else ⟪C2E2Cₒ, 0ₒ⟫(theta_v)))
-                   × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
-                   + cast_(·⟪C2Eₒ, 1ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
-                     × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(theta_v) else theta_v)
-                        - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 1ₒ⟫(theta_v)))
-                     × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
-                   + cast_(·⟪C2Eₒ, 2ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
-                     × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(theta_v) else theta_v)
-                        - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 2ₒ⟫(theta_v)))
-                     × ·⟪C2CEₒ, 2ₒ⟫(geofac_div), float64),
-           u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
-         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, index(Cellₕ), num_cells);
+           λ(
+             __ct_flat_el_0___tcw_pos,
+             w_old,
+             diff_multfac_w,
+             area,
+             geofac_n2s,
+             halo_idx,
+             interior_idx,
+             cell_idx,
+             num_cells
+           ) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ),
+           w_old,
+           diff_multfac_w,
+           area,
+           geofac_n2s,
+           halo_idx,
+           interior_idx,
+           index(Cellₕ),
+           num_cells);
 }
 after CollapseIfs
- calculate_nabla2_for_theta(
-  kh_smag_e,
-  inv_dual_edge_length,
-  theta_v,
-  geofac_div,
-  z_temp,
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
   num_cells,
   horizontal_start,
   horizontal_end,
   vertical_start,
   vertical_end
 ) {
-  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
-       ← as_fieldop(λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, cell_idx, num_cells) → 
-                      cast_(cast_(·⟪C2Eₒ, 0ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
-                            × (·theta_v - ·⟪C2E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
-                            + cast_(·⟪C2Eₒ, 1ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
-                              × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(theta_v) else theta_v)
-                                 - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 1ₒ⟫(theta_v)))
-                              × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
-                            + cast_(·⟪C2Eₒ, 2ₒ⟫(kh_smag_e), float64) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
-                              × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(theta_v) else theta_v)
-                                 - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 2ₒ⟫(theta_v)))
-                              × ·⟪C2CEₒ, 2ₒ⟫(geofac_div), float64),
-                    u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩)(
-           kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, index(Cellₕ), num_cells
-         );
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             __ct_flat_el_0___tcw_pos,
+             w_old,
+             diff_multfac_w,
+             area,
+             geofac_n2s,
+             halo_idx,
+             interior_idx,
+             cell_idx,
+             num_cells
+           ) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ),
+           w_old,
+           diff_multfac_w,
+           area,
+           geofac_n2s,
+           halo_idx,
+           interior_idx,
+           index(Cellₕ),
+           num_cells);
 }
 end

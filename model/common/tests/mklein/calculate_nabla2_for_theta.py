@@ -28,30 +28,19 @@ def _calculate_nabla2_for_theta(
     theta_v: fa.CellKField[wpfloat],
     geofac_div: gtx.Field[gtx.Dims[dims.CEDim], wpfloat],
 ) -> fa.CellKField[vpfloat]:
-   
-    return astype(
-        (
-            (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[0])
-            * geofac_div(C2CE[0])
-            + (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[1])
-            * geofac_div(C2CE[1])
-            + (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[2])
-            * geofac_div(C2CE[2])
-        ),
-        vpfloat,
-    )
-    return astype(
-        (
-            (theta_v(E2C[1]) - theta_v(E2C[0]))(C2E[0])
-            * geofac_div(C2CE[0])
-            + (theta_v(E2C[1]) - theta_v(E2C[0]))(C2E[1])
-            * geofac_div(C2CE[1])
-            + (theta_v(E2C[1]) - theta_v(E2C[0]))(C2E[2])
-            * geofac_div(C2CE[2])
-        ),
-        vpfloat,
-    )
-
+    return astype(neighbor_sum((kh_smag_e * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E) * geofac_div(C2CE), axis=C2EDim), vpfloat)
+    # return astype(neighbor_sum((kh_smag_e * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E) * geofac_div(C2CE), axis=C2EDim), vpfloat)
+    # return astype(
+    #     (
+    #         (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[0])
+    #         * geofac_div(C2CE[0])
+    #         + (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[1])
+    #         * geofac_div(C2CE[1])
+    #         + (astype(kh_smag_e, wpfloat) * inv_dual_edge_length * (theta_v(E2C[1]) - theta_v(E2C[0])))(C2E[2])
+    #         * geofac_div(C2CE[2])
+    #     ),
+    #     vpfloat,
+    # )
 
 @program(grid_type=GridType.UNSTRUCTURED)
 def calculate_nabla2_for_theta(
@@ -113,7 +102,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
+    grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
     levels = 80
 
     load_start = time.perf_counter()
@@ -144,12 +133,14 @@ if __name__ == "__main__":
         # Convert offset providers for GPU
         for name, provider in grid.offset_providers.items():
             if hasattr(provider, 'ndarray'):
+                # Use skip_value = 0 for the C2E connectivity, keep -1 for the rest
+                skip_val = None
                 grid.offset_providers[name] = gtx.as_connectivity(
                     provider.domain,
-                    codomain=provider.codomain, 
-                    data=provider.ndarray, 
-                    skip_value=-1,
-                    allocator=b_end
+                    codomain=provider.codomain,
+                    data=provider.ndarray,
+                    skip_value=skip_val,
+                    allocator=b_end,
                 )
 
     rng = np.random.default_rng(1)

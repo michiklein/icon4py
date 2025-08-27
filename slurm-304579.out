@@ -1,0 +1,228 @@
+==PROF== Connected to process 29514 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Connected to process 32358 (/capstor/scratch/cscs/mklein/icon4py/GT4PYcacheon/.gt4py_cache/compile_commands_cache_gridtools_gpu_master_nanobind_2_0_0_Release__da636645311ef39c328eb6d5ce0b750957e5cd350009b768ad13bd67c08b36df/build/CMakeFiles/3.27.9/CMakeDetermineCompilerABI_CUDA.bin)
+==PROF== Disconnected from process 32358
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp
+           ) → 
+             cast_(
+               cast_(·vn_on_half_levels, float64) × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + cast_(·tangential_wind_on_half_levels, float64) × ·inv_primal_edge_length × ·tangent_orientation
+                 × cast_(cast_(0 + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 1ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 2ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 3ₒ⟫(w) × list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 4ₒ⟫(w) × list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 5ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)), float64)
+                         - cast_(0 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 1ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 2ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 3ₒ⟫(w) × list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 4ₒ⟫(w) × list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 5ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64),
+                         float64), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp);
+}
+after CollapseTables
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp,
+             edge_idx,
+             num_edges
+           ) → 
+             cast_(
+               cast_(·vn_on_half_levels, float64) × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + cast_(·tangential_wind_on_half_levels, float64) × ·inv_primal_edge_length × ·tangent_orientation
+                 × cast_(
+                     cast_(0 + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                               × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 2ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 2ₒ⟫(w) else ⟪E2V2Cₒ, 2ₒ⟫(w))
+                             × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 3ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 3ₒ⟫(w) else ⟪E2V2Cₒ, 3ₒ⟫(w))
+                             × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 4ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 4ₒ⟫(w))
+                             × list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 5ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 4ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                             × list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 5ₒ⟫(w) else ⟪E2V2Cₒ, 5ₒ⟫(w))
+                             × list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)), float64)
+                     - cast_(0 + ·(if   ·edge_idx < ·num_edges / 3
+                                   then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                   else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                                 × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 6ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 6ₒ⟫(w) else ⟪E2V2Cₒ, 6ₒ⟫(w))
+                               × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 7ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 7ₒ⟫(w) else ⟪E2V2Cₒ, 7ₒ⟫(w))
+                               × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 8ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 8ₒ⟫(w))
+                               × list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 8ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                               × list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 9ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 9ₒ⟫(w) else ⟪E2V2Cₒ, 9ₒ⟫(w))
+                               × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64), float64
+                   ), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp,
+           index(Edgeₕ),
+           num_edges);
+}
+after CollapseIfs
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp,
+             edge_idx,
+             num_edges
+           ) → 
+             cast_(
+               cast_(·vn_on_half_levels, float64) × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + cast_(·tangential_wind_on_half_levels, float64) × ·inv_primal_edge_length × ·tangent_orientation
+                 × cast_(
+                     cast_(0 + ·⟪E2V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·⟪E2V2Cₒ, 2ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·⟪E2V2Cₒ, 3ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                             × ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 4ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 4ₒ⟫(w))
+                           + list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                             × ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 5ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 4ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                           + list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                             × ·(if ·edge_idx < ·num_edges / 3 then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 5ₒ⟫(w)), float64)
+                     - cast_(0 + ·⟪E2V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·⟪E2V2Cₒ, 6ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·⟪E2V2Cₒ, 7ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                               × ·(if   ·edge_idx < ·num_edges / 3
+                                   then ⟪E2V2Cₒ, 8ₒ⟫(w)
+                                   else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 8ₒ⟫(w))
+                             + list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                               × ·(if   ·edge_idx < ·num_edges / 3
+                                   then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                                   else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 8ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                             + ·⟪E2V2Cₒ, 9ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64), float64
+                   ), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp,
+           index(Edgeₕ),
+           num_edges);
+}
+end
+==PROF== Disconnected from process 29514
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/edge_diagnostics_on.ncu-rep
+Elapsed time: 0h 9m 26s

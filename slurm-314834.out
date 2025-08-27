@@ -1,0 +1,669 @@
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+Grid loaded in 323.572316s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(__ct_flat_el_0___tcw_pos, w_old, diff_multfac_w, area, geofac_n2s, halo_idx, interior_idx) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ), w_old, diff_multfac_w, area, geofac_n2s, halo_idx, interior_idx);
+}
+after CollapseTables
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             __ct_flat_el_0___tcw_pos,
+             w_old,
+             diff_multfac_w,
+             area,
+             geofac_n2s,
+             halo_idx,
+             interior_idx,
+             cell_idx,
+             num_cells
+           ) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ),
+           w_old,
+           diff_multfac_w,
+           area,
+           geofac_n2s,
+           halo_idx,
+           interior_idx,
+           index(Cellₕ),
+           num_cells);
+}
+after CollapseIfs
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             __ct_flat_el_0___tcw_pos,
+             w_old,
+             diff_multfac_w,
+             area,
+             geofac_n2s,
+             halo_idx,
+             interior_idx,
+             cell_idx,
+             num_cells
+           ) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                          + ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64), float64)
+                              × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ),
+           w_old,
+           diff_multfac_w,
+           area,
+           geofac_n2s,
+           halo_idx,
+           interior_idx,
+           index(Cellₕ),
+           num_cells);
+}
+end
+Generating '/tmp/nsys-report-e5ab.qdstrm'
+[1/8] [0%                          ] apply_diffusion_w_on.nsys-rep[1/8] [0%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [6%                          ] apply_diffusion_w_on.nsys-rep[1/8] [8%                          ] apply_diffusion_w_on.nsys-rep[1/8] [9%                          ] apply_diffusion_w_on.nsys-rep[1/8] [10%                         ] apply_diffusion_w_on.nsys-rep[1/8] [8%                          ] apply_diffusion_w_on.nsys-rep[1/8] [9%                          ] apply_diffusion_w_on.nsys-rep[1/8] [8%                          ] apply_diffusion_w_on.nsys-rep[1/8] [7%                          ] apply_diffusion_w_on.nsys-rep[1/8] [8%                          ] apply_diffusion_w_on.nsys-rep[1/8] [7%                          ] apply_diffusion_w_on.nsys-rep[1/8] [8%                          ] apply_diffusion_w_on.nsys-rep[1/8] [7%                          ] apply_diffusion_w_on.nsys-rep[1/8] [6%                          ] apply_diffusion_w_on.nsys-rep[1/8] [7%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [9%                          ] apply_diffusion_w_on.nsys-rep[1/8] [7%                          ] apply_diffusion_w_on.nsys-rep[1/8] [6%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [6%                          ] apply_diffusion_w_on.nsys-rep[1/8] [5%                          ] apply_diffusion_w_on.nsys-rep[1/8] [6%                          ] apply_diffusion_w_on.nsys-rep[1/8] [8%                          ] apply_diffusion_w_on.nsys-rep[1/8] [10%                         ] apply_diffusion_w_on.nsys-rep[1/8] [11%                         ] apply_diffusion_w_on.nsys-rep[1/8] [13%                         ] apply_diffusion_w_on.nsys-rep[1/8] [=15%                        ] apply_diffusion_w_on.nsys-rep[1/8] [=17%                        ] apply_diffusion_w_on.nsys-rep[1/8] [==18%                       ] apply_diffusion_w_on.nsys-rep[1/8] [==20%                       ] apply_diffusion_w_on.nsys-rep[1/8] [==21%                       ] apply_diffusion_w_on.nsys-rep[1/8] [===24%                      ] apply_diffusion_w_on.nsys-rep[1/8] [===23%                      ] apply_diffusion_w_on.nsys-rep[1/8] [===24%                      ] apply_diffusion_w_on.nsys-rep[1/8] [===23%                      ] apply_diffusion_w_on.nsys-rep[1/8] [===22%                      ] apply_diffusion_w_on.nsys-rep[1/8] [==21%                       ] apply_diffusion_w_on.nsys-rep[1/8] [===22%                      ] apply_diffusion_w_on.nsys-rep[1/8] [==21%                       ] apply_diffusion_w_on.nsys-rep[1/8] [===22%                      ] apply_diffusion_w_on.nsys-rep[1/8] [==21%                       ] apply_diffusion_w_on.nsys-rep[1/8] [===22%                      ] apply_diffusion_w_on.nsys-rep[1/8] [==21%                       ] apply_diffusion_w_on.nsys-rep[1/8] [===22%                      ] apply_diffusion_w_on.nsys-rep[1/8] [===23%                      ] apply_diffusion_w_on.nsys-rep[1/8] [===24%                      ] apply_diffusion_w_on.nsys-rep[1/8] [====25%                     ] apply_diffusion_w_on.nsys-rep[1/8] [====26%                     ] apply_diffusion_w_on.nsys-rep[1/8] [====27%                     ] apply_diffusion_w_on.nsys-rep[1/8] [====28%                     ] apply_diffusion_w_on.nsys-rep[1/8] [=====29%                    ] apply_diffusion_w_on.nsys-rep[1/8] [=====30%                    ] apply_diffusion_w_on.nsys-rep[1/8] [=====31%                    ] apply_diffusion_w_on.nsys-rep[1/8] [=====32%                    ] apply_diffusion_w_on.nsys-rep[1/8] [======33%                   ] apply_diffusion_w_on.nsys-rep[1/8] [======34%                   ] apply_diffusion_w_on.nsys-rep[1/8] [======35%                   ] apply_diffusion_w_on.nsys-rep[1/8] [=======36%                  ] apply_diffusion_w_on.nsys-rep[1/8] [=======37%                  ] apply_diffusion_w_on.nsys-rep[1/8] [=======38%                  ] apply_diffusion_w_on.nsys-rep[1/8] [=======39%                  ] apply_diffusion_w_on.nsys-rep[1/8] [========40%                 ] apply_diffusion_w_on.nsys-rep[1/8] [========41%                 ] apply_diffusion_w_on.nsys-rep[1/8] [========42%                 ] apply_diffusion_w_on.nsys-rep[1/8] [=========43%                ] apply_diffusion_w_on.nsys-rep[1/8] [=========44%                ] apply_diffusion_w_on.nsys-rep[1/8] [=========45%                ] apply_diffusion_w_on.nsys-rep[1/8] [=========46%                ] apply_diffusion_w_on.nsys-rep[1/8] [==========47%               ] apply_diffusion_w_on.nsys-rep[1/8] [==========48%               ] apply_diffusion_w_on.nsys-rep[1/8] [==========49%               ] apply_diffusion_w_on.nsys-rep[1/8] [===========50%              ] apply_diffusion_w_on.nsys-rep[1/8] [===========51%              ] apply_diffusion_w_on.nsys-rep[1/8] [===========52%              ] apply_diffusion_w_on.nsys-rep[1/8] [===========53%              ] apply_diffusion_w_on.nsys-rep[1/8] [============54%             ] apply_diffusion_w_on.nsys-rep[1/8] [============55%             ] apply_diffusion_w_on.nsys-rep[1/8] [============56%             ] apply_diffusion_w_on.nsys-rep[1/8] [============57%             ] apply_diffusion_w_on.nsys-rep[1/8] [=============58%            ] apply_diffusion_w_on.nsys-rep[1/8] [=============59%            ] apply_diffusion_w_on.nsys-rep[1/8] [=============60%            ] apply_diffusion_w_on.nsys-rep[1/8] [==============61%           ] apply_diffusion_w_on.nsys-rep[1/8] [==============62%           ] apply_diffusion_w_on.nsys-rep[1/8] [==============63%           ] apply_diffusion_w_on.nsys-rep[1/8] [==============64%           ] apply_diffusion_w_on.nsys-rep[1/8] [===============65%          ] apply_diffusion_w_on.nsys-rep[1/8] [===============66%          ] apply_diffusion_w_on.nsys-rep[1/8] [===============67%          ] apply_diffusion_w_on.nsys-rep[1/8] [================68%         ] apply_diffusion_w_on.nsys-rep[1/8] [================69%         ] apply_diffusion_w_on.nsys-rep[1/8] [================70%         ] apply_diffusion_w_on.nsys-rep[1/8] [================71%         ] apply_diffusion_w_on.nsys-rep[1/8] [=================72%        ] apply_diffusion_w_on.nsys-rep[1/8] [=================73%        ] apply_diffusion_w_on.nsys-rep[1/8] [=================74%        ] apply_diffusion_w_on.nsys-rep[1/8] [==================75%       ] apply_diffusion_w_on.nsys-rep[1/8] [==================76%       ] apply_diffusion_w_on.nsys-rep[1/8] [==================77%       ] apply_diffusion_w_on.nsys-rep[1/8] [==================78%       ] apply_diffusion_w_on.nsys-rep[1/8] [===================79%      ] apply_diffusion_w_on.nsys-rep[1/8] [===================80%      ] apply_diffusion_w_on.nsys-rep[1/8] [===================81%      ] apply_diffusion_w_on.nsys-rep[1/8] [===================82%      ] apply_diffusion_w_on.nsys-rep[1/8] [====================83%     ] apply_diffusion_w_on.nsys-rep[1/8] [====================84%     ] apply_diffusion_w_on.nsys-rep[1/8] [====================85%     ] apply_diffusion_w_on.nsys-rep[1/8] [=====================86%    ] apply_diffusion_w_on.nsys-rep[1/8] [=====================87%    ] apply_diffusion_w_on.nsys-rep[1/8] [=====================88%    ] apply_diffusion_w_on.nsys-rep[1/8] [=====================89%    ] apply_diffusion_w_on.nsys-rep[1/8] [======================90%   ] apply_diffusion_w_on.nsys-rep[1/8] [========================100%] apply_diffusion_w_on.nsys-rep[1/8] [========================100%] apply_diffusion_w_on.nsys-rep
+[2/8] [0%                          ] apply_diffusion_w_on.sqlite[2/8] [1%                          ] apply_diffusion_w_on.sqlite[2/8] [2%                          ] apply_diffusion_w_on.sqlite[2/8] [3%                          ] apply_diffusion_w_on.sqlite[2/8] [4%                          ] apply_diffusion_w_on.sqlite[2/8] [5%                          ] apply_diffusion_w_on.sqlite[2/8] [6%                          ] apply_diffusion_w_on.sqlite[2/8] [7%                          ] apply_diffusion_w_on.sqlite[2/8] [8%                          ] apply_diffusion_w_on.sqlite[2/8] [9%                          ] apply_diffusion_w_on.sqlite[2/8] [10%                         ] apply_diffusion_w_on.sqlite[2/8] [11%                         ] apply_diffusion_w_on.sqlite[2/8] [12%                         ] apply_diffusion_w_on.sqlite[2/8] [13%                         ] apply_diffusion_w_on.sqlite[2/8] [14%                         ] apply_diffusion_w_on.sqlite[2/8] [=15%                        ] apply_diffusion_w_on.sqlite[2/8] [=16%                        ] apply_diffusion_w_on.sqlite[2/8] [=17%                        ] apply_diffusion_w_on.sqlite[2/8] [==18%                       ] apply_diffusion_w_on.sqlite[2/8] [==19%                       ] apply_diffusion_w_on.sqlite[2/8] [==20%                       ] apply_diffusion_w_on.sqlite[2/8] [==21%                       ] apply_diffusion_w_on.sqlite[2/8] [===22%                      ] apply_diffusion_w_on.sqlite[2/8] [===23%                      ] apply_diffusion_w_on.sqlite[2/8] [===24%                      ] apply_diffusion_w_on.sqlite[2/8] [====25%                     ] apply_diffusion_w_on.sqlite[2/8] [====26%                     ] apply_diffusion_w_on.sqlite[2/8] [====27%                     ] apply_diffusion_w_on.sqlite[2/8] [====28%                     ] apply_diffusion_w_on.sqlite[2/8] [=====29%                    ] apply_diffusion_w_on.sqlite[2/8] [=====30%                    ] apply_diffusion_w_on.sqlite[2/8] [=====31%                    ] apply_diffusion_w_on.sqlite[2/8] [=====32%                    ] apply_diffusion_w_on.sqlite[2/8] [======33%                   ] apply_diffusion_w_on.sqlite[2/8] [======34%                   ] apply_diffusion_w_on.sqlite[2/8] [======35%                   ] apply_diffusion_w_on.sqlite[2/8] [=======36%                  ] apply_diffusion_w_on.sqlite[2/8] [=======37%                  ] apply_diffusion_w_on.sqlite[2/8] [=======38%                  ] apply_diffusion_w_on.sqlite[2/8] [=======39%                  ] apply_diffusion_w_on.sqlite[2/8] [========40%                 ] apply_diffusion_w_on.sqlite[2/8] [========41%                 ] apply_diffusion_w_on.sqlite[2/8] [========42%                 ] apply_diffusion_w_on.sqlite[2/8] [=========43%                ] apply_diffusion_w_on.sqlite[2/8] [=========44%                ] apply_diffusion_w_on.sqlite[2/8] [=========45%                ] apply_diffusion_w_on.sqlite[2/8] [=========46%                ] apply_diffusion_w_on.sqlite[2/8] [==========47%               ] apply_diffusion_w_on.sqlite[2/8] [==========48%               ] apply_diffusion_w_on.sqlite[2/8] [==========49%               ] apply_diffusion_w_on.sqlite[2/8] [===========50%              ] apply_diffusion_w_on.sqlite[2/8] [===========51%              ] apply_diffusion_w_on.sqlite[2/8] [===========52%              ] apply_diffusion_w_on.sqlite[2/8] [===========53%              ] apply_diffusion_w_on.sqlite[2/8] [============54%             ] apply_diffusion_w_on.sqlite[2/8] [============55%             ] apply_diffusion_w_on.sqlite[2/8] [============56%             ] apply_diffusion_w_on.sqlite[2/8] [============57%             ] apply_diffusion_w_on.sqlite[2/8] [=============58%            ] apply_diffusion_w_on.sqlite[2/8] [=============59%            ] apply_diffusion_w_on.sqlite[2/8] [=============60%            ] apply_diffusion_w_on.sqlite[2/8] [==============61%           ] apply_diffusion_w_on.sqlite[2/8] [==============62%           ] apply_diffusion_w_on.sqlite[2/8] [==============63%           ] apply_diffusion_w_on.sqlite[2/8] [==============64%           ] apply_diffusion_w_on.sqlite[2/8] [===============65%          ] apply_diffusion_w_on.sqlite[2/8] [===============66%          ] apply_diffusion_w_on.sqlite[2/8] [===============67%          ] apply_diffusion_w_on.sqlite[2/8] [================68%         ] apply_diffusion_w_on.sqlite[2/8] [================69%         ] apply_diffusion_w_on.sqlite[2/8] [================70%         ] apply_diffusion_w_on.sqlite[2/8] [================71%         ] apply_diffusion_w_on.sqlite[2/8] [=================72%        ] apply_diffusion_w_on.sqlite[2/8] [=================73%        ] apply_diffusion_w_on.sqlite[2/8] [=================74%        ] apply_diffusion_w_on.sqlite[2/8] [==================75%       ] apply_diffusion_w_on.sqlite[2/8] [==================76%       ] apply_diffusion_w_on.sqlite[2/8] [==================77%       ] apply_diffusion_w_on.sqlite[2/8] [==================78%       ] apply_diffusion_w_on.sqlite[2/8] [===================79%      ] apply_diffusion_w_on.sqlite[2/8] [===================80%      ] apply_diffusion_w_on.sqlite[2/8] [===================81%      ] apply_diffusion_w_on.sqlite[2/8] [===================82%      ] apply_diffusion_w_on.sqlite[2/8] [====================83%     ] apply_diffusion_w_on.sqlite[2/8] [====================84%     ] apply_diffusion_w_on.sqlite[2/8] [====================85%     ] apply_diffusion_w_on.sqlite[2/8] [=====================86%    ] apply_diffusion_w_on.sqlite[2/8] [=====================87%    ] apply_diffusion_w_on.sqlite[2/8] [=====================88%    ] apply_diffusion_w_on.sqlite[2/8] [=====================89%    ] apply_diffusion_w_on.sqlite[2/8] [======================90%   ] apply_diffusion_w_on.sqlite[2/8] [======================91%   ] apply_diffusion_w_on.sqlite[2/8] [======================92%   ] apply_diffusion_w_on.sqlite[2/8] [=======================93%  ] apply_diffusion_w_on.sqlite[2/8] [=======================94%  ] apply_diffusion_w_on.sqlite[2/8] [=======================95%  ] apply_diffusion_w_on.sqlite[2/8] [=======================96%  ] apply_diffusion_w_on.sqlite[2/8] [========================97% ] apply_diffusion_w_on.sqlite[2/8] [========================98% ] apply_diffusion_w_on.sqlite[2/8] [========================99% ] apply_diffusion_w_on.sqlite[2/8] [========================100%] apply_diffusion_w_on.sqlite[2/8] [========================100%] apply_diffusion_w_on.sqlite
+SKIPPED: /capstor/scratch/cscs/mklein/icon4py/nsys/apply_diffusion_w_on.sqlite does not contain NV Tools Extension (NVTX) data.
+[3/8] Executing 'nvtx_sum' stats report
+[4/8] Executing 'osrt_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)       Med (ns)      Min (ns)      Max (ns)       StdDev (ns)             Name         
+ --------  ---------------  ---------  -------------  -------------  ----------  --------------  ---------------  ----------------------
+     41.5  163,134,530,144      1,787   91,289,608.4  100,132,128.0       1,056   4,104,298,784    102,863,762.2  poll                  
+     19.3   75,670,873,440        261  289,926,718.2       39,488.0       9,184  19,489,212,032  1,672,169,978.1  waitpid               
+     15.4   60,340,428,672      1,059   56,978,686.2   10,792,064.0      12,096  47,892,199,552  1,471,343,052.4  sem_wait              
+     10.4   41,054,122,912     20,626    1,990,406.4        7,328.0       1,024     106,931,424      5,916,415.4  read                  
+      6.0   23,448,090,336         32  732,752,823.0  167,651,888.0  24,446,624   7,923,277,888  1,705,695,215.1  system                
+      5.4   21,057,141,312      2,258    9,325,571.9       10,576.0       1,024   9,383,973,952    201,065,069.7  select                
+      0.4    1,481,770,944      1,759      842,393.9       10,272.0       1,024     593,677,216     19,317,012.7  ioctl                 
+      0.3    1,350,298,624      6,380      211,645.6      208,768.0       1,280      93,213,888      1,373,777.5  open64                
+      0.3    1,229,437,344        240    5,122,655.6        6,192.0       1,024      53,103,488      9,203,826.4  pread                 
+      0.2      766,289,568     38,447       19,931.1        2,496.0       1,120      40,040,608        367,560.0  open                  
+      0.1      494,922,656      1,130      437,984.7       31,104.0      22,848      20,754,016      1,473,875.7  pthread_cond_timedwait
+      0.1      448,866,976      2,903      154,621.8        4,160.0       1,216     152,832,000      3,291,964.2  fopen64               
+      0.1      429,479,904         34   12,631,761.9    2,022,784.0     125,344     150,679,520     30,697,462.3  fdatasync             
+      0.1      365,768,512      2,130      171,722.3        3,328.0       1,024      41,054,816      2,070,551.9  fread                 
+      0.1      239,859,200      1,790      133,999.6        3,648.0       1,024      25,397,728        960,000.8  write                 
+      0.1      234,888,768      1,194      196,724.3        5,216.0       1,504      24,804,288      1,303,479.3  fopen                 
+      0.1      216,077,824      5,305       40,731.0        3,872.0       1,024      25,611,936        775,260.7  putc                  
+      0.0      152,787,456      1,630       93,734.6        2,464.0       1,024      12,002,432        703,427.1  fclose                
+      0.0      146,446,080         36    4,067,946.7        5,968.0       1,216      19,281,376      6,238,043.4  fputs_unlocked        
+      0.0      141,459,648         36    3,929,434.7      454,128.0     388,480      23,897,696      6,102,440.5  posix_spawn           
+      0.0      107,194,048         82    1,307,244.5        5,200.0       1,056      25,570,176      4,551,145.7  pread64               
+      0.0      104,236,320      2,615       39,860.9        9,344.0       1,056      24,406,496        653,536.6  fflush                
+      0.0       75,337,184        169      445,782.2        7,648.0       1,024       9,907,168      1,355,133.6  writev                
+      0.0       74,509,760        356      209,297.1        1,920.0       1,024      24,179,712      1,746,978.5  pwrite64              
+      0.0       51,424,448      2,524       20,374.2        4,672.0       1,024      14,333,952        391,646.8  getc                  
+      0.0       49,673,344        102      486,993.6      475,104.0     375,264         837,312         60,275.4  fork                  
+      0.0       45,008,576      4,933        9,124.0        1,280.0       1,024      15,500,736        286,371.1  pthread_cond_signal   
+      0.0       28,096,704        779       36,067.7        7,008.0       1,312       9,984,768        359,883.0  munmap                
+      0.0       21,404,352        692       30,931.1        1,552.0       1,024       8,867,840        355,306.6  fputs                 
+      0.0       21,213,408      2,654        7,993.0        1,440.0       1,024      13,854,656        269,677.7  fgets                 
+      0.0       16,832,704        351       47,956.4        1,472.0       1,024       3,934,688        300,951.8  fwrite                
+      0.0       13,270,912      1,034       12,834.5       10,912.0       2,368          66,944          7,797.7  mmap64                
+      0.0       12,806,816          6    2,134,469.3        9,120.0       8,320      12,757,440      5,204,172.0  backtrace             
+      0.0        5,407,072         34      159,031.5        2,016.0       1,024       2,796,480        564,880.3  fwrite_unlocked       
+      0.0        4,203,936        376       11,180.7       10,944.0       1,856         107,712          8,131.6  mmap                  
+      0.0        3,528,160          9      392,017.8      357,920.0     302,080         528,032         86,146.1  pthread_create        
+      0.0        1,874,720         13      144,209.2      143,360.0     126,464         172,032         12,225.5  flock                 
+      0.0        1,655,072        523        3,164.6        2,432.0       1,024          21,408          1,876.0  pipe                  
+      0.0          881,280          5      176,256.0        1,792.0       1,248         830,848        366,430.3  fgetc                 
+      0.0          776,480          2      388,240.0      388,240.0      10,624         765,856        534,029.7  sendfile64            
+      0.0          747,392        277        2,698.2        2,112.0       1,024          18,912          1,902.8  recv                  
+      0.0          743,200          2      371,600.0      371,600.0     307,744         435,456         90,306.0  pthread_cond_broadcast
+      0.0          407,104          1      407,104.0      407,104.0     407,104         407,104              0.0  pthread_join          
+      0.0          365,216         62        5,890.6        5,664.0       2,016          11,392          2,493.9  pipe2                 
+      0.0          240,768        124        1,941.7        1,344.0       1,024          69,472          6,121.5  signal                
+      0.0          204,896        129        1,588.3        1,216.0       1,024          28,384          2,437.0  sigaction             
+      0.0          170,848         16       10,678.0       11,760.0       5,056          16,128          3,528.0  send                  
+      0.0          157,920          2       78,960.0       78,960.0      71,296          86,624         10,838.5  pthread_cond_wait     
+      0.0          148,256        121        1,225.3        1,152.0       1,024           2,688            217.5  fcntl                 
+      0.0          133,888         16        8,368.0       10,256.0       1,056          13,216          4,439.5  fputc                 
+      0.0           89,536          6       14,922.7       12,768.0       5,344          25,888          7,415.0  connect               
+      0.0           76,480          3       25,493.3       23,552.0      22,368          30,560          4,427.6  fflush_unlocked       
+      0.0           64,192          9        7,132.4        7,200.0       2,048          11,200          3,341.9  socket                
+      0.0            8,672          1        8,672.0        8,672.0       8,672           8,672              0.0  pthread_mutex_lock    
+      0.0            6,912          3        2,304.0        2,112.0       2,112           2,688            332.6  getdelim              
+      0.0            6,336          5        1,267.2        1,152.0       1,120           1,792            293.8  dup2                  
+      0.0            5,216          2        2,608.0        2,608.0       2,304           2,912            429.9  bind                  
+      0.0            4,192          2        2,096.0        2,096.0       1,536           2,656            792.0  recvfrom              
+      0.0            1,152          1        1,152.0        1,152.0       1,152           1,152              0.0  dup                   
+
+[5/8] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)   Max (ns)    StdDev (ns)               Name            
+ --------  ---------------  ---------  -----------  ---------  --------  -----------  ------------  ----------------------------
+     82.3    3,336,936,736    299,638     11,136.6    8,192.0     6,656   33,942,432     216,462.3  cudaMemcpyAsync             
+     12.2      494,242,176    299,595      1,649.7    1,312.0     1,248   23,223,136      76,608.5  cudaStreamSynchronize       
+      3.5      140,635,520         77  1,826,435.3  124,768.0    43,136  128,664,160  14,645,080.8  cudaMalloc                  
+      1.1       46,569,568    299,636        155.4      160.0        96      654,176       1,205.4  cudaStreamIsCapturing_v10000
+      0.5       20,781,088      1,000     20,781.1   20,096.0    18,752      106,560       5,274.6  cudaLaunchKernel            
+      0.2        7,943,008          8    992,876.0  402,672.0     8,608    5,495,488   1,836,287.7  cudaHostAlloc               
+      0.1        4,992,736        679      7,353.1    4,768.0     2,464      606,080      24,094.3  cuLaunchKernel              
+      0.0        1,559,296         10    155,929.6  108,656.0    87,584      382,784      96,919.0  cuModuleLoadData            
+      0.0          527,040          5    105,408.0   72,096.0    58,528      175,776      54,137.2  cuModuleUnload              
+      0.0          198,496         76      2,611.8    2,560.0       864       12,256       2,042.5  cudaEventQuery              
+      0.0          175,360          2     87,680.0   87,680.0    84,576       90,784       4,389.7  cudaMemGetInfo              
+      0.0          162,336         41      3,959.4    2,688.0     1,760       13,632       3,271.7  cudaEventRecord             
+      0.0          108,544        413        262.8       96.0        32        4,608         453.9  cuGetProcAddress_v2         
+      0.0           99,552          1     99,552.0   99,552.0    99,552       99,552           0.0  cuLibraryUnload             
+      0.0           90,336         41      2,203.3    1,408.0       960        8,608       1,961.0  cudaEventCreateWithFlags    
+      0.0           60,896         40      1,522.4    1,248.0       736        3,904         705.0  cudaEventDestroy            
+      0.0            7,392          3      2,464.0    2,752.0       736        3,904       1,603.5  cuModuleGetLoadingMode      
+      0.0            5,120          1      5,120.0    5,120.0     5,120        5,120           0.0  cuInit                      
+
+[6/8] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)   Med (ns)   Min (ns)  Max (ns)   StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  ---------  ---------  --------  ---------  -----------  ----------------------------------------------------------------------------------------------------
+     62.7      140,287,968        160  876,799.8  509,600.0   372,896  2,233,376    628,039.9  cupy_max                                                                                            
+     36.4       81,563,103      1,000   81,563.1   81,664.0    80,800     82,304        294.9  void gridtools::fn::backend::gpu_impl_::kernel<gridtools::meta::list<gridtools::meta::list<gridtool…
+      0.3          687,008         92    7,467.5    4,976.0     3,968     17,472      4,087.9  cupy_copy__int32_int32                                                                              
+      0.3          589,856          3  196,618.7  194,496.0   191,968    203,392      6,000.5  cupy_fill                                                                                           
+      0.1          267,264          4   66,816.0    5,824.0     5,568    250,048    122,154.7  cupy_copy__float64_float64                                                                          
+      0.1          181,856        160    1,136.6    1,088.0     1,024      1,472         99.5  cupy_add__int32_int_int32                                                                           
+      0.1          117,216        100    1,172.2    1,200.0     1,024      1,280         80.0  cupy_less__int32_int_bool                                                                           
+      0.0           98,528         80    1,231.6    1,248.0       960      1,600        156.4  cupy_greater__int32_int_bool                                                                        
+      0.0           95,328         80    1,191.6    1,120.0     1,056      1,760        140.7  cupy_greater__int32_int32_bool                                                                      
+
+[7/8] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)   Count   Avg (ns)  Med (ns)  Min (ns)   Max (ns)   StdDev (ns)            Operation           
+ --------  ---------------  -------  --------  --------  --------  ----------  -----------  ------------------------------
+     99.9      771,471,296  299,595   2,575.0   1,408.0     1,344  33,918,816    149,798.1  [CUDA memcpy Device-to-Host]  
+      0.1          797,568       41  19,452.9   9,696.0     1,152     270,048     40,811.2  [CUDA memcpy Host-to-Device]  
+      0.0           11,968        2   5,984.0   5,984.0     1,664      10,304      6,109.4  [CUDA memcpy Device-to-Device]
+
+[8/8] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)   Count   Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)            Operation           
+ ----------  -------  --------  --------  --------  --------  -----------  ------------------------------
+    243.488       41     5.939     2.144     0.001    98.030       15.004  [CUDA memcpy Host-to-Device]  
+    129.929  299,595     0.000     0.000     0.000    10.109        0.051  [CUDA memcpy Device-to-Host]  
+      1.226        2     0.613     0.613     0.001     1.225        0.866  [CUDA memcpy Device-to-Device]
+
+Generated:
+    /capstor/scratch/cscs/mklein/icon4py/nsys/apply_diffusion_w_on.nsys-rep
+    /capstor/scratch/cscs/mklein/icon4py/nsys/apply_diffusion_w_on.sqlite
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp
+           ) → 
+             cast_(
+               cast_(·vn_on_half_levels, float64) × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + cast_(·tangential_wind_on_half_levels, float64) × ·inv_primal_edge_length × ·tangent_orientation
+                 × cast_(cast_(0 + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 1ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 2ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 3ₒ⟫(w) × list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 4ₒ⟫(w) × list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                               + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 5ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)), float64)
+                         - cast_(0 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 1ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 2ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 3ₒ⟫(w) × list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 4ₒ⟫(w) × list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 5ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64),
+                         float64), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp);
+}
+after CollapseTables
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp,
+             edge_idx,
+             num_edges
+           ) → 
+             cast_(
+               cast_(·vn_on_half_levels, float64) × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + cast_(·tangential_wind_on_half_levels, float64) × ·inv_primal_edge_length × ·tangent_orientation
+                 × cast_(
+                     cast_(0 + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                               × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 2ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 2ₒ⟫(w) else ⟪E2V2Cₒ, 2ₒ⟫(w))
+                             × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 3ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 3ₒ⟫(w) else ⟪E2V2Cₒ, 3ₒ⟫(w))
+                             × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 4ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 4ₒ⟫(w))
+                             × list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 5ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 4ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                             × list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·(if   ·edge_idx < ·num_edges / 3
+                               then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 5ₒ⟫(w) else ⟪E2V2Cₒ, 5ₒ⟫(w))
+                             × list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)), float64)
+                     - cast_(0 + ·(if   ·edge_idx < ·num_edges / 3
+                                   then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                   else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                                 × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 6ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 6ₒ⟫(w) else ⟪E2V2Cₒ, 6ₒ⟫(w))
+                               × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 7ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 7ₒ⟫(w) else ⟪E2V2Cₒ, 7ₒ⟫(w))
+                               × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 8ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 8ₒ⟫(w))
+                               × list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 8ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                               × list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 9ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 9ₒ⟫(w) else ⟪E2V2Cₒ, 9ₒ⟫(w))
+                               × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64), float64
+                   ), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp,
+           index(Edgeₕ),
+           num_edges);
+}
+after CollapseIfs
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp,
+             edge_idx,
+             num_edges
+           ) → 
+             cast_(
+               cast_(·vn_on_half_levels, float64) × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + cast_(·tangential_wind_on_half_levels, float64) × ·inv_primal_edge_length × ·tangent_orientation
+                 × cast_(
+                     cast_(0 + ·⟪E2V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·⟪E2V2Cₒ, 2ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + ·⟪E2V2Cₒ, 3ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                           + list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                             × ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 4ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 4ₒ⟫(w))
+                           + list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                             × ·(if   ·edge_idx < ·num_edges / 3
+                                 then ⟪E2V2Cₒ, 5ₒ⟫(w)
+                                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 4ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                           + list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                             × ·(if ·edge_idx < ·num_edges / 3 then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 5ₒ⟫(w)), float64)
+                     - cast_(0 + ·⟪E2V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·⟪E2V2Cₒ, 6ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + ·⟪E2V2Cₒ, 7ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                             + list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                               × ·(if   ·edge_idx < ·num_edges / 3
+                                   then ⟪E2V2Cₒ, 8ₒ⟫(w)
+                                   else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 8ₒ⟫(w))
+                             + list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                               × ·(if   ·edge_idx < ·num_edges / 3
+                                   then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                                   else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 8ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                             + ·⟪E2V2Cₒ, 9ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64), float64
+                   ), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp,
+           index(Edgeₕ),
+           num_edges);
+}
+end
+Generating '/tmp/nsys-report-7e23.qdstrm'
+[1/8] [0%                          ] edge_diagnostics_on.nsys-rep[1/8] [0%                          ] edge_diagnostics_on.nsys-rep[1/8] [7%                          ] edge_diagnostics_on.nsys-rep[1/8] [10%                         ] edge_diagnostics_on.nsys-rep[1/8] [11%                         ] edge_diagnostics_on.nsys-rep[1/8] [12%                         ] edge_diagnostics_on.nsys-rep[1/8] [13%                         ] edge_diagnostics_on.nsys-rep[1/8] [14%                         ] edge_diagnostics_on.nsys-rep[1/8] [8%                          ] edge_diagnostics_on.nsys-rep[1/8] [9%                          ] edge_diagnostics_on.nsys-rep[1/8] [10%                         ] edge_diagnostics_on.nsys-rep[1/8] [9%                          ] edge_diagnostics_on.nsys-rep[1/8] [7%                          ] edge_diagnostics_on.nsys-rep[1/8] [6%                          ] edge_diagnostics_on.nsys-rep[1/8] [5%                          ] edge_diagnostics_on.nsys-rep[1/8] [6%                          ] edge_diagnostics_on.nsys-rep[1/8] [5%                          ] edge_diagnostics_on.nsys-rep[1/8] [5%                          ] edge_diagnostics_on.nsys-rep[1/8] [5%                          ] edge_diagnostics_on.nsys-rep[1/8] [6%                          ] edge_diagnostics_on.nsys-rep[1/8] [7%                          ] edge_diagnostics_on.nsys-rep[1/8] [6%                          ] edge_diagnostics_on.nsys-rep[1/8] [5%                          ] edge_diagnostics_on.nsys-rep[1/8] [8%                          ] edge_diagnostics_on.nsys-rep[1/8] [11%                         ] edge_diagnostics_on.nsys-rep[1/8] [14%                         ] edge_diagnostics_on.nsys-rep[1/8] [==18%                       ] edge_diagnostics_on.nsys-rep[1/8] [==21%                       ] edge_diagnostics_on.nsys-rep[1/8] [===24%                      ] edge_diagnostics_on.nsys-rep[1/8] [====27%                     ] edge_diagnostics_on.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_on.nsys-rep[1/8] [======33%                   ] edge_diagnostics_on.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_on.nsys-rep[1/8] [======34%                   ] edge_diagnostics_on.nsys-rep[1/8] [======33%                   ] edge_diagnostics_on.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====29%                    ] edge_diagnostics_on.nsys-rep[1/8] [====28%                     ] edge_diagnostics_on.nsys-rep[1/8] [====27%                     ] edge_diagnostics_on.nsys-rep[1/8] [====26%                     ] edge_diagnostics_on.nsys-rep[1/8] [====27%                     ] edge_diagnostics_on.nsys-rep[1/8] [====26%                     ] edge_diagnostics_on.nsys-rep[1/8] [====25%                     ] edge_diagnostics_on.nsys-rep[1/8] [===24%                      ] edge_diagnostics_on.nsys-rep[1/8] [===23%                      ] edge_diagnostics_on.nsys-rep[1/8] [===22%                      ] edge_diagnostics_on.nsys-rep[1/8] [==21%                       ] edge_diagnostics_on.nsys-rep[1/8] [==20%                       ] edge_diagnostics_on.nsys-rep[1/8] [==19%                       ] edge_diagnostics_on.nsys-rep[1/8] [==18%                       ] edge_diagnostics_on.nsys-rep[1/8] [=17%                        ] edge_diagnostics_on.nsys-rep[1/8] [==18%                       ] edge_diagnostics_on.nsys-rep[1/8] [==19%                       ] edge_diagnostics_on.nsys-rep[1/8] [==20%                       ] edge_diagnostics_on.nsys-rep[1/8] [==21%                       ] edge_diagnostics_on.nsys-rep[1/8] [===22%                      ] edge_diagnostics_on.nsys-rep[1/8] [===23%                      ] edge_diagnostics_on.nsys-rep[1/8] [===24%                      ] edge_diagnostics_on.nsys-rep[1/8] [====25%                     ] edge_diagnostics_on.nsys-rep[1/8] [====26%                     ] edge_diagnostics_on.nsys-rep[1/8] [====27%                     ] edge_diagnostics_on.nsys-rep[1/8] [====28%                     ] edge_diagnostics_on.nsys-rep[1/8] [=====29%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====30%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====31%                    ] edge_diagnostics_on.nsys-rep[1/8] [=====32%                    ] edge_diagnostics_on.nsys-rep[1/8] [======33%                   ] edge_diagnostics_on.nsys-rep[1/8] [======34%                   ] edge_diagnostics_on.nsys-rep[1/8] [======35%                   ] edge_diagnostics_on.nsys-rep[1/8] [=======36%                  ] edge_diagnostics_on.nsys-rep[1/8] [=======37%                  ] edge_diagnostics_on.nsys-rep[1/8] [=======38%                  ] edge_diagnostics_on.nsys-rep[1/8] [=======39%                  ] edge_diagnostics_on.nsys-rep[1/8] [========40%                 ] edge_diagnostics_on.nsys-rep[1/8] [========41%                 ] edge_diagnostics_on.nsys-rep[1/8] [========42%                 ] edge_diagnostics_on.nsys-rep[1/8] [=========43%                ] edge_diagnostics_on.nsys-rep[1/8] [=========44%                ] edge_diagnostics_on.nsys-rep[1/8] [=========45%                ] edge_diagnostics_on.nsys-rep[1/8] [=========46%                ] edge_diagnostics_on.nsys-rep[1/8] [==========47%               ] edge_diagnostics_on.nsys-rep[1/8] [==========48%               ] edge_diagnostics_on.nsys-rep[1/8] [==========49%               ] edge_diagnostics_on.nsys-rep[1/8] [===========50%              ] edge_diagnostics_on.nsys-rep[1/8] [===========51%              ] edge_diagnostics_on.nsys-rep[1/8] [===========52%              ] edge_diagnostics_on.nsys-rep[1/8] [===========53%              ] edge_diagnostics_on.nsys-rep[1/8] [============54%             ] edge_diagnostics_on.nsys-rep[1/8] [============55%             ] edge_diagnostics_on.nsys-rep[1/8] [============56%             ] edge_diagnostics_on.nsys-rep[1/8] [============57%             ] edge_diagnostics_on.nsys-rep[1/8] [=============58%            ] edge_diagnostics_on.nsys-rep[1/8] [=============59%            ] edge_diagnostics_on.nsys-rep[1/8] [=============60%            ] edge_diagnostics_on.nsys-rep[1/8] [==============61%           ] edge_diagnostics_on.nsys-rep[1/8] [==============62%           ] edge_diagnostics_on.nsys-rep[1/8] [==============63%           ] edge_diagnostics_on.nsys-rep[1/8] [==============64%           ] edge_diagnostics_on.nsys-rep[1/8] [===============65%          ] edge_diagnostics_on.nsys-rep[1/8] [===============66%          ] edge_diagnostics_on.nsys-rep[1/8] [===============67%          ] edge_diagnostics_on.nsys-rep[1/8] [================68%         ] edge_diagnostics_on.nsys-rep[1/8] [================69%         ] edge_diagnostics_on.nsys-rep[1/8] [================70%         ] edge_diagnostics_on.nsys-rep[1/8] [================71%         ] edge_diagnostics_on.nsys-rep[1/8] [=================72%        ] edge_diagnostics_on.nsys-rep[1/8] [=================73%        ] edge_diagnostics_on.nsys-rep[1/8] [=================74%        ] edge_diagnostics_on.nsys-rep[1/8] [==================75%       ] edge_diagnostics_on.nsys-rep[1/8] [==================76%       ] edge_diagnostics_on.nsys-rep[1/8] [==================77%       ] edge_diagnostics_on.nsys-rep[1/8] [==================78%       ] edge_diagnostics_on.nsys-rep[1/8] [===================79%      ] edge_diagnostics_on.nsys-rep[1/8] [===================80%      ] edge_diagnostics_on.nsys-rep[1/8] [===================81%      ] edge_diagnostics_on.nsys-rep[1/8] [===================82%      ] edge_diagnostics_on.nsys-rep[1/8] [====================83%     ] edge_diagnostics_on.nsys-rep[1/8] [====================84%     ] edge_diagnostics_on.nsys-rep[1/8] [====================85%     ] edge_diagnostics_on.nsys-rep[1/8] [=====================86%    ] edge_diagnostics_on.nsys-rep[1/8] [========================100%] edge_diagnostics_on.nsys-rep[1/8] [========================100%] edge_diagnostics_on.nsys-rep
+[2/8] [0%                          ] edge_diagnostics_on.sqlite[2/8] [1%                          ] edge_diagnostics_on.sqlite[2/8] [2%                          ] edge_diagnostics_on.sqlite[2/8] [3%                          ] edge_diagnostics_on.sqlite[2/8] [4%                          ] edge_diagnostics_on.sqlite[2/8] [5%                          ] edge_diagnostics_on.sqlite[2/8] [6%                          ] edge_diagnostics_on.sqlite[2/8] [7%                          ] edge_diagnostics_on.sqlite[2/8] [8%                          ] edge_diagnostics_on.sqlite[2/8] [9%                          ] edge_diagnostics_on.sqlite[2/8] [10%                         ] edge_diagnostics_on.sqlite[2/8] [11%                         ] edge_diagnostics_on.sqlite[2/8] [12%                         ] edge_diagnostics_on.sqlite[2/8] [13%                         ] edge_diagnostics_on.sqlite[2/8] [14%                         ] edge_diagnostics_on.sqlite[2/8] [=15%                        ] edge_diagnostics_on.sqlite[2/8] [=16%                        ] edge_diagnostics_on.sqlite[2/8] [=17%                        ] edge_diagnostics_on.sqlite[2/8] [==18%                       ] edge_diagnostics_on.sqlite[2/8] [==19%                       ] edge_diagnostics_on.sqlite[2/8] [==20%                       ] edge_diagnostics_on.sqlite[2/8] [==21%                       ] edge_diagnostics_on.sqlite[2/8] [===22%                      ] edge_diagnostics_on.sqlite[2/8] [===23%                      ] edge_diagnostics_on.sqlite[2/8] [===24%                      ] edge_diagnostics_on.sqlite[2/8] [====25%                     ] edge_diagnostics_on.sqlite[2/8] [====26%                     ] edge_diagnostics_on.sqlite[2/8] [====27%                     ] edge_diagnostics_on.sqlite[2/8] [====28%                     ] edge_diagnostics_on.sqlite[2/8] [=====29%                    ] edge_diagnostics_on.sqlite[2/8] [=====30%                    ] edge_diagnostics_on.sqlite[2/8] [=====31%                    ] edge_diagnostics_on.sqlite[2/8] [=====32%                    ] edge_diagnostics_on.sqlite[2/8] [======33%                   ] edge_diagnostics_on.sqlite[2/8] [======34%                   ] edge_diagnostics_on.sqlite[2/8] [======35%                   ] edge_diagnostics_on.sqlite[2/8] [=======36%                  ] edge_diagnostics_on.sqlite[2/8] [=======37%                  ] edge_diagnostics_on.sqlite[2/8] [=======38%                  ] edge_diagnostics_on.sqlite[2/8] [=======39%                  ] edge_diagnostics_on.sqlite[2/8] [========40%                 ] edge_diagnostics_on.sqlite[2/8] [========41%                 ] edge_diagnostics_on.sqlite[2/8] [========42%                 ] edge_diagnostics_on.sqlite[2/8] [=========43%                ] edge_diagnostics_on.sqlite[2/8] [=========44%                ] edge_diagnostics_on.sqlite[2/8] [=========45%                ] edge_diagnostics_on.sqlite[2/8] [=========46%                ] edge_diagnostics_on.sqlite[2/8] [==========47%               ] edge_diagnostics_on.sqlite[2/8] [==========48%               ] edge_diagnostics_on.sqlite[2/8] [==========49%               ] edge_diagnostics_on.sqlite[2/8] [===========50%              ] edge_diagnostics_on.sqlite[2/8] [===========51%              ] edge_diagnostics_on.sqlite[2/8] [===========52%              ] edge_diagnostics_on.sqlite[2/8] [===========53%              ] edge_diagnostics_on.sqlite[2/8] [============54%             ] edge_diagnostics_on.sqlite[2/8] [============55%             ] edge_diagnostics_on.sqlite[2/8] [============56%             ] edge_diagnostics_on.sqlite[2/8] [============57%             ] edge_diagnostics_on.sqlite[2/8] [=============58%            ] edge_diagnostics_on.sqlite[2/8] [=============59%            ] edge_diagnostics_on.sqlite[2/8] [=============60%            ] edge_diagnostics_on.sqlite[2/8] [==============61%           ] edge_diagnostics_on.sqlite[2/8] [==============62%           ] edge_diagnostics_on.sqlite[2/8] [==============63%           ] edge_diagnostics_on.sqlite[2/8] [==============64%           ] edge_diagnostics_on.sqlite[2/8] [===============65%          ] edge_diagnostics_on.sqlite[2/8] [===============66%          ] edge_diagnostics_on.sqlite[2/8] [===============67%          ] edge_diagnostics_on.sqlite[2/8] [================68%         ] edge_diagnostics_on.sqlite[2/8] [================69%         ] edge_diagnostics_on.sqlite[2/8] [================70%         ] edge_diagnostics_on.sqlite[2/8] [================71%         ] edge_diagnostics_on.sqlite[2/8] [=================72%        ] edge_diagnostics_on.sqlite[2/8] [=================73%        ] edge_diagnostics_on.sqlite[2/8] [=================74%        ] edge_diagnostics_on.sqlite[2/8] [==================75%       ] edge_diagnostics_on.sqlite[2/8] [==================76%       ] edge_diagnostics_on.sqlite[2/8] [==================77%       ] edge_diagnostics_on.sqlite[2/8] [==================78%       ] edge_diagnostics_on.sqlite[2/8] [===================79%      ] edge_diagnostics_on.sqlite[2/8] [===================80%      ] edge_diagnostics_on.sqlite[2/8] [===================81%      ] edge_diagnostics_on.sqlite[2/8] [===================82%      ] edge_diagnostics_on.sqlite[2/8] [====================83%     ] edge_diagnostics_on.sqlite[2/8] [====================84%     ] edge_diagnostics_on.sqlite[2/8] [====================85%     ] edge_diagnostics_on.sqlite[2/8] [=====================86%    ] edge_diagnostics_on.sqlite[2/8] [=====================87%    ] edge_diagnostics_on.sqlite[2/8] [=====================88%    ] edge_diagnostics_on.sqlite[2/8] [=====================89%    ] edge_diagnostics_on.sqlite[2/8] [======================90%   ] edge_diagnostics_on.sqlite[2/8] [======================91%   ] edge_diagnostics_on.sqlite[2/8] [======================92%   ] edge_diagnostics_on.sqlite[2/8] [=======================93%  ] edge_diagnostics_on.sqlite[2/8] [=======================94%  ] edge_diagnostics_on.sqlite[2/8] [=======================95%  ] edge_diagnostics_on.sqlite[2/8] [=======================96%  ] edge_diagnostics_on.sqlite[2/8] [========================97% ] edge_diagnostics_on.sqlite[2/8] [========================98% ] edge_diagnostics_on.sqlite[2/8] [========================99% ] edge_diagnostics_on.sqlite[2/8] [========================100%] edge_diagnostics_on.sqlite[2/8] [========================100%] edge_diagnostics_on.sqlite
+SKIPPED: /capstor/scratch/cscs/mklein/icon4py/nsys/edge_diagnostics_on.sqlite does not contain NV Tools Extension (NVTX) data.
+[3/8] Executing 'nvtx_sum' stats report
+[4/8] Executing 'osrt_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls     Avg (ns)        Med (ns)      Min (ns)      Max (ns)       StdDev (ns)             Name         
+ --------  ---------------  ---------  ---------------  -------------  ----------  --------------  ---------------  ----------------------
+     62.3  138,730,243,584      1,390     99,805,930.6  100,132,064.0       1,280     736,134,048     20,033,616.2  poll                  
+     17.2   38,191,341,888      1,062     35,961,715.5   13,853,136.0      12,288  22,067,598,016    676,735,654.4  sem_wait              
+     10.8   24,044,102,560         20  1,202,205,128.0   36,546,624.0      38,080  17,491,979,776  4,011,977,281.4  waitpid               
+      7.8   17,352,847,392          7  2,478,978,198.9  360,618,464.0  36,480,064   8,253,565,696  3,244,085,335.0  system                
+      0.5    1,194,073,408      4,395        271,689.1      216,192.0       1,376     102,316,992      1,755,779.0  open64                
+      0.4      917,505,280      1,358        675,629.8       12,288.0       1,056     565,751,904     15,401,282.8  ioctl                 
+      0.3      562,323,808      1,147        490,256.2       31,584.0      23,456      10,059,424      1,428,448.6  pthread_cond_timedwait
+      0.2      409,784,416         18     22,765,800.9    3,026,768.0     195,872     202,944,896     52,353,793.7  fdatasync             
+      0.1      290,630,144     10,163         28,596.9       12,800.0       1,024      43,252,576        652,567.3  read                  
+      0.1      230,470,752      3,251         70,892.3        1,920.0       1,024      21,924,416      1,016,802.1  putc                  
+      0.1      216,690,976         63      3,439,539.3        4,512.0       1,024     150,701,056     19,432,775.9  pread64               
+      0.0      100,949,184      7,574         13,328.4        3,648.0       1,312      13,871,296        171,931.9  open                  
+      0.0       57,866,720        238        243,137.5        1,664.0       1,024      29,849,632      2,102,084.1  pwrite64              
+      0.0       51,150,528      1,303         39,256.0        4,736.0       1,024      19,985,888        726,801.0  getc                  
+      0.0       35,292,384         26      1,357,399.4       29,920.0       2,720      16,530,944      3,836,471.6  write                 
+      0.0       32,662,048          2     16,331,024.0   16,331,024.0      12,896      32,649,152     23,077,317.9  sendfile64            
+      0.0       23,229,472        187        124,221.8        3,648.0       1,760      12,537,312        923,564.3  fopen64               
+      0.0       18,922,048      1,712         11,052.6        9,088.0       1,024       5,051,104        123,562.9  pthread_cond_signal   
+      0.0       18,435,232        793         23,247.5        7,488.0       2,880         327,168         47,313.0  munmap                
+      0.0       11,568,224        972         11,901.5       10,272.0       3,456          65,568          6,101.6  mmap64                
+      0.0        8,121,120        214         37,949.2        2,112.0       1,024         760,288        118,402.8  pread                 
+      0.0        5,661,888        120         47,182.4        5,824.0       1,632       2,210,144        260,369.6  fopen                 
+      0.0        4,296,256      2,100          2,045.8        1,440.0       1,024         888,256         19,406.6  fgets                 
+      0.0        3,488,800        340         10,261.2        2,560.0       1,024       1,038,592         68,038.3  fread                 
+      0.0        3,148,992      1,344          2,343.0        1,088.0       1,024         574,112         18,457.3  fclose                
+      0.0        2,312,192          5        462,438.4      479,328.0     363,552         568,192         93,504.7  pthread_create        
+      0.0        1,917,952         13        147,534.8      138,528.0     124,928         256,512         34,522.2  flock                 
+      0.0        1,866,528        109         17,124.1       14,080.0       2,432         179,008         20,142.2  mmap                  
+      0.0        1,421,632        144          9,872.4        1,712.0       1,024         793,792         66,682.8  fwrite                
+      0.0        1,286,304        419          3,069.9        1,984.0       1,024          36,064          2,959.0  fputs                 
+      0.0          490,176          1        490,176.0      490,176.0     490,176         490,176              0.0  pthread_cond_broadcast
+      0.0          480,800          1        480,800.0      480,800.0     480,800         480,800              0.0  fork                  
+      0.0          283,104          3         94,368.0        3,424.0       1,888         277,792        158,851.7  fflush                
+      0.0          211,072          6         35,178.7       10,560.0       8,736         151,104         56,933.2  backtrace             
+      0.0          208,768         32          6,524.0        6,144.0       2,272          15,584          3,502.8  pipe2                 
+      0.0           88,832          1         88,832.0       88,832.0      88,832          88,832              0.0  pthread_cond_wait     
+      0.0           40,288         14          2,877.7        1,920.0       1,056           7,296          2,048.4  fwrite_unlocked       
+      0.0           20,640         15          1,376.0        1,280.0       1,024           1,792            272.6  signal                
+      0.0           15,840          2          7,920.0        7,920.0       6,528           9,312          1,968.6  socket                
+      0.0           14,144          1         14,144.0       14,144.0      14,144          14,144              0.0  connect               
+      0.0           13,824         11          1,256.7        1,216.0       1,024           1,664            167.6  fcntl                 
+      0.0           12,448          8          1,556.0        1,616.0       1,088           1,888            249.6  sigaction             
+      0.0            8,416          6          1,402.7        1,376.0       1,024           1,888            307.9  dup2                  
+      0.0            2,080          1          2,080.0        2,080.0       2,080           2,080              0.0  bind                  
+
+[5/8] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)   Max (ns)    StdDev (ns)               Name            
+ --------  ---------------  ---------  -----------  ---------  --------  -----------  ------------  ----------------------------
+     83.0    3,842,591,200    300,116     12,803.7    8,448.0     6,624   31,294,560     238,577.0  cudaMemcpyAsync             
+      9.8      453,744,224    300,067      1,512.1    1,312.0     1,216   20,614,080      50,552.2  cudaStreamSynchronize       
+      4.3      199,582,688         90  2,217,585.4  129,568.0    40,960  169,335,776  17,841,457.7  cudaMalloc                  
+      1.5       69,571,392    300,113        231.8      160.0        96   19,428,736      35,473.5  cudaStreamIsCapturing_v10000
+      0.6       28,632,672      1,000     28,632.7   28,128.0    25,152       95,744       4,068.1  cudaLaunchKernel            
+      0.4       18,563,552          8  2,320,444.0  470,992.0     9,216   10,659,104   3,807,694.4  cudaHostAlloc               
+      0.2       11,406,912      1,615      7,063.1    6,208.0     3,136      103,456       5,524.8  cuLaunchKernel              
+      0.1        5,376,608          5  1,075,321.6   72,800.0    64,320    5,017,952   2,204,292.1  cuModuleUnload              
+      0.0        1,687,616         10    168,761.6  120,416.0   103,040      332,928      83,620.8  cuModuleLoadData            
+      0.0          265,568         87      3,052.5    2,624.0       832       15,584       2,652.8  cudaEventQuery              
+      0.0          214,368        413        519.1      256.0        32        6,336         653.3  cuGetProcAddress_v2         
+      0.0          176,192         46      3,830.3    2,480.0     2,208       14,176       3,348.8  cudaEventRecord             
+      0.0          136,128          2     68,064.0   68,064.0    65,696       70,432       3,348.9  cudaMemGetInfo              
+      0.0          117,664         46      2,557.9    1,744.0     1,088        8,608       2,029.4  cudaEventCreateWithFlags    
+      0.0          111,264          1    111,264.0  111,264.0   111,264      111,264           0.0  cuLibraryUnload             
+      0.0           82,368         45      1,830.4    1,472.0       960        4,896         958.2  cudaEventDestroy            
+      0.0            4,352          1      4,352.0    4,352.0     4,352        4,352           0.0  cuInit                      
+      0.0            4,000          2      2,000.0    2,000.0       704        3,296       1,832.8  cuModuleGetLoadingMode      
+
+[6/8] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances   Avg (ns)     Med (ns)    Min (ns)   Max (ns)   StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  -----------  -----------  ---------  ---------  -----------  ----------------------------------------------------------------------------------------------------
+     94.2    6,029,251,738      1,000  6,029,251.7  6,029,152.0  6,020,192  6,040,096      3,221.2  void gridtools::fn::backend::gpu_impl_::kernel<gridtools::meta::list<gridtools::meta::list<gridtool…
+      5.7      366,695,874        416    881,480.5    512,096.0    393,728  2,243,584    629,550.1  cupy_max                                                                                            
+      0.0        2,117,120          8    264,640.0    357,744.0      5,472    389,760    167,325.3  cupy_copy__float64_float64                                                                          
+      0.0        1,893,376          6    315,562.7    319,632.0    291,392    335,264     18,578.6  cupy_fill                                                                                           
+      0.0          692,864         93      7,450.2      4,960.0      4,000     17,152      4,061.3  cupy_copy__int32_int32                                                                              
+      0.0          488,256        416      1,173.7      1,216.0        992      1,696        107.8  cupy_add__int32_int_int32                                                                           
+      0.0          291,904        260      1,122.7      1,088.0        992      1,280         89.9  cupy_less__int32_int_bool                                                                           
+      0.0          251,424        208      1,208.8      1,216.0        992      1,664        158.8  cupy_greater__int32_int_bool                                                                        
+      0.0          239,424        208      1,151.1      1,088.0      1,056      1,632        127.8  cupy_greater__int32_int32_bool                                                                      
+
+[7/8] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)   Count   Avg (ns)  Med (ns)  Min (ns)   Max (ns)   StdDev (ns)            Operation           
+ --------  ---------------  -------  --------  --------  --------  ----------  -----------  ------------------------------
+     99.7      772,470,528  300,067   2,574.3   1,408.0     1,344  30,189,824    146,427.2  [CUDA memcpy Device-to-Host]  
+      0.3        2,587,808       46  56,256.7  11,888.0     6,176     359,104    112,355.0  [CUDA memcpy Host-to-Device]  
+      0.0           21,632        3   7,210.7   6,848.0     6,368       8,416      1,071.1  [CUDA memcpy Device-to-Device]
+
+[8/8] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)   Count   Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)            Operation           
+ ----------  -------  --------  --------  --------  --------  -----------  ------------------------------
+    979.325       46    21.290     3.063     0.401   147.045       46.599  [CUDA memcpy Host-to-Device]  
+    129.929  300,067     0.000     0.000     0.000    10.109        0.050  [CUDA memcpy Device-to-Host]  
+      5.514        3     1.838     1.838     1.838     1.838        0.000  [CUDA memcpy Device-to-Device]
+
+Generated:
+    /capstor/scratch/cscs/mklein/icon4py/nsys/edge_diagnostics_on.nsys-rep
+    /capstor/scratch/cscs/mklein/icon4py/nsys/edge_diagnostics_on.sqlite
+Elapsed time: 0h 18m 52s

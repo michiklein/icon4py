@@ -162,6 +162,7 @@ def compute_derived_horizontal_winds_and_ke_and_horizontal_advection_of_w_and_co
     tangent_orientation: fa.EdgeField[ta.wpfloat],
     skip_compute_predictor_vertical_advection: bool,
     nflatlev: gtx.int32,
+    num_edges: gtx.int32,
     horizontal_start: gtx.int32,
     horizontal_end: gtx.int32,
     vertical_start: gtx.int32,
