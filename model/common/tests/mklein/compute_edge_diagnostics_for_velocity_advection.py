@@ -370,7 +370,7 @@ if __name__ == "__main__":
     vertical_end = int32(levels)
 
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         compute_horizontal_advection_of_w.with_backend(b_end)(
             horizontal_advection_of_w,
             w,

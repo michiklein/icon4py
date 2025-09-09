@@ -73,7 +73,7 @@ if __name__ == "__main__":
                     )
                     
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         c2v2e_sum_program(
             edge_input=edge_input,
             cell_out=cell_output,

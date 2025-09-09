@@ -24,7 +24,7 @@ if __name__ == "__main__":
                        help='Sort edges and cells into blocks of 32')
     args = parser.parse_args()
 
-    grid_file = "../all_torus_files/torus_100000_100000_128_reordered.nc"
+    grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
     levels = 80
     load_start = time.perf_counter()
     grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())
@@ -71,7 +71,7 @@ if __name__ == "__main__":
                     )
                     
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         v2c2v_sum_program(
             vertex_input=vertex_input,
             vertex_out=vertex_output,

@@ -412,7 +412,7 @@ if __name__ == "__main__":
                        help='Sort edges and cells into blocks of 32')
     args = parser.parse_args()
     
-    grid_file = "../all_torus_files/torus_100000_100000_2048_reordered.nc"
+    grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
     levels = 80
     load_start = time.perf_counter()
     grid = get_torus_grid(grid_file, levels, ToZeroBasedIndexTransformation())

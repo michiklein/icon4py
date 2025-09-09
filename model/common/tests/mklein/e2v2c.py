@@ -73,7 +73,7 @@ if __name__ == "__main__":
                     )
                     
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         e2v2c_sum_program(
             cell_input=cell_input,
             edge_out=edge_output,

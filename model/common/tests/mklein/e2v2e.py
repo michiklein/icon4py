@@ -66,7 +66,7 @@ if __name__ == "__main__":
                         allocator=b_end
                     )
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         e2v2e_sum_program(
             edge_input=edge_input,
             edge_out=edge_output,
