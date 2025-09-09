@@ -73,12 +73,12 @@ if __name__ == "__main__":
                     )
                     
     print("start")
-    for _ in range(1):
+    for _ in range(1000):
         e2c2e_sum_program(
-            edge_input,
-            edge_output,
-            int32(len(cells)),
-            int32(len(edges)),
+            edge_input=edge_input,
+            edge_out=edge_output,
+            num_cells=int32(len(cells)),
+            num_edges=int32(len(edges)),
             offset_provider=grid.offset_providers
         )
     print("end")
