@@ -2,9 +2,9 @@ from gt4py.next.ffront.decorator import field_operator, program
 from icon4py.model.common import field_type_aliases as fa
 from icon4py.model.common.dimension import C2V, C2E, V2C, V2E, E2C, E2V, E2C2V, C2E2C
 import gt4py.next as gtx
-from gt4py.next.program_processors.runners.dace import (
-        run_dace_gpu_cached as run_dace_gpu,
-    )
+# from gt4py.next.program_processors.runners.dace import (
+#         run_dace_gpu_cached as run_dace_gpu,
+#     )
 from gt4py.next.ffront.experimental import concat_where
 from icon4py.model.common import dimension as dims
 from gt4py.next import int32

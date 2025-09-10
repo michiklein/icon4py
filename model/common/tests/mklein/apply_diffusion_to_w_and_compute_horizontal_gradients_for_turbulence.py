@@ -175,7 +175,7 @@ if __name__ == "__main__":
     vertical_end = int32(levels)
 
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         apply_diffusion_to_w.with_backend(b_end)(
             area,
             geofac_n2s,

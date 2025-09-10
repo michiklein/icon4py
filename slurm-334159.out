@@ -1,0 +1,1802 @@
+==PROF== Connected to process 290886 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Connected to process 294356 (/capstor/scratch/cscs/mklein/icon4py/GT4PYcacheon/.gt4py_cache/compile_commands_cache_gridtools_gpu_master_nanobind_2_0_0_Release__81dc998aa0d634a7cf606f41e236b03a987f88c10134f8effd7abc877e6aa43b/build/CMakeFiles/3.27.9/CMakeDetermineCompilerABI_CUDA.bin)
+==PROF== Disconnected from process 294356
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 278.790127s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ v2c2e_sum_program(
+  edge_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → ·⟪V2Cₒ, 0ₒ, C2Eₒ, 0ₒ⟫(edge_input) + ·⟪V2Cₒ, 0ₒ, C2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 0ₒ, C2Eₒ, 2ₒ⟫(edge_input) + ·⟪V2Cₒ, 1ₒ, C2Eₒ, 0ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 1ₒ, C2Eₒ, 1ₒ⟫(edge_input) + ·⟪V2Cₒ, 1ₒ, C2Eₒ, 2ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 2ₒ, C2Eₒ, 0ₒ⟫(edge_input) + ·⟪V2Cₒ, 2ₒ, C2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 2ₒ, C2Eₒ, 2ₒ⟫(edge_input) + ·⟪V2Cₒ, 3ₒ, C2Eₒ, 0ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 3ₒ, C2Eₒ, 1ₒ⟫(edge_input) + ·⟪V2Cₒ, 3ₒ, C2Eₒ, 2ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 4ₒ, C2Eₒ, 0ₒ⟫(edge_input) + ·⟪V2Cₒ, 4ₒ, C2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 4ₒ, C2Eₒ, 2ₒ⟫(edge_input) + ·⟪V2Cₒ, 5ₒ, C2Eₒ, 0ₒ⟫(edge_input)
+                           + ·⟪V2Cₒ, 5ₒ, C2Eₒ, 1ₒ⟫(edge_input) + ·⟪V2Cₒ, 5ₒ, C2Eₒ, 2ₒ⟫(edge_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(edge_input);
+}
+after CollapseTables
+ v2c2e_sum_program(
+  edge_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → ·⟪V2C2Eₒ, 6ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 7ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 2ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 2ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 8ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 3ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 3ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 4ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 9ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 5ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 4ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 10ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 1ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 11ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 5ₒ⟫(edge_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(edge_input);
+}
+after CollapseIfs + StripDegenerateIfs
+ v2c2e_sum_program(
+  edge_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → ·⟪V2C2Eₒ, 6ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 7ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 2ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 2ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 8ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 3ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 3ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 4ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 9ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 5ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 4ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 10ₒ⟫(edge_input)
+                           + ·⟪V2C2Eₒ, 1ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 11ₒ⟫(edge_input) + ·⟪V2C2Eₒ, 5ₒ⟫(edge_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(edge_input);
+}
+end
+==PROF== Disconnected from process 290886
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/v2c2e_on.ncu-rep
+==PROF== Connected to process 1619 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.966559s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ v2c2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → ·⟪V2Cₒ, 0ₒ, C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Cₒ, 0ₒ, C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 0ₒ, C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Cₒ, 1ₒ, C2Vₒ, 0ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 1ₒ, C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪V2Cₒ, 1ₒ, C2Vₒ, 2ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 2ₒ, C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Cₒ, 2ₒ, C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 2ₒ, C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Cₒ, 3ₒ, C2Vₒ, 0ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 3ₒ, C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪V2Cₒ, 3ₒ, C2Vₒ, 2ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 4ₒ, C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Cₒ, 4ₒ, C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 4ₒ, C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Cₒ, 5ₒ, C2Vₒ, 0ₒ⟫(vertex_input)
+                             + ·⟪V2Cₒ, 5ₒ, C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪V2Cₒ, 5ₒ, C2Vₒ, 2ₒ⟫(vertex_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseTables
+ v2c2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → 
+             ·⟪V2E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 5ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2Vₒ, 2ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 3ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 3ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 5ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2Vₒ, 4ₒ⟫(vertex_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseIfs + StripDegenerateIfs
+ v2c2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → 
+             ·⟪V2E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 5ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2Vₒ, 2ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 3ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 3ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 5ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2Vₒ, 4ₒ⟫(vertex_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+end
+==PROF== Disconnected from process 1619
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu128/v2c2v_on.ncu-rep
+==PROF== Connected to process 5834 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.059492s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ v2e2c2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → ·⟪V2Eₒ, 0ₒ, E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 0ₒ, E2C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 0ₒ, E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Eₒ, 0ₒ, E2C2Vₒ, 3ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 1ₒ, E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 1ₒ, E2C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 1ₒ, E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Eₒ, 1ₒ, E2C2Vₒ, 3ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 2ₒ, E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 2ₒ, E2C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 2ₒ, E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Eₒ, 2ₒ, E2C2Vₒ, 3ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 3ₒ, E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 3ₒ, E2C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 3ₒ, E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Eₒ, 3ₒ, E2C2Vₒ, 3ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 4ₒ, E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 4ₒ, E2C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 4ₒ, E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Eₒ, 4ₒ, E2C2Vₒ, 3ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 5ₒ, E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 5ₒ, E2C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 5ₒ, E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2Eₒ, 5ₒ, E2C2Vₒ, 3ₒ⟫(vertex_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseTables
+ v2e2c2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → 
+             ·⟪V2E2C2Vₒ, 0ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2C2Vₒ, 1ₒ⟫(vertex_input)
+             + ·⟪V2E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 3ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2C2Vₒ, 3ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 4ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2C2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 3ₒ⟫(vertex_input)
+             + ·⟪V2E2C2Vₒ, 5ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2C2Vₒ, 5ₒ⟫(vertex_input)
+             + ·⟪V2E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 2ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 5ₒ⟫(vertex_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseIfs + StripDegenerateIfs
+ v2e2c2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → 
+             ·⟪V2E2C2Vₒ, 0ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2C2Vₒ, 1ₒ⟫(vertex_input)
+             + ·⟪V2E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 3ₒ⟫(vertex_input) + ·vertex_input
+             + ·⟪V2E2C2Vₒ, 3ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 4ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2C2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 3ₒ⟫(vertex_input)
+             + ·⟪V2E2C2Vₒ, 5ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2C2Vₒ, 5ₒ⟫(vertex_input)
+             + ·⟪V2E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 2ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2E2C2Vₒ, 5ₒ⟫(vertex_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+end
+==PROF== Disconnected from process 5834
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/v2e2c2v_on.ncu-rep
+==PROF== Connected to process 46838 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 279.279090s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ c2e2c2e2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input) → ·⟪C2E2Cₒ, 0ₒ, C2E2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2E2Cₒ, 0ₒ, C2E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪C2E2Cₒ, 0ₒ, C2E2Cₒ, 2ₒ⟫(cell_input) + ·⟪C2E2Cₒ, 1ₒ, C2E2Cₒ, 0ₒ⟫(cell_input)
+                           + ·⟪C2E2Cₒ, 1ₒ, C2E2Cₒ, 1ₒ⟫(cell_input) + ·⟪C2E2Cₒ, 1ₒ, C2E2Cₒ, 2ₒ⟫(cell_input)
+                           + ·⟪C2E2Cₒ, 2ₒ, C2E2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2E2Cₒ, 2ₒ, C2E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪C2E2Cₒ, 2ₒ, C2E2Cₒ, 2ₒ⟫(cell_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input);
+}
+after CollapseTables
+ c2e2c2e2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, cell_idx, num_cells) → 
+             ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(cell_input) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(cell_input) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(cell_input) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(cell_input) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 4ₒ⟫(cell_input) else ⟪C2E2C2E2Cₒ, 4ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 5ₒ⟫(cell_input) else ⟪C2E2C2E2Cₒ, 5ₒ⟫(cell_input)),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input, index(Cellₕ), num_cells);
+}
+after CollapseIfs + StripDegenerateIfs
+ c2e2c2e2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, cell_idx, num_cells) → 
+             ·⟪C2E2C2E2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2E2C2E2Cₒ, 1ₒ⟫(cell_input) + ·cell_input
+             + ·⟪C2E2C2E2Cₒ, 2ₒ⟫(cell_input) + ·cell_input + ·⟪C2E2C2E2Cₒ, 3ₒ⟫(cell_input) + ·cell_input
+             + ·⟪C2E2C2E2Cₒ, 4ₒ⟫(cell_input) + ·⟪C2E2C2E2Cₒ, 5ₒ⟫(cell_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input, index(Cellₕ), num_cells);
+}
+end
+==PROF== Disconnected from process 46838
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/c2e2c2e2c_on.ncu-rep
+==PROF== Connected to process 50144 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 279.449650s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ v2e2c_sum_program(
+  cell_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input) → ·⟪V2Eₒ, 0ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Eₒ, 0ₒ, E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪V2Eₒ, 1ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Eₒ, 1ₒ, E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪V2Eₒ, 2ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Eₒ, 2ₒ, E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪V2Eₒ, 3ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Eₒ, 3ₒ, E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪V2Eₒ, 4ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Eₒ, 4ₒ, E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪V2Eₒ, 5ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Eₒ, 5ₒ, E2Cₒ, 1ₒ⟫(cell_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(cell_input);
+}
+after CollapseTables
+ v2e2c_sum_program(
+  cell_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input) → ·⟪V2Cₒ, 1ₒ⟫(cell_input) + ·⟪V2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪V2Cₒ, 2ₒ⟫(cell_input) + ·⟪V2Cₒ, 2ₒ⟫(cell_input) + ·⟪V2Cₒ, 3ₒ⟫(cell_input)
+                           + ·⟪V2Cₒ, 3ₒ⟫(cell_input) + ·⟪V2Cₒ, 4ₒ⟫(cell_input) + ·⟪V2Cₒ, 5ₒ⟫(cell_input)
+                           + ·⟪V2Cₒ, 4ₒ⟫(cell_input) + ·⟪V2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Cₒ, 5ₒ⟫(cell_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(cell_input);
+}
+after CollapseIfs + StripDegenerateIfs
+ v2e2c_sum_program(
+  cell_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input) → ·⟪V2Cₒ, 1ₒ⟫(cell_input) + ·⟪V2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪V2Cₒ, 2ₒ⟫(cell_input) + ·⟪V2Cₒ, 2ₒ⟫(cell_input) + ·⟪V2Cₒ, 3ₒ⟫(cell_input)
+                           + ·⟪V2Cₒ, 3ₒ⟫(cell_input) + ·⟪V2Cₒ, 4ₒ⟫(cell_input) + ·⟪V2Cₒ, 5ₒ⟫(cell_input)
+                           + ·⟪V2Cₒ, 4ₒ⟫(cell_input) + ·⟪V2Cₒ, 0ₒ⟫(cell_input) + ·⟪V2Cₒ, 5ₒ⟫(cell_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(cell_input);
+}
+end
+==PROF== Disconnected from process 50144
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/v2e2c_on.ncu-rep
+==PROF== Connected to process 53782 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 276.979793s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ v2e2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → ·⟪V2Eₒ, 0ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 0ₒ, E2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 1ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 1ₒ, E2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 2ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 2ₒ, E2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 3ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 3ₒ, E2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 4ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 4ₒ, E2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪V2Eₒ, 5ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪V2Eₒ, 5ₒ, E2Vₒ, 1ₒ⟫(vertex_input),
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseTables
+ v2e2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → 
+             ·⟪V2E2Vₒ, 0ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input
+             + ·vertex_input + ·⟪V2E2Vₒ, 2ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2Vₒ, 3ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 5ₒ⟫(vertex_input) + ·vertex_input,
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseIfs + StripDegenerateIfs
+ v2e2v_sum_program(
+  vertex_input,
+  vertex_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __vertex_out_0_range,
+  __vertex_out_1_range
+) {
+  vertex_out @ u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → 
+             ·⟪V2E2Vₒ, 0ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2Vₒ, 1ₒ⟫(vertex_input) + ·vertex_input
+             + ·vertex_input + ·⟪V2E2Vₒ, 2ₒ⟫(vertex_input) + ·vertex_input + ·⟪V2E2Vₒ, 3ₒ⟫(vertex_input)
+             + ·vertex_input + ·⟪V2E2Vₒ, 4ₒ⟫(vertex_input) + ·⟪V2E2Vₒ, 5ₒ⟫(vertex_input) + ·vertex_input,
+           u⟨ Vertexₕ: [__vertex_out_0_range[0], __vertex_out_0_range[1][, Kᵥ: [__vertex_out_1_range[0], __vertex_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+end
+==PROF== Disconnected from process 53782
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/v2e2v_on.ncu-rep
+==PROF== Connected to process 56698 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 278.907222s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ c2e2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input) → ·⟪C2Eₒ, 0ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2Eₒ, 0ₒ, E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪C2Eₒ, 1ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2Eₒ, 1ₒ, E2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪C2Eₒ, 2ₒ, E2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2Eₒ, 2ₒ, E2Cₒ, 1ₒ⟫(cell_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input);
+}
+after CollapseTables
+ c2e2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, cell_idx, num_cells) → 
+             ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 0ₒ⟫(cell_input) else ⟪C2E2Cₒ, 0ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else ⟪C2E2Cₒ, 1ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(cell_input) else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(cell_input) else ⟪C2E2Cₒ, 0ₒ⟫(cell_input)),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input, index(Cellₕ), num_cells);
+}
+after CollapseIfs + StripDegenerateIfs
+ c2e2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, cell_idx, num_cells) → 
+             if   ·cell_idx < ·num_cells / 2
+             then ·⟪C2E2Cₒ, 0ₒ⟫(cell_input) + ·cell_input + ·cell_input + ·⟪C2E2Cₒ, 1ₒ⟫(cell_input) + ·cell_input
+                  + ·⟪C2E2Cₒ, 2ₒ⟫(cell_input)
+             else ·⟪C2E2Cₒ, 0ₒ⟫(cell_input) + ·cell_input + ·⟪C2E2Cₒ, 1ₒ⟫(cell_input) + ·cell_input + ·cell_input
+                  + ·⟪C2E2Cₒ, 0ₒ⟫(cell_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input, index(Cellₕ), num_cells);
+}
+end
+==PROF== Disconnected from process 56698
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/c2e2c_on.ncu-rep
+==PROF== Connected to process 59729 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.196643s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ c2e2v_sum_program(
+  vertex_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → ·⟪C2Eₒ, 0ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪C2Eₒ, 0ₒ, E2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪C2Eₒ, 1ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪C2Eₒ, 1ₒ, E2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪C2Eₒ, 2ₒ, E2Vₒ, 0ₒ⟫(vertex_input) + ·⟪C2Eₒ, 2ₒ, E2Vₒ, 1ₒ⟫(vertex_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseTables
+ c2e2v_sum_program(
+  vertex_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input, cell_idx, num_cells) → 
+             ·(if ·cell_idx < ·num_cells / 2 then ⟪C2Vₒ, 0ₒ⟫(vertex_input) else ⟪C2Vₒ, 0ₒ⟫(vertex_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2Vₒ, 1ₒ⟫(vertex_input) else ⟪C2Vₒ, 1ₒ⟫(vertex_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2Vₒ, 0ₒ⟫(vertex_input) else ⟪C2Vₒ, 0ₒ⟫(vertex_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2Vₒ, 2ₒ⟫(vertex_input) else ⟪C2Vₒ, 2ₒ⟫(vertex_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2Vₒ, 1ₒ⟫(vertex_input) else ⟪C2Vₒ, 1ₒ⟫(vertex_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2Vₒ, 2ₒ⟫(vertex_input) else ⟪C2Vₒ, 2ₒ⟫(vertex_input)),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(vertex_input, index(Cellₕ), num_cells);
+}
+after CollapseIfs + StripDegenerateIfs
+ c2e2v_sum_program(
+  vertex_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input, cell_idx, num_cells) → 
+             ·⟪C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪C2Vₒ, 0ₒ⟫(vertex_input)
+             + ·⟪C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪C2Vₒ, 2ₒ⟫(vertex_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(vertex_input, index(Cellₕ), num_cells);
+}
+end
+==PROF== Disconnected from process 59729
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/c2e2v_on.ncu-rep
+==PROF== Connected to process 62718 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.839107s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ c2v2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input) → ·⟪C2Vₒ, 0ₒ, V2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2Vₒ, 0ₒ, V2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 0ₒ, V2Cₒ, 2ₒ⟫(cell_input) + ·⟪C2Vₒ, 0ₒ, V2Cₒ, 3ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 0ₒ, V2Cₒ, 4ₒ⟫(cell_input) + ·⟪C2Vₒ, 0ₒ, V2Cₒ, 5ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 1ₒ, V2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2Vₒ, 1ₒ, V2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 1ₒ, V2Cₒ, 2ₒ⟫(cell_input) + ·⟪C2Vₒ, 1ₒ, V2Cₒ, 3ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 1ₒ, V2Cₒ, 4ₒ⟫(cell_input) + ·⟪C2Vₒ, 1ₒ, V2Cₒ, 5ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 2ₒ, V2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2Vₒ, 2ₒ, V2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 2ₒ, V2Cₒ, 2ₒ⟫(cell_input) + ·⟪C2Vₒ, 2ₒ, V2Cₒ, 3ₒ⟫(cell_input)
+                           + ·⟪C2Vₒ, 2ₒ, V2Cₒ, 4ₒ⟫(cell_input) + ·⟪C2Vₒ, 2ₒ, V2Cₒ, 5ₒ⟫(cell_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input);
+}
+after CollapseTables
+ c2v2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, cell_idx, num_cells) → 
+             ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 3ₒ⟫(cell_input) else ⟪C2V2Cₒ, 3ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 4ₒ⟫(cell_input) else ⟪C2V2Cₒ, 4ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 0ₒ⟫(cell_input) else ⟪C2V2Cₒ, 5ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else ⟪C2V2Cₒ, 0ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 1ₒ⟫(cell_input) else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 5ₒ⟫(cell_input) else ⟪C2V2Cₒ, 1ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 0ₒ⟫(cell_input) else ⟪C2V2Cₒ, 6ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 6ₒ⟫(cell_input) else ⟪C2V2Cₒ, 1ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 7ₒ⟫(cell_input) else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 8ₒ⟫(cell_input) else ⟪C2V2Cₒ, 2ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 2ₒ⟫(cell_input) else ⟪C2V2Cₒ, 7ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else ⟪C2V2Cₒ, 8ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 1ₒ⟫(cell_input) else cell_input)
+             + ·(if ·cell_idx < ·num_cells / 2 then cell_input else ⟪C2V2Cₒ, 0ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 2ₒ⟫(cell_input) else ⟪C2V2Cₒ, 9ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 9ₒ⟫(cell_input) else ⟪C2V2Cₒ, 10ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 10ₒ⟫(cell_input) else ⟪C2V2Cₒ, 11ₒ⟫(cell_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Cₒ, 11ₒ⟫(cell_input) else ⟪C2V2Cₒ, 2ₒ⟫(cell_input)),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input, index(Cellₕ), num_cells);
+}
+after CollapseIfs + StripDegenerateIfs
+ c2v2c_sum_program(
+  cell_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, cell_idx, num_cells) → 
+             if   ·cell_idx < ·num_cells / 2
+             then ·⟪C2V2Cₒ, 3ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 4ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 0ₒ⟫(cell_input) + ·cell_input
+                  + ·⟪C2V2Cₒ, 1ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 5ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 0ₒ⟫(cell_input)
+                  + ·⟪C2V2Cₒ, 6ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 7ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 8ₒ⟫(cell_input)
+                  + ·⟪C2V2Cₒ, 2ₒ⟫(cell_input) + ·cell_input + ·⟪C2V2Cₒ, 1ₒ⟫(cell_input) + ·cell_input
+                  + ·⟪C2V2Cₒ, 2ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 9ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 10ₒ⟫(cell_input)
+                  + ·⟪C2V2Cₒ, 11ₒ⟫(cell_input)
+             else ·⟪C2V2Cₒ, 3ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 4ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 5ₒ⟫(cell_input)
+                  + ·⟪C2V2Cₒ, 0ₒ⟫(cell_input) + ·cell_input + ·⟪C2V2Cₒ, 1ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 6ₒ⟫(cell_input)
+                  + ·⟪C2V2Cₒ, 1ₒ⟫(cell_input) + ·cell_input + ·⟪C2V2Cₒ, 2ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 7ₒ⟫(cell_input)
+                  + ·⟪C2V2Cₒ, 8ₒ⟫(cell_input) + ·cell_input + ·⟪C2V2Cₒ, 0ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 9ₒ⟫(cell_input)
+                  + ·⟪C2V2Cₒ, 10ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 11ₒ⟫(cell_input) + ·⟪C2V2Cₒ, 2ₒ⟫(cell_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(cell_input, index(Cellₕ), num_cells);
+}
+end
+==PROF== Disconnected from process 62718
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/c2v2c_on.ncu-rep
+==PROF== Connected to process 68553 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.513396s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ c2v2e_sum_program(
+  edge_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → ·⟪C2Vₒ, 0ₒ, V2Eₒ, 0ₒ⟫(edge_input) + ·⟪C2Vₒ, 0ₒ, V2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 0ₒ, V2Eₒ, 2ₒ⟫(edge_input) + ·⟪C2Vₒ, 0ₒ, V2Eₒ, 3ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 0ₒ, V2Eₒ, 4ₒ⟫(edge_input) + ·⟪C2Vₒ, 0ₒ, V2Eₒ, 5ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 1ₒ, V2Eₒ, 0ₒ⟫(edge_input) + ·⟪C2Vₒ, 1ₒ, V2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 1ₒ, V2Eₒ, 2ₒ⟫(edge_input) + ·⟪C2Vₒ, 1ₒ, V2Eₒ, 3ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 1ₒ, V2Eₒ, 4ₒ⟫(edge_input) + ·⟪C2Vₒ, 1ₒ, V2Eₒ, 5ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 2ₒ, V2Eₒ, 0ₒ⟫(edge_input) + ·⟪C2Vₒ, 2ₒ, V2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 2ₒ, V2Eₒ, 2ₒ⟫(edge_input) + ·⟪C2Vₒ, 2ₒ, V2Eₒ, 3ₒ⟫(edge_input)
+                           + ·⟪C2Vₒ, 2ₒ, V2Eₒ, 4ₒ⟫(edge_input) + ·⟪C2Vₒ, 2ₒ, V2Eₒ, 5ₒ⟫(edge_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(edge_input);
+}
+after CollapseTables
+ c2v2e_sum_program(
+  edge_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, cell_idx, num_cells) → 
+             ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 3ₒ⟫(edge_input) else ⟪C2V2Eₒ, 3ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 4ₒ⟫(edge_input) else ⟪C2V2Eₒ, 4ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 0ₒ⟫(edge_input) else ⟪C2V2Eₒ, 5ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 1ₒ⟫(edge_input) else ⟪C2V2Eₒ, 0ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 5ₒ⟫(edge_input) else ⟪C2V2Eₒ, 1ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 6ₒ⟫(edge_input) else ⟪C2V2Eₒ, 6ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 7ₒ⟫(edge_input) else ⟪C2V2Eₒ, 7ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 8ₒ⟫(edge_input) else ⟪C2V2Eₒ, 1ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 9ₒ⟫(edge_input) else ⟪C2V2Eₒ, 2ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 10ₒ⟫(edge_input) else ⟪C2V2Eₒ, 8ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 2ₒ⟫(edge_input) else ⟪C2V2Eₒ, 9ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 0ₒ⟫(edge_input) else ⟪C2V2Eₒ, 10ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 1ₒ⟫(edge_input) else ⟪C2V2Eₒ, 0ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 2ₒ⟫(edge_input) else ⟪C2V2Eₒ, 11ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 11ₒ⟫(edge_input) else ⟪C2V2Eₒ, 12ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 12ₒ⟫(edge_input) else ⟪C2V2Eₒ, 13ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 13ₒ⟫(edge_input) else ⟪C2V2Eₒ, 14ₒ⟫(edge_input))
+             + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2V2Eₒ, 14ₒ⟫(edge_input) else ⟪C2V2Eₒ, 2ₒ⟫(edge_input)),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(edge_input, index(Cellₕ), num_cells);
+}
+after CollapseIfs + StripDegenerateIfs
+ c2v2e_sum_program(
+  edge_input,
+  cell_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __cell_out_0_range,
+  __cell_out_1_range
+) {
+  cell_out @ u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, cell_idx, num_cells) → 
+             if   ·cell_idx < ·num_cells / 2
+             then ·⟪C2V2Eₒ, 3ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 4ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 0ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 1ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 5ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 6ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 7ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 8ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 9ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 10ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 2ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 0ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 1ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 2ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 11ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 12ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 13ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 14ₒ⟫(edge_input)
+             else ·⟪C2V2Eₒ, 3ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 4ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 5ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 0ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 1ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 6ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 7ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 1ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 2ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 8ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 9ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 10ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 0ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 11ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 12ₒ⟫(edge_input)
+                  + ·⟪C2V2Eₒ, 13ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 14ₒ⟫(edge_input) + ·⟪C2V2Eₒ, 2ₒ⟫(edge_input),
+           u⟨ Cellₕ: [__cell_out_0_range[0], __cell_out_0_range[1][, Kᵥ: [__cell_out_1_range[0], __cell_out_1_range[1][ ⟩
+         )(edge_input, index(Cellₕ), num_cells);
+}
+end
+==PROF== Disconnected from process 68553
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/c2v2e_on.ncu-rep
+==PROF== Connected to process 74144 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.704715s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ e2c2v_sum_program(
+  vertex_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input) → ·⟪E2Cₒ, 0ₒ, C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪E2Cₒ, 0ₒ, C2Vₒ, 1ₒ⟫(vertex_input)
+                             + ·⟪E2Cₒ, 0ₒ, C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪E2Cₒ, 1ₒ, C2Vₒ, 0ₒ⟫(vertex_input)
+                             + ·⟪E2Cₒ, 1ₒ, C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪E2Cₒ, 1ₒ, C2Vₒ, 2ₒ⟫(vertex_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(vertex_input);
+}
+after CollapseTables
+ e2c2v_sum_program(
+  vertex_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input, edge_idx, num_edges) → 
+             ·(if   ·edge_idx < ·num_edges / 3
+               then ⟪E2C2Vₒ, 2ₒ⟫(vertex_input)
+               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Vₒ, 2ₒ⟫(vertex_input) else ⟪E2C2Vₒ, 0ₒ⟫(vertex_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Vₒ, 0ₒ⟫(vertex_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Vₒ, 0ₒ⟫(vertex_input) else ⟪E2C2Vₒ, 2ₒ⟫(vertex_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Vₒ, 1ₒ⟫(vertex_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Vₒ, 1ₒ⟫(vertex_input) else ⟪E2C2Vₒ, 1ₒ⟫(vertex_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Vₒ, 0ₒ⟫(vertex_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Vₒ, 0ₒ⟫(vertex_input) else ⟪E2C2Vₒ, 0ₒ⟫(vertex_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Vₒ, 1ₒ⟫(vertex_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Vₒ, 1ₒ⟫(vertex_input) else ⟪E2C2Vₒ, 3ₒ⟫(vertex_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Vₒ, 3ₒ⟫(vertex_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Vₒ, 2ₒ⟫(vertex_input) else ⟪E2C2Vₒ, 1ₒ⟫(vertex_input)),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(vertex_input, index(Edgeₕ), num_edges);
+}
+after CollapseIfs + StripDegenerateIfs
+ e2c2v_sum_program(
+  vertex_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __vertex_input_0_range,
+  __vertex_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(vertex_input, edge_idx, num_edges) → 
+             if   ·edge_idx < ·num_edges / 3
+             then ·⟪E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 1ₒ⟫(vertex_input)
+                  + ·⟪E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 3ₒ⟫(vertex_input)
+             else if   ·edge_idx < 2 × (·num_edges / 3)
+                  then ·⟪E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 1ₒ⟫(vertex_input)
+                       + ·⟪E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 1ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 2ₒ⟫(vertex_input)
+                  else ·⟪E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 2ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 1ₒ⟫(vertex_input)
+                       + ·⟪E2C2Vₒ, 0ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 3ₒ⟫(vertex_input) + ·⟪E2C2Vₒ, 1ₒ⟫(vertex_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(vertex_input, index(Edgeₕ), num_edges);
+}
+end
+==PROF== Disconnected from process 74144
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/e2c2v_on.ncu-rep
+==PROF== Connected to process 77337 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.827361s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ e2v2c_sum_program(
+  cell_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input) → ·⟪E2Vₒ, 0ₒ, V2Cₒ, 0ₒ⟫(cell_input) + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 2ₒ⟫(cell_input) + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 3ₒ⟫(cell_input)
+                           + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 4ₒ⟫(cell_input) + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 5ₒ⟫(cell_input)
+                           + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 0ₒ⟫(cell_input) + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 1ₒ⟫(cell_input)
+                           + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 2ₒ⟫(cell_input) + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 3ₒ⟫(cell_input)
+                           + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 4ₒ⟫(cell_input) + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 5ₒ⟫(cell_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(cell_input);
+}
+after CollapseTables
+ e2v2c_sum_program(
+  cell_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, edge_idx, num_edges) → 
+             ·(if   ·edge_idx < ·num_edges / 3
+               then ⟪E2V2Cₒ, 2ₒ⟫(cell_input)
+               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 2ₒ⟫(cell_input) else ⟪E2V2Cₒ, 2ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 3ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 3ₒ⟫(cell_input) else ⟪E2V2Cₒ, 3ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 4ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(cell_input) else ⟪E2V2Cₒ, 4ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 5ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(cell_input) else ⟪E2V2Cₒ, 0ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 0ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 4ₒ⟫(cell_input) else ⟪E2V2Cₒ, 1ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 1ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 5ₒ⟫(cell_input) else ⟪E2V2Cₒ, 5ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 6ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(cell_input) else ⟪E2V2Cₒ, 1ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 1ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 6ₒ⟫(cell_input) else ⟪E2V2Cₒ, 0ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 0ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 7ₒ⟫(cell_input) else ⟪E2V2Cₒ, 6ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 7ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 8ₒ⟫(cell_input) else ⟪E2V2Cₒ, 7ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 8ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 9ₒ⟫(cell_input) else ⟪E2V2Cₒ, 8ₒ⟫(cell_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Cₒ, 9ₒ⟫(cell_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(cell_input) else ⟪E2V2Cₒ, 9ₒ⟫(cell_input)),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(cell_input, index(Edgeₕ), num_edges);
+}
+after CollapseIfs + StripDegenerateIfs
+ e2v2c_sum_program(
+  cell_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __cell_input_0_range,
+  __cell_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(cell_input, edge_idx, num_edges) → 
+             if   ·edge_idx < ·num_edges / 3
+             then ·⟪E2V2Cₒ, 2ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 3ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 4ₒ⟫(cell_input)
+                  + ·⟪E2V2Cₒ, 5ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 0ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 1ₒ⟫(cell_input)
+                  + ·⟪E2V2Cₒ, 6ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 1ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 0ₒ⟫(cell_input)
+                  + ·⟪E2V2Cₒ, 7ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 8ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 9ₒ⟫(cell_input)
+             else if   ·edge_idx < 2 × (·num_edges / 3)
+                  then ·⟪E2V2Cₒ, 2ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 3ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 0ₒ⟫(cell_input)
+                       + ·⟪E2V2Cₒ, 1ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 4ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 5ₒ⟫(cell_input)
+                       + ·⟪E2V2Cₒ, 0ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 6ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 7ₒ⟫(cell_input)
+                       + ·⟪E2V2Cₒ, 8ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 9ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 1ₒ⟫(cell_input)
+                  else ·⟪E2V2Cₒ, 2ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 3ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 4ₒ⟫(cell_input)
+                       + ·⟪E2V2Cₒ, 0ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 1ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 5ₒ⟫(cell_input)
+                       + ·⟪E2V2Cₒ, 1ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 0ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 6ₒ⟫(cell_input)
+                       + ·⟪E2V2Cₒ, 7ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 8ₒ⟫(cell_input) + ·⟪E2V2Cₒ, 9ₒ⟫(cell_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(cell_input, index(Edgeₕ), num_edges);
+}
+end
+==PROF== Disconnected from process 77337
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/e2v2c_on.ncu-rep
+==PROF== Connected to process 80311 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.026642s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ e2v2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → ·⟪E2Vₒ, 0ₒ, V2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2Vₒ, 0ₒ, V2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪E2Vₒ, 0ₒ, V2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2Vₒ, 0ₒ, V2Eₒ, 3ₒ⟫(edge_input)
+                           + ·⟪E2Vₒ, 0ₒ, V2Eₒ, 4ₒ⟫(edge_input) + ·⟪E2Vₒ, 0ₒ, V2Eₒ, 5ₒ⟫(edge_input)
+                           + ·⟪E2Vₒ, 1ₒ, V2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2Vₒ, 1ₒ, V2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪E2Vₒ, 1ₒ, V2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2Vₒ, 1ₒ, V2Eₒ, 3ₒ⟫(edge_input)
+                           + ·⟪E2Vₒ, 1ₒ, V2Eₒ, 4ₒ⟫(edge_input) + ·⟪E2Vₒ, 1ₒ, V2Eₒ, 5ₒ⟫(edge_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input);
+}
+after CollapseTables
+ e2v2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, edge_idx, num_edges) → 
+             ·(if   ·edge_idx < ·num_edges / 3
+               then ⟪E2V2Eₒ, 0ₒ⟫(edge_input)
+               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 0ₒ⟫(edge_input) else ⟪E2V2Eₒ, 0ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 1ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 1ₒ⟫(edge_input) else ⟪E2V2Eₒ, 1ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 2ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then edge_input else ⟪E2V2Eₒ, 2ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 3ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 3ₒ⟫(edge_input) else edge_input)
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then edge_input
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 4ₒ⟫(edge_input) else ⟪E2V2Eₒ, 3ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 4ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 5ₒ⟫(edge_input) else ⟪E2V2Eₒ, 4ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 5ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 5ₒ⟫(edge_input) else edge_input)
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then edge_input
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 6ₒ⟫(edge_input) else ⟪E2V2Eₒ, 5ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 6ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 7ₒ⟫(edge_input) else ⟪E2V2Eₒ, 6ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 7ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 8ₒ⟫(edge_input) else ⟪E2V2Eₒ, 7ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 8ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Eₒ, 9ₒ⟫(edge_input) else ⟪E2V2Eₒ, 8ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2V2Eₒ, 9ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then edge_input else ⟪E2V2Eₒ, 9ₒ⟫(edge_input)),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input, index(Edgeₕ), num_edges);
+}
+after CollapseIfs + StripDegenerateIfs
+ e2v2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, edge_idx, num_edges) → 
+             if   ·edge_idx < ·num_edges / 3
+             then ·⟪E2V2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 1ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 2ₒ⟫(edge_input)
+                  + ·⟪E2V2Eₒ, 3ₒ⟫(edge_input) + ·edge_input + ·⟪E2V2Eₒ, 4ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 5ₒ⟫(edge_input)
+                  + ·edge_input + ·⟪E2V2Eₒ, 6ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 7ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 8ₒ⟫(edge_input)
+                  + ·⟪E2V2Eₒ, 9ₒ⟫(edge_input)
+             else if   ·edge_idx < 2 × (·num_edges / 3)
+                  then ·⟪E2V2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 1ₒ⟫(edge_input) + ·edge_input + ·⟪E2V2Eₒ, 3ₒ⟫(edge_input)
+                       + ·⟪E2V2Eₒ, 4ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 5ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 5ₒ⟫(edge_input)
+                       + ·⟪E2V2Eₒ, 6ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 7ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 8ₒ⟫(edge_input)
+                       + ·⟪E2V2Eₒ, 9ₒ⟫(edge_input) + ·edge_input
+                  else ·⟪E2V2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 1ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 2ₒ⟫(edge_input) + ·edge_input
+                       + ·⟪E2V2Eₒ, 3ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 4ₒ⟫(edge_input) + ·edge_input + ·⟪E2V2Eₒ, 5ₒ⟫(edge_input)
+                       + ·⟪E2V2Eₒ, 6ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 7ₒ⟫(edge_input) + ·⟪E2V2Eₒ, 8ₒ⟫(edge_input)
+                       + ·⟪E2V2Eₒ, 9ₒ⟫(edge_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input, index(Edgeₕ), num_edges);
+}
+end
+==PROF== Disconnected from process 80311
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/e2v2e_on.ncu-rep
+==PROF== Connected to process 83310 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 277.865305s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ e2c2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → ·⟪E2Cₒ, 0ₒ, C2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2Cₒ, 0ₒ, C2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪E2Cₒ, 0ₒ, C2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2Cₒ, 1ₒ, C2Eₒ, 0ₒ⟫(edge_input)
+                           + ·⟪E2Cₒ, 1ₒ, C2Eₒ, 1ₒ⟫(edge_input) + ·⟪E2Cₒ, 1ₒ, C2Eₒ, 2ₒ⟫(edge_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input);
+}
+after CollapseTables
+ e2c2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, edge_idx, num_edges) → 
+             ·(if   ·edge_idx < ·num_edges / 3
+               then ⟪E2C2Eₒ, 0ₒ⟫(edge_input)
+               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 0ₒ⟫(edge_input) else ⟪E2C2Eₒ, 0ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Eₒ, 1ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 1ₒ⟫(edge_input) else edge_input)
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then edge_input
+                 else if ·edge_idx < 2 × (·num_edges / 3) then edge_input else ⟪E2C2Eₒ, 1ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then edge_input
+                 else if ·edge_idx < 2 × (·num_edges / 3) then edge_input else ⟪E2C2Eₒ, 2ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Eₒ, 2ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 2ₒ⟫(edge_input) else edge_input)
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Eₒ, 3ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 3ₒ⟫(edge_input) else ⟪E2C2Eₒ, 3ₒ⟫(edge_input)),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input, index(Edgeₕ), num_edges);
+}
+after CollapseIfs + StripDegenerateIfs
+ e2c2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, edge_idx, num_edges) → 
+             if   ·edge_idx < ·num_edges / 3
+             then ·⟪E2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 1ₒ⟫(edge_input) + ·edge_input + ·edge_input
+                  + ·⟪E2C2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 3ₒ⟫(edge_input)
+             else if   ·edge_idx < 2 × (·num_edges / 3)
+                  then ·⟪E2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 1ₒ⟫(edge_input) + ·edge_input + ·edge_input
+                       + ·⟪E2C2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 3ₒ⟫(edge_input)
+                  else ·⟪E2C2Eₒ, 0ₒ⟫(edge_input) + ·edge_input + ·⟪E2C2Eₒ, 1ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 2ₒ⟫(edge_input)
+                       + ·edge_input + ·⟪E2C2Eₒ, 3ₒ⟫(edge_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input, index(Edgeₕ), num_edges);
+}
+end
+==PROF== Disconnected from process 83310
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/e2c2e_on.ncu-rep
+==PROF== Connected to process 86186 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Connected to process 88960 (/capstor/scratch/cscs/mklein/icon4py/GT4PYcacheon/.gt4py_cache/compile_commands_cache_gridtools_gpu_master_nanobind_2_0_0_Release__da636645311ef39c328eb6d5ce0b750957e5cd350009b768ad13bd67c08b36df/build/CMakeFiles/3.27.9/CMakeDetermineCompilerABI_CUDA.bin)
+==PROF== Disconnected from process 88960
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 278.383272s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ calculate_nabla2_for_theta(
+  kh_smag_e,
+  inv_dual_edge_length,
+  theta_v,
+  geofac_div,
+  z_temp,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div) → 
+             cast_(
+               0 + ·⟪C2Eₒ, 0ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
+                   × (·⟪C2Eₒ, 0ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 0ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
+               + ·⟪C2Eₒ, 1ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
+                 × (·⟪C2Eₒ, 1ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 1ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
+               + ·⟪C2Eₒ, 2ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
+                 × (·⟪C2Eₒ, 2ₒ, E2Cₒ, 1ₒ⟫(theta_v) - ·⟪C2Eₒ, 2ₒ, E2Cₒ, 0ₒ⟫(theta_v)) × ·⟪C2CEₒ, 2ₒ⟫(geofac_div),
+               float64
+             ), u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div);
+}
+after CollapseTables
+ calculate_nabla2_for_theta(
+  kh_smag_e,
+  inv_dual_edge_length,
+  theta_v,
+  geofac_div,
+  z_temp,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, cell_idx, num_cells) → 
+             cast_(
+               0 + ·⟪C2Eₒ, 0ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length)
+                   × (·(if ·cell_idx < ·num_cells / 2 then theta_v else theta_v)
+                      - ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 0ₒ⟫(theta_v) else ⟪C2E2Cₒ, 0ₒ⟫(theta_v)))
+                   × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
+               + ·⟪C2Eₒ, 1ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
+                 × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(theta_v) else theta_v)
+                    - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 1ₒ⟫(theta_v)))
+                 × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
+               + ·⟪C2Eₒ, 2ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
+                 × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(theta_v) else ⟪C2E2Cₒ, 0ₒ⟫(theta_v))
+                    - ·(if ·cell_idx < ·num_cells / 2 then theta_v else theta_v)) × ·⟪C2CEₒ, 2ₒ⟫(geofac_div),
+               float64
+             ), u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, index(Cellₕ), num_cells);
+}
+after CollapseIfs + StripDegenerateIfs
+ calculate_nabla2_for_theta(
+  kh_smag_e,
+  inv_dual_edge_length,
+  theta_v,
+  geofac_div,
+  z_temp,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, cell_idx, num_cells) → 
+             cast_(
+               0 + ·⟪C2Eₒ, 0ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 0ₒ⟫(inv_dual_edge_length) × (·theta_v - ·⟪C2E2Cₒ, 0ₒ⟫(theta_v))
+                   × ·⟪C2CEₒ, 0ₒ⟫(geofac_div)
+               + ·⟪C2Eₒ, 1ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 1ₒ⟫(inv_dual_edge_length)
+                 × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(theta_v) else theta_v)
+                    - ·(if ·cell_idx < ·num_cells / 2 then theta_v else ⟪C2E2Cₒ, 1ₒ⟫(theta_v)))
+                 × ·⟪C2CEₒ, 1ₒ⟫(geofac_div)
+               + ·⟪C2Eₒ, 2ₒ⟫(kh_smag_e) × ·⟪C2Eₒ, 2ₒ⟫(inv_dual_edge_length)
+                 × (·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(theta_v) else ⟪C2E2Cₒ, 0ₒ⟫(theta_v)) - ·theta_v)
+                 × ·⟪C2CEₒ, 2ₒ⟫(geofac_div), float64
+             ), u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div, index(Cellₕ), num_cells);
+}
+end
+==PROF== Disconnected from process 86186
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/calculate_nabla2_for_theta_on.ncu-rep
+==PROF== Connected to process 89812 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 276.594806s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(__ct_flat_el_0___tcw_pos, w_old, diff_multfac_w, area, geofac_n2s, halo_idx, interior_idx) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 0ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 1ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 2ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 0ₒ⟫(w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 1ₒ⟫(w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 2ₒ⟫(w_old) × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                      + ·⟪C2E2COₒ, 3ₒ, C2E2COₒ, 3ₒ⟫(w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64),
+                                float64
+                              ) × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ), w_old, diff_multfac_w, area, geofac_n2s, halo_idx, interior_idx);
+}
+after CollapseTables
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             __ct_flat_el_0___tcw_pos,
+             w_old,
+             diff_multfac_w,
+             area,
+             geofac_n2s,
+             halo_idx,
+             interior_idx,
+             cell_idx,
+             num_cells
+           ) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(
+                                cast_(
+                                  0
+                                  + ·(if ·cell_idx < ·num_cells / 2 then w_old else w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2Cₒ, 0ₒ⟫(w_old))
+                                    × list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2Cₒ, 1ₒ⟫(w_old))
+                                    × list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old))
+                                    × list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)), float64
+                                ), float64
+                              ) × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2Cₒ, 2ₒ⟫(w_old))
+                                          × list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old))
+                                        × list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s))
+                                      + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old))
+                                        × list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)), float64), float64
+                              ) × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(
+                                  0 + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old))
+                                      × list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then w_old else w_old) × list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 1ₒ⟫(w_old) else ⟪C2E2Cₒ, 1ₒ⟫(w_old))
+                                    × list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then w_old else w_old) × list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)),
+                                  float64
+                                ), float64
+                              ) × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(
+                                cast_(
+                                  0
+                                  + ·(if ·cell_idx < ·num_cells / 2 then w_old else w_old) × list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2Cₒ, 2ₒ⟫(w_old) else ⟪C2E2Cₒ, 2ₒ⟫(w_old))
+                                    × list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 4ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 4ₒ⟫(w_old))
+                                    × list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s))
+                                  + ·(if ·cell_idx < ·num_cells / 2 then ⟪C2E2C2E2Cₒ, 5ₒ⟫(w_old) else ⟪C2E2C2E2Cₒ, 5ₒ⟫(w_old))
+                                    × list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)), float64
+                                ), float64
+                              ) × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ),
+           w_old,
+           diff_multfac_w,
+           area,
+           geofac_n2s,
+           halo_idx,
+           interior_idx,
+           index(Cellₕ),
+           num_cells);
+}
+after CollapseIfs + StripDegenerateIfs
+ apply_diffusion_to_w(
+  area,
+  geofac_n2s,
+  w_old,
+  w,
+  diff_multfac_w,
+  interior_idx,
+  halo_idx,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  w @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             __ct_flat_el_0___tcw_pos,
+             w_old,
+             diff_multfac_w,
+             area,
+             geofac_n2s,
+             halo_idx,
+             interior_idx,
+             cell_idx,
+             num_cells
+           ) → 
+             if   ·interior_idx <= ·__ct_flat_el_0___tcw_pos ∧ True
+             then if   True ∧ ·__ct_flat_el_0___tcw_pos < ·halo_idx
+                  then ·w_old
+                       - ·area × ·area × ·diff_multfac_w
+                         × (0
+                            + cast_(cast_(0 + list_get(0ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)) × ·w_old
+                                          + list_get(1ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)) × ·⟪C2E2Cₒ, 0ₒ⟫(w_old)
+                                          + list_get(2ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)) × ·⟪C2E2Cₒ, 1ₒ⟫(w_old)
+                                          + list_get(3ₒ, ·⟪C2E2COₒ, 0ₒ⟫(geofac_n2s)) × ·⟪C2E2C2E2Cₒ, 2ₒ⟫(w_old), float64), float64)
+                              × list_get(0ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + list_get(0ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)) × ·⟪C2E2Cₒ, 2ₒ⟫(w_old)
+                                          + list_get(1ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)) × ·⟪C2E2Cₒ, 0ₒ⟫(w_old)
+                                          + list_get(2ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)) × ·⟪C2E2C2E2Cₒ, 0ₒ⟫(w_old)
+                                          + list_get(3ₒ, ·⟪C2E2COₒ, 1ₒ⟫(geofac_n2s)) × ·⟪C2E2C2E2Cₒ, 3ₒ⟫(w_old), float64), float64)
+                              × list_get(1ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + list_get(0ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)) × ·⟪C2E2C2E2Cₒ, 1ₒ⟫(w_old)
+                                          + list_get(1ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)) × ·w_old
+                                          + list_get(2ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)) × ·⟪C2E2Cₒ, 1ₒ⟫(w_old)
+                                          + list_get(3ₒ, ·⟪C2E2COₒ, 2ₒ⟫(geofac_n2s)) × ·w_old, float64), float64)
+                              × list_get(2ₒ, ·geofac_n2s)
+                            + cast_(cast_(0 + list_get(0ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)) × ·w_old
+                                          + list_get(1ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)) × ·⟪C2E2Cₒ, 2ₒ⟫(w_old)
+                                          + list_get(2ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)) × ·⟪C2E2C2E2Cₒ, 4ₒ⟫(w_old)
+                                          + list_get(3ₒ, ·⟪C2E2COₒ, 3ₒ⟫(geofac_n2s)) × ·⟪C2E2C2E2Cₒ, 5ₒ⟫(w_old), float64), float64)
+                              × list_get(3ₒ, ·geofac_n2s))
+                  else ·w_old
+             else ·w_old, u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(index(Cellₕ),
+           w_old,
+           diff_multfac_w,
+           area,
+           geofac_n2s,
+           halo_idx,
+           interior_idx,
+           index(Cellₕ),
+           num_cells);
+}
+end
+==PROF== Disconnected from process 89812
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/apply_diffusion_w_on.ncu-rep
+==PROF== Connected to process 92716 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp
+           ) → 
+             cast_(
+               ·vn_on_half_levels × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + ·tangential_wind_on_half_levels × ·inv_primal_edge_length × ·tangent_orientation
+                 × (cast_(cast_(0 + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 1ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 2ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 3ₒ⟫(w) × list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 4ₒ⟫(w) × list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·⟪E2Vₒ, 0ₒ, V2Cₒ, 5ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)), float64), float64)
+                    - cast_(cast_(0 + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 0ₒ⟫(w) × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 1ₒ⟫(w) × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 2ₒ⟫(w) × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 3ₒ⟫(w) × list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 4ₒ⟫(w) × list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·⟪E2Vₒ, 1ₒ, V2Cₒ, 5ₒ⟫(w) × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64), float64)),
+               float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp);
+}
+after CollapseTables
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp,
+             edge_idx,
+             num_edges
+           ) → 
+             cast_(
+               ·vn_on_half_levels × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + ·tangential_wind_on_half_levels × ·inv_primal_edge_length × ·tangent_orientation
+                 × (cast_(cast_(0 + ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 2ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 2ₒ⟫(w) else ⟪E2V2Cₒ, 2ₒ⟫(w))
+                                    × list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 3ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 3ₒ⟫(w) else ⟪E2V2Cₒ, 3ₒ⟫(w))
+                                  × list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 4ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 4ₒ⟫(w))
+                                  × list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 5ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                                  × list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 4ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                                  × list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                + ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 5ₒ⟫(w) else ⟪E2V2Cₒ, 5ₒ⟫(w))
+                                  × list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)), float64), float64)
+                    - cast_(cast_(0 + ·(if   ·edge_idx < ·num_edges / 3
+                                        then ⟪E2V2Cₒ, 6ₒ⟫(w)
+                                        else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                                      × list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 6ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                                    × list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 7ₒ⟫(w) else ⟪E2V2Cₒ, 6ₒ⟫(w))
+                                    × list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 7ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 8ₒ⟫(w) else ⟪E2V2Cₒ, 7ₒ⟫(w))
+                                    × list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 8ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 9ₒ⟫(w) else ⟪E2V2Cₒ, 8ₒ⟫(w))
+                                    × list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  + ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 9ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 9ₒ⟫(w))
+                                    × list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp)), float64), float64)), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp,
+           index(Edgeₕ),
+           num_edges);
+}
+after CollapseIfs + StripDegenerateIfs
+ compute_horizontal_advection_of_w(
+  horizontal_advection_of_w_at_edges_on_half_levels,
+  w,
+  tangential_wind_on_half_levels,
+  vn_on_half_levels,
+  c_intp,
+  inv_dual_edge_length,
+  inv_primal_edge_length,
+  tangent_orientation,
+  num_edges,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  horizontal_advection_of_w_at_edges_on_half_levels @ u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(
+             vn_on_half_levels,
+             inv_dual_edge_length,
+             w,
+             tangential_wind_on_half_levels,
+             inv_primal_edge_length,
+             tangent_orientation,
+             c_intp,
+             edge_idx,
+             num_edges
+           ) → 
+             cast_(
+               ·vn_on_half_levels × ·inv_dual_edge_length × (·⟪E2Cₒ, 0ₒ⟫(w) - ·⟪E2Cₒ, 1ₒ⟫(w))
+               + ·tangential_wind_on_half_levels × ·inv_primal_edge_length × ·tangent_orientation
+                 × (cast_(cast_(0 + list_get(0ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)) × ·⟪E2V2Cₒ, 2ₒ⟫(w)
+                                + list_get(1ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp)) × ·⟪E2V2Cₒ, 3ₒ⟫(w)
+                                + list_get(2ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                  × ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 4ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 4ₒ⟫(w))
+                                + list_get(3ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                  × ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 5ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                                + list_get(4ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                  × ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 4ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                                + list_get(5ₒ, ·⟪E2Vₒ, 0ₒ⟫(c_intp))
+                                  × ·(if ·edge_idx < ·num_edges / 3 then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 5ₒ⟫(w)), float64),
+                          float64)
+                    - cast_(
+                        cast_(0 + list_get(0ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                  × ·(if   ·edge_idx < ·num_edges / 3
+                                      then ⟪E2V2Cₒ, 6ₒ⟫(w)
+                                      else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 0ₒ⟫(w) else ⟪E2V2Cₒ, 1ₒ⟫(w))
+                              + list_get(1ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                × ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 1ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 6ₒ⟫(w) else ⟪E2V2Cₒ, 0ₒ⟫(w))
+                              + list_get(2ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                × ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 0ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 7ₒ⟫(w) else ⟪E2V2Cₒ, 6ₒ⟫(w))
+                              + list_get(3ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                × ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 7ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 8ₒ⟫(w) else ⟪E2V2Cₒ, 7ₒ⟫(w))
+                              + list_get(4ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                × ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 8ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 9ₒ⟫(w) else ⟪E2V2Cₒ, 8ₒ⟫(w))
+                              + list_get(5ₒ, ·⟪E2Vₒ, 1ₒ⟫(c_intp))
+                                × ·(if   ·edge_idx < ·num_edges / 3
+                                    then ⟪E2V2Cₒ, 9ₒ⟫(w)
+                                    else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2V2Cₒ, 1ₒ⟫(w) else ⟪E2V2Cₒ, 9ₒ⟫(w)),
+                              float64), float64
+                      )), float64
+             ), u⟨ Edgeₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(vn_on_half_levels,
+           inv_dual_edge_length,
+           w,
+           tangential_wind_on_half_levels,
+           inv_primal_edge_length,
+           tangent_orientation,
+           c_intp,
+           index(Edgeₕ),
+           num_edges);
+}
+end
+==PROF== Disconnected from process 92716
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/edge_diagnostics_on.ncu-rep
+Elapsed time: 4h 9m 48s

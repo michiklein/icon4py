@@ -1,0 +1,209 @@
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+Grid loaded in 328.087201s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+after InlineLambdas and NormalizeShifts
+ e2c2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → ·⟪E2Cₒ, 0ₒ, C2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2Cₒ, 0ₒ, C2Eₒ, 1ₒ⟫(edge_input)
+                           + ·⟪E2Cₒ, 0ₒ, C2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2Cₒ, 1ₒ, C2Eₒ, 0ₒ⟫(edge_input)
+                           + ·⟪E2Cₒ, 1ₒ, C2Eₒ, 1ₒ⟫(edge_input) + ·⟪E2Cₒ, 1ₒ, C2Eₒ, 2ₒ⟫(edge_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input);
+}
+after CollapseTables
+ e2c2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, edge_idx, num_edges) → 
+             ·(if   ·edge_idx < ·num_edges / 3
+               then ⟪E2C2Eₒ, 0ₒ⟫(edge_input)
+               else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 0ₒ⟫(edge_input) else ⟪E2C2Eₒ, 0ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Eₒ, 1ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 1ₒ⟫(edge_input) else edge_input)
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then edge_input
+                 else if ·edge_idx < 2 × (·num_edges / 3) then edge_input else ⟪E2C2Eₒ, 1ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then edge_input
+                 else if ·edge_idx < 2 × (·num_edges / 3) then edge_input else ⟪E2C2Eₒ, 2ₒ⟫(edge_input))
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Eₒ, 2ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 2ₒ⟫(edge_input) else edge_input)
+             + ·(if   ·edge_idx < ·num_edges / 3
+                 then ⟪E2C2Eₒ, 3ₒ⟫(edge_input)
+                 else if ·edge_idx < 2 × (·num_edges / 3) then ⟪E2C2Eₒ, 3ₒ⟫(edge_input) else ⟪E2C2Eₒ, 3ₒ⟫(edge_input)),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input, index(Edgeₕ), num_edges);
+}
+after CollapseIfs + StripDegenerateIfs
+ e2c2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input, edge_idx, num_edges) → 
+             if   ·edge_idx < ·num_edges / 3
+             then ·⟪E2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 1ₒ⟫(edge_input) + ·edge_input + ·edge_input
+                  + ·⟪E2C2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 3ₒ⟫(edge_input)
+             else if   ·edge_idx < 2 × (·num_edges / 3)
+                  then ·⟪E2C2Eₒ, 0ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 1ₒ⟫(edge_input) + ·edge_input + ·edge_input
+                       + ·⟪E2C2Eₒ, 2ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 3ₒ⟫(edge_input)
+                  else ·⟪E2C2Eₒ, 0ₒ⟫(edge_input) + ·edge_input + ·⟪E2C2Eₒ, 1ₒ⟫(edge_input) + ·⟪E2C2Eₒ, 2ₒ⟫(edge_input)
+                       + ·edge_input + ·⟪E2C2Eₒ, 3ₒ⟫(edge_input),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input, index(Edgeₕ), num_edges);
+}
+end
+Generating '/tmp/nsys-report-90ca.qdstrm'
+[1/8] [0%                          ] e2c2e_on.nsys-rep[1/8] [0%                          ] e2c2e_on.nsys-rep[1/8] [5%                          ] e2c2e_on.nsys-rep[1/8] [6%                          ] e2c2e_on.nsys-rep[1/8] [7%                          ] e2c2e_on.nsys-rep[1/8] [8%                          ] e2c2e_on.nsys-rep[1/8] [9%                          ] e2c2e_on.nsys-rep[1/8] [10%                         ] e2c2e_on.nsys-rep[1/8] [11%                         ] e2c2e_on.nsys-rep[1/8] [12%                         ] e2c2e_on.nsys-rep[1/8] [13%                         ] e2c2e_on.nsys-rep[1/8] [14%                         ] e2c2e_on.nsys-rep[1/8] [=15%                        ] e2c2e_on.nsys-rep[1/8] [=16%                        ] e2c2e_on.nsys-rep[1/8] [=17%                        ] e2c2e_on.nsys-rep[1/8] [==18%                       ] e2c2e_on.nsys-rep[1/8] [==19%                       ] e2c2e_on.nsys-rep[1/8] [==20%                       ] e2c2e_on.nsys-rep[1/8] [==21%                       ] e2c2e_on.nsys-rep[1/8] [==18%                       ] e2c2e_on.nsys-rep[1/8] [=16%                        ] e2c2e_on.nsys-rep[1/8] [13%                         ] e2c2e_on.nsys-rep[1/8] [12%                         ] e2c2e_on.nsys-rep[1/8] [11%                         ] e2c2e_on.nsys-rep[1/8] [10%                         ] e2c2e_on.nsys-rep[1/8] [9%                          ] e2c2e_on.nsys-rep[1/8] [7%                          ] e2c2e_on.nsys-rep[1/8] [8%                          ] e2c2e_on.nsys-rep[1/8] [6%                          ] e2c2e_on.nsys-rep[1/8] [7%                          ] e2c2e_on.nsys-rep[1/8] [6%                          ] e2c2e_on.nsys-rep[1/8] [5%                          ] e2c2e_on.nsys-rep[1/8] [5%                          ] e2c2e_on.nsys-rep[1/8] [6%                          ] e2c2e_on.nsys-rep[1/8] [5%                          ] e2c2e_on.nsys-rep[1/8] [6%                          ] e2c2e_on.nsys-rep[1/8] [5%                          ] e2c2e_on.nsys-rep[1/8] [8%                          ] e2c2e_on.nsys-rep[1/8] [7%                          ] e2c2e_on.nsys-rep[1/8] [8%                          ] e2c2e_on.nsys-rep[1/8] [7%                          ] e2c2e_on.nsys-rep[1/8] [8%                          ] e2c2e_on.nsys-rep[1/8] [7%                          ] e2c2e_on.nsys-rep[1/8] [9%                          ] e2c2e_on.nsys-rep[1/8] [11%                         ] e2c2e_on.nsys-rep[1/8] [13%                         ] e2c2e_on.nsys-rep[1/8] [=15%                        ] e2c2e_on.nsys-rep[1/8] [=16%                        ] e2c2e_on.nsys-rep[1/8] [==18%                       ] e2c2e_on.nsys-rep[1/8] [==19%                       ] e2c2e_on.nsys-rep[1/8] [==21%                       ] e2c2e_on.nsys-rep[1/8] [==20%                       ] e2c2e_on.nsys-rep[1/8] [==21%                       ] e2c2e_on.nsys-rep[1/8] [==20%                       ] e2c2e_on.nsys-rep[1/8] [===23%                      ] e2c2e_on.nsys-rep[1/8] [===22%                      ] e2c2e_on.nsys-rep[1/8] [==21%                       ] e2c2e_on.nsys-rep[1/8] [==20%                       ] e2c2e_on.nsys-rep[1/8] [==21%                       ] e2c2e_on.nsys-rep[1/8] [===22%                      ] e2c2e_on.nsys-rep[1/8] [===23%                      ] e2c2e_on.nsys-rep[1/8] [===24%                      ] e2c2e_on.nsys-rep[1/8] [====25%                     ] e2c2e_on.nsys-rep[1/8] [====26%                     ] e2c2e_on.nsys-rep[1/8] [====27%                     ] e2c2e_on.nsys-rep[1/8] [====28%                     ] e2c2e_on.nsys-rep[1/8] [=====29%                    ] e2c2e_on.nsys-rep[1/8] [=====30%                    ] e2c2e_on.nsys-rep[1/8] [=====31%                    ] e2c2e_on.nsys-rep[1/8] [=====32%                    ] e2c2e_on.nsys-rep[1/8] [======33%                   ] e2c2e_on.nsys-rep[1/8] [======34%                   ] e2c2e_on.nsys-rep[1/8] [======35%                   ] e2c2e_on.nsys-rep[1/8] [=======36%                  ] e2c2e_on.nsys-rep[1/8] [=======37%                  ] e2c2e_on.nsys-rep[1/8] [=======38%                  ] e2c2e_on.nsys-rep[1/8] [=======39%                  ] e2c2e_on.nsys-rep[1/8] [========40%                 ] e2c2e_on.nsys-rep[1/8] [========41%                 ] e2c2e_on.nsys-rep[1/8] [========42%                 ] e2c2e_on.nsys-rep[1/8] [=========43%                ] e2c2e_on.nsys-rep[1/8] [=========44%                ] e2c2e_on.nsys-rep[1/8] [=========45%                ] e2c2e_on.nsys-rep[1/8] [=========46%                ] e2c2e_on.nsys-rep[1/8] [==========47%               ] e2c2e_on.nsys-rep[1/8] [==========48%               ] e2c2e_on.nsys-rep[1/8] [==========49%               ] e2c2e_on.nsys-rep[1/8] [===========50%              ] e2c2e_on.nsys-rep[1/8] [===========51%              ] e2c2e_on.nsys-rep[1/8] [===========52%              ] e2c2e_on.nsys-rep[1/8] [===========53%              ] e2c2e_on.nsys-rep[1/8] [============54%             ] e2c2e_on.nsys-rep[1/8] [============55%             ] e2c2e_on.nsys-rep[1/8] [============56%             ] e2c2e_on.nsys-rep[1/8] [============57%             ] e2c2e_on.nsys-rep[1/8] [=============58%            ] e2c2e_on.nsys-rep[1/8] [=============59%            ] e2c2e_on.nsys-rep[1/8] [=============60%            ] e2c2e_on.nsys-rep[1/8] [==============61%           ] e2c2e_on.nsys-rep[1/8] [==============62%           ] e2c2e_on.nsys-rep[1/8] [==============63%           ] e2c2e_on.nsys-rep[1/8] [==============64%           ] e2c2e_on.nsys-rep[1/8] [===============65%          ] e2c2e_on.nsys-rep[1/8] [===============66%          ] e2c2e_on.nsys-rep[1/8] [===============67%          ] e2c2e_on.nsys-rep[1/8] [================68%         ] e2c2e_on.nsys-rep[1/8] [================69%         ] e2c2e_on.nsys-rep[1/8] [================70%         ] e2c2e_on.nsys-rep[1/8] [================71%         ] e2c2e_on.nsys-rep[1/8] [=================72%        ] e2c2e_on.nsys-rep[1/8] [=================73%        ] e2c2e_on.nsys-rep[1/8] [=================74%        ] e2c2e_on.nsys-rep[1/8] [==================75%       ] e2c2e_on.nsys-rep[1/8] [==================76%       ] e2c2e_on.nsys-rep[1/8] [==================77%       ] e2c2e_on.nsys-rep[1/8] [==================78%       ] e2c2e_on.nsys-rep[1/8] [===================79%      ] e2c2e_on.nsys-rep[1/8] [===================80%      ] e2c2e_on.nsys-rep[1/8] [===================81%      ] e2c2e_on.nsys-rep[1/8] [===================82%      ] e2c2e_on.nsys-rep[1/8] [====================83%     ] e2c2e_on.nsys-rep[1/8] [====================84%     ] e2c2e_on.nsys-rep[1/8] [====================85%     ] e2c2e_on.nsys-rep[1/8] [=====================86%    ] e2c2e_on.nsys-rep[1/8] [=====================87%    ] e2c2e_on.nsys-rep[1/8] [=====================88%    ] e2c2e_on.nsys-rep[1/8] [=====================89%    ] e2c2e_on.nsys-rep[1/8] [======================90%   ] e2c2e_on.nsys-rep[1/8] [========================100%] e2c2e_on.nsys-rep[1/8] [========================100%] e2c2e_on.nsys-rep
+[2/8] [0%                          ] e2c2e_on.sqlite[2/8] [1%                          ] e2c2e_on.sqlite[2/8] [2%                          ] e2c2e_on.sqlite[2/8] [3%                          ] e2c2e_on.sqlite[2/8] [4%                          ] e2c2e_on.sqlite[2/8] [5%                          ] e2c2e_on.sqlite[2/8] [6%                          ] e2c2e_on.sqlite[2/8] [7%                          ] e2c2e_on.sqlite[2/8] [8%                          ] e2c2e_on.sqlite[2/8] [9%                          ] e2c2e_on.sqlite[2/8] [10%                         ] e2c2e_on.sqlite[2/8] [11%                         ] e2c2e_on.sqlite[2/8] [12%                         ] e2c2e_on.sqlite[2/8] [13%                         ] e2c2e_on.sqlite[2/8] [14%                         ] e2c2e_on.sqlite[2/8] [=15%                        ] e2c2e_on.sqlite[2/8] [=16%                        ] e2c2e_on.sqlite[2/8] [=17%                        ] e2c2e_on.sqlite[2/8] [==18%                       ] e2c2e_on.sqlite[2/8] [==19%                       ] e2c2e_on.sqlite[2/8] [==20%                       ] e2c2e_on.sqlite[2/8] [==21%                       ] e2c2e_on.sqlite[2/8] [===22%                      ] e2c2e_on.sqlite[2/8] [===23%                      ] e2c2e_on.sqlite[2/8] [===24%                      ] e2c2e_on.sqlite[2/8] [====25%                     ] e2c2e_on.sqlite[2/8] [====26%                     ] e2c2e_on.sqlite[2/8] [====27%                     ] e2c2e_on.sqlite[2/8] [====28%                     ] e2c2e_on.sqlite[2/8] [=====29%                    ] e2c2e_on.sqlite[2/8] [=====30%                    ] e2c2e_on.sqlite[2/8] [=====31%                    ] e2c2e_on.sqlite[2/8] [=====32%                    ] e2c2e_on.sqlite[2/8] [======33%                   ] e2c2e_on.sqlite[2/8] [======34%                   ] e2c2e_on.sqlite[2/8] [======35%                   ] e2c2e_on.sqlite[2/8] [=======36%                  ] e2c2e_on.sqlite[2/8] [=======37%                  ] e2c2e_on.sqlite[2/8] [=======38%                  ] e2c2e_on.sqlite[2/8] [=======39%                  ] e2c2e_on.sqlite[2/8] [========40%                 ] e2c2e_on.sqlite[2/8] [========41%                 ] e2c2e_on.sqlite[2/8] [========42%                 ] e2c2e_on.sqlite[2/8] [=========43%                ] e2c2e_on.sqlite[2/8] [=========44%                ] e2c2e_on.sqlite[2/8] [=========45%                ] e2c2e_on.sqlite[2/8] [=========46%                ] e2c2e_on.sqlite[2/8] [==========47%               ] e2c2e_on.sqlite[2/8] [==========48%               ] e2c2e_on.sqlite[2/8] [==========49%               ] e2c2e_on.sqlite[2/8] [===========50%              ] e2c2e_on.sqlite[2/8] [===========51%              ] e2c2e_on.sqlite[2/8] [===========52%              ] e2c2e_on.sqlite[2/8] [===========53%              ] e2c2e_on.sqlite[2/8] [============54%             ] e2c2e_on.sqlite[2/8] [============55%             ] e2c2e_on.sqlite[2/8] [============56%             ] e2c2e_on.sqlite[2/8] [============57%             ] e2c2e_on.sqlite[2/8] [=============58%            ] e2c2e_on.sqlite[2/8] [=============59%            ] e2c2e_on.sqlite[2/8] [=============60%            ] e2c2e_on.sqlite[2/8] [==============61%           ] e2c2e_on.sqlite[2/8] [==============62%           ] e2c2e_on.sqlite[2/8] [==============63%           ] e2c2e_on.sqlite[2/8] [==============64%           ] e2c2e_on.sqlite[2/8] [===============65%          ] e2c2e_on.sqlite[2/8] [===============66%          ] e2c2e_on.sqlite[2/8] [===============67%          ] e2c2e_on.sqlite[2/8] [================68%         ] e2c2e_on.sqlite[2/8] [================69%         ] e2c2e_on.sqlite[2/8] [================70%         ] e2c2e_on.sqlite[2/8] [================71%         ] e2c2e_on.sqlite[2/8] [=================72%        ] e2c2e_on.sqlite[2/8] [=================73%        ] e2c2e_on.sqlite[2/8] [=================74%        ] e2c2e_on.sqlite[2/8] [==================75%       ] e2c2e_on.sqlite[2/8] [==================76%       ] e2c2e_on.sqlite[2/8] [==================77%       ] e2c2e_on.sqlite[2/8] [==================78%       ] e2c2e_on.sqlite[2/8] [===================79%      ] e2c2e_on.sqlite[2/8] [===================80%      ] e2c2e_on.sqlite[2/8] [===================81%      ] e2c2e_on.sqlite[2/8] [===================82%      ] e2c2e_on.sqlite[2/8] [====================83%     ] e2c2e_on.sqlite[2/8] [====================84%     ] e2c2e_on.sqlite[2/8] [====================85%     ] e2c2e_on.sqlite[2/8] [=====================86%    ] e2c2e_on.sqlite[2/8] [=====================87%    ] e2c2e_on.sqlite[2/8] [=====================88%    ] e2c2e_on.sqlite[2/8] [=====================89%    ] e2c2e_on.sqlite[2/8] [======================90%   ] e2c2e_on.sqlite[2/8] [======================91%   ] e2c2e_on.sqlite[2/8] [======================92%   ] e2c2e_on.sqlite[2/8] [=======================93%  ] e2c2e_on.sqlite[2/8] [=======================94%  ] e2c2e_on.sqlite[2/8] [=======================95%  ] e2c2e_on.sqlite[2/8] [=======================96%  ] e2c2e_on.sqlite[2/8] [========================97% ] e2c2e_on.sqlite[2/8] [========================98% ] e2c2e_on.sqlite[2/8] [========================99% ] e2c2e_on.sqlite[2/8] [========================100%] e2c2e_on.sqlite[2/8] [========================100%] e2c2e_on.sqlite
+SKIPPED: /capstor/scratch/cscs/mklein/icon4py/nsys/e2c2e_on.sqlite does not contain NV Tools Extension (NVTX) data.
+[3/8] Executing 'nvtx_sum' stats report
+[4/8] Executing 'osrt_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls      Avg (ns)        Med (ns)      Min (ns)      Max (ns)       StdDev (ns)              Name         
+ --------  ---------------  ---------  ----------------  -------------  ----------  --------------  ----------------  ----------------------
+     42.8  142,768,681,600      1,445      98,801,855.8  100,133,120.0       1,024   4,312,891,136     119,092,115.1  poll                  
+     20.3   67,758,155,136        261     259,609,789.8       39,456.0       8,256  15,079,686,304   1,447,221,381.8  waitpid               
+     13.1   43,633,513,152          3  14,544,504,384.0  505,465,952.0     255,680  43,127,791,520  24,755,141,627.1  sem_wait              
+     10.2   33,962,490,720     17,126       1,983,095.3        5,856.0       1,024     667,288,128      12,103,984.9  read                  
+      6.3   21,166,926,688        584      36,244,737.5      171,248.0       1,024   9,669,806,720     405,671,360.9  select                
+      5.4   17,941,796,544         32     560,681,142.0  177,848,544.0  24,944,352   5,661,055,584   1,230,914,509.1  system                
+      0.5    1,525,270,688      1,744         874,581.8       10,592.0       1,024     606,235,104      20,018,790.8  ioctl                 
+      0.4    1,426,360,256        226       6,311,328.6        5,728.0       1,024     131,545,056      13,109,174.1  pread                 
+      0.3      931,688,032      4,796         194,263.6      175,424.0       1,344      14,985,920         522,323.5  open64                
+      0.2      682,069,696     38,447          17,740.5        2,752.0       1,088      20,097,280         278,019.7  open                  
+      0.1      421,997,536      2,903         145,366.0        4,480.0       1,408     138,231,136       3,337,118.3  fopen64               
+      0.1      169,540,896      2,782          60,942.1        2,208.0       1,024      26,215,744         945,087.8  putc                  
+      0.0      163,803,008      2,103          77,890.2        3,520.0       1,024      46,894,048       1,355,355.4  fread                 
+      0.0      161,259,936      1,194         135,058.6        5,344.0       1,472      19,484,576         907,294.0  fopen                 
+      0.0      145,414,304         17       8,553,782.6    1,517,280.0     335,392      62,368,160      17,890,950.9  fdatasync             
+      0.0      133,663,168         36       3,712,865.8      441,104.0     387,840      17,154,848       5,460,121.7  posix_spawn           
+      0.0      115,432,960         57       2,025,139.6        4,800.0       1,120      37,859,520       7,034,872.6  pread64               
+      0.0      105,505,568      1,700          62,062.1        2,272.0       1,024       9,587,552         402,878.1  fclose                
+      0.0       78,800,736      2,535          31,085.1        4,480.0       1,024      20,033,728         640,246.4  getc                  
+      0.0       59,352,768         37       1,604,128.9        5,696.0       1,216       8,875,456       2,832,817.3  fputs_unlocked        
+      0.0       47,316,608        102         463,888.3      441,168.0     399,168         806,048          60,352.5  fork                  
+      0.0       46,156,160      1,785          25,857.8        3,136.0       1,024       1,206,464          88,062.7  write                 
+      0.0       25,445,568      2,774           9,172.9        1,408.0       1,024      16,911,104         322,170.3  fgets                 
+      0.0       24,718,336        899          27,495.4        3,168.0       1,024       8,229,056         294,773.3  fflush                
+      0.0       20,907,104        772          27,081.7        6,832.0       2,912         875,040          63,028.7  munmap                
+      0.0       20,856,192          6       3,476,032.0       13,472.0      11,008      20,791,264       8,482,696.7  backtrace             
+      0.0       13,944,896         31         449,835.4        2,720.0       1,312      10,488,064       1,918,247.6  fwrite_unlocked       
+      0.0       13,499,008          9       1,499,889.8      442,912.0     292,032      10,296,384       3,300,041.0  pthread_create        
+      0.0       12,598,464        165          76,354.3        4,896.0       1,024       1,439,776         154,646.3  writev                
+      0.0       10,716,352      1,000          10,716.4        9,520.0       2,432          52,992           4,445.4  mmap64                
+      0.0        9,640,224        636          15,157.6        1,536.0       1,024         679,808          76,260.6  fputs                 
+      0.0        8,390,848        341          24,606.6        1,536.0       1,024         672,736          90,591.5  fwrite                
+      0.0        4,892,320        206          23,749.1        1,888.0       1,024         736,000         103,887.1  pwrite64              
+      0.0        3,891,520        374          10,405.1        9,504.0       1,888         186,720          11,108.5  mmap                  
+      0.0        1,894,400        523           3,622.2        2,240.0       1,120         266,720          11,735.0  pipe                  
+      0.0        1,860,320        225           8,268.1        3,552.0       1,024          67,040          11,523.7  recv                  
+      0.0        1,453,184        679           2,140.2        1,248.0       1,024          56,000           4,981.9  pthread_cond_signal   
+      0.0        1,361,568          9         151,285.3      153,536.0     128,192         183,840          20,436.5  flock                 
+      0.0          947,072          2         473,536.0      473,536.0       1,472         945,600         667,599.3  fgetc                 
+      0.0          811,904          2         405,952.0      405,952.0       8,896         803,008         561,522.0  sendfile64            
+      0.0          459,744         62           7,415.2        6,352.0       1,792          43,904           5,949.3  pipe2                 
+      0.0          453,952          5          90,790.4        3,360.0       2,528         426,912         188,018.7  getdelim              
+      0.0          445,152          1         445,152.0      445,152.0     445,152         445,152               0.0  pthread_cond_broadcast
+      0.0          371,904          2         185,952.0      185,952.0      41,920         329,984         203,692.0  pthread_cond_timedwait
+      0.0          219,584          3          73,194.7       24,256.0      23,808         171,520          85,152.5  fflush_unlocked       
+      0.0          177,984         16          11,124.0       10,464.0       6,080          20,128           3,938.3  send                  
+      0.0          168,384        117           1,439.2        1,280.0       1,024          10,528             911.3  signal                
+      0.0          142,528         94           1,516.3        1,280.0       1,024          13,280           1,272.6  sigaction             
+      0.0          115,744          6          19,290.7       21,280.0       7,168          30,240           8,237.5  connect               
+      0.0          108,832         12           9,069.3        9,344.0       1,600          11,232           2,505.4  fputc                 
+      0.0          106,912         81           1,319.9        1,184.0       1,024           5,472             561.1  fcntl                 
+      0.0          102,784          1         102,784.0      102,784.0     102,784         102,784               0.0  pthread_cond_wait     
+      0.0           78,880          9           8,764.4        7,168.0       2,912          20,448           5,353.1  socket                
+      0.0           17,792         13           1,368.6        1,376.0       1,024           1,856             287.7  dup2                  
+      0.0            6,688          2           3,344.0        3,344.0       3,200           3,488             203.6  bind                  
+      0.0            5,600          2           2,800.0        2,800.0       1,824           3,776           1,380.3  recvfrom              
+      0.0            5,408          5           1,081.6        1,056.0       1,024           1,184              61.6  dup                   
+      0.0            2,816          2           1,408.0        1,408.0       1,088           1,728             452.5  listen                
+
+[5/8] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)   Max (ns)    StdDev (ns)               Name            
+ --------  ---------------  ---------  -----------  ---------  --------  -----------  ------------  ----------------------------
+     84.2    4,155,602,016    300,752     13,817.4    8,384.0     6,432   58,205,312     249,943.4  cudaMemcpyAsync             
+      9.9      489,373,280    300,716      1,627.4    1,312.0     1,248   21,649,664      65,849.9  cudaStreamSynchronize       
+      3.1      150,873,152         71  2,124,974.0  126,112.0    52,640  129,920,896  15,430,673.9  cudaMalloc                  
+      1.3       64,548,064    300,752        214.6      160.0        96   16,170,432      29,488.7  cudaStreamIsCapturing_v10000
+      0.8       37,795,456      1,000     37,795.5   16,288.0    14,144   20,302,208     641,510.0  cudaLaunchKernel            
+      0.4       18,129,824      2,877      6,301.6    4,800.0     2,560    1,901,696      35,571.5  cuLaunchKernel              
+      0.3       13,392,800          7  1,913,257.1  476,896.0     7,360   10,888,480   3,964,301.2  cudaHostAlloc               
+      0.0        1,656,416         10    165,641.6  110,192.0    87,904      516,960     137,199.8  cuModuleLoadData            
+      0.0          454,368          5     90,873.6   64,480.0    59,488      144,768      40,567.4  cuModuleUnload              
+      0.0          176,416          2     88,208.0   88,208.0    62,944      113,472      35,728.7  cudaMemGetInfo              
+      0.0          170,752         66      2,587.2    2,528.0       832        9,600       1,817.2  cudaEventQuery              
+      0.0          146,112         36      4,058.7    2,560.0     2,144       14,112       3,203.5  cudaEventRecord             
+      0.0           86,496         36      2,402.7    1,408.0       960        9,024       2,175.1  cudaEventCreateWithFlags    
+      0.0           86,272        413        208.9       96.0        32        3,232         260.5  cuGetProcAddress_v2         
+      0.0           66,784          1     66,784.0   66,784.0    66,784       66,784           0.0  cuLibraryUnload             
+      0.0           49,248         35      1,407.1    1,152.0       672        4,352         734.9  cudaEventDestroy            
+      0.0            6,048          3      2,016.0    1,984.0     1,600        2,464         432.9  cuModuleGetLoadingMode      
+      0.0            3,392          1      3,392.0    3,392.0     3,392        3,392           0.0  cuInit                      
+
+[6/8] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)   Med (ns)   Min (ns)  Max (ns)   StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  ---------  ---------  --------  ---------  -----------  ----------------------------------------------------------------------------------------------------
+     84.0      677,218,277        768  881,794.6  512,448.0   352,192  2,243,136    629,603.8  cupy_max                                                                                            
+     15.5      125,196,256      1,000  125,196.3  125,216.0   123,840    127,616        437.7  void gridtools::fn::backend::gpu_impl_::kernel<gridtools::meta::list<gridtools::meta::list<gridtool…
+      0.1          850,272        768    1,107.1    1,056.0       928      1,600        113.9  cupy_add__int32_int_int32                                                                           
+      0.1          680,928         91    7,482.7    5,024.0     4,000     17,248      4,098.6  cupy_copy__int32_int32                                                                              
+      0.1          553,344        480    1,152.8    1,184.0       928      1,280         94.6  cupy_less__int32_int_bool                                                                           
+      0.1          478,176        384    1,245.3    1,280.0     1,024      1,568         85.5  cupy_greater__int32_int32_bool                                                                      
+      0.1          459,104        384    1,195.6    1,184.0       960      1,664        145.5  cupy_greater__int32_int_bool                                                                        
+      0.0          377,440          1  377,440.0  377,440.0   377,440    377,440          0.0  cupy_copy__float64_float64                                                                          
+      0.0          290,208          1  290,208.0  290,208.0   290,208    290,208          0.0  cupy_fill                                                                                           
+
+[7/8] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)   Count   Avg (ns)  Med (ns)  Min (ns)   Max (ns)   StdDev (ns)           Operation          
+ --------  ---------------  -------  --------  --------  --------  ----------  -----------  ----------------------------
+     99.9      769,005,822  300,716   2,557.2   1,408.0     1,344  29,679,680    146,962.8  [CUDA memcpy Device-to-Host]
+      0.1          842,336       36  23,398.2   9,344.0     6,112     359,936     58,189.8  [CUDA memcpy Host-to-Device]
+
+[8/8] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)   Count   Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)           Operation          
+ ----------  -------  --------  --------  --------  --------  -----------  ----------------------------
+    276.572       36     7.683     2.144     0.401   147.045       24.062  [CUDA memcpy Host-to-Device]
+    129.930  300,716     0.000     0.000     0.000    10.109        0.050  [CUDA memcpy Device-to-Host]
+
+Generated:
+    /capstor/scratch/cscs/mklein/icon4py/nsys/e2c2e_on.nsys-rep
+    /capstor/scratch/cscs/mklein/icon4py/nsys/e2c2e_on.sqlite
+Elapsed time: 0h 10m 2s

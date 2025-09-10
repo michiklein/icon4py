@@ -73,7 +73,7 @@ if __name__ == "__main__":
                     )
                     
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         c2e2v_sum_program(
             vertex_input=vertex_input,
             cell_out=cell_output,

@@ -30,7 +30,7 @@ def test_program(edge_input: fa.EdgeKField[float], edge_out: fa.EdgeKField[float
     test_edge_conditional(edge_input, num_edges, out=edge_out)
 
 if __name__ == "__main__":
-    grid_file = "../all_torus_files/torus_100000_100000_1024_reordered.nc"
+    grid_file = "../all_torus_files/torus_100000_100000_256_reordered.nc"
     grid_manager = GridManager(ToZeroBasedIndexTransformation(), grid_file, VerticalGridConfig(1))
     grid_manager(None)
     grid = grid_manager.grid

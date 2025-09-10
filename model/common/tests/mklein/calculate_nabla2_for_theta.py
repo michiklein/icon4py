@@ -172,7 +172,7 @@ if __name__ == "__main__":
     vertical_end = int32(levels)
 
     print("start")
-    for _ in range(1000):
+    for _ in range(1):
         calculate_nabla2_for_theta.with_backend(b_end)(
             kh_smag_e,
             inv_dual_edge_length,

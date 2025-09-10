@@ -1,0 +1,374 @@
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+Grid loaded in 323.570927s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+no collapse tables
+ calculate_nabla2_for_theta(
+  kh_smag_e,
+  inv_dual_edge_length,
+  theta_v,
+  geofac_div,
+  z_temp,
+  num_cells,
+  horizontal_start,
+  horizontal_end,
+  vertical_start,
+  vertical_end
+) {
+  z_temp @ u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+       ← as_fieldop(
+           λ(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div) → 
+             cast_((λ(_step_3) → _step_3(_step_3(_step_3(0, 0ₒ), 1ₒ), 2ₒ))(
+                     λ(_acc_1, _i_2) → 
+                       (λ(_fuse_maps_1, _fuse_maps_3, _fuse_maps_4) → _fuse_maps_1 + _fuse_maps_3 × _fuse_maps_4)(
+                         _acc_1,
+                         (λ(theta_v_) → ·⟪C2Eₒ, _i_2⟫(kh_smag_e) × ·⟪C2Eₒ, _i_2⟫(inv_dual_edge_length)
+                                        × (·⟪E2Cₒ, 1ₒ⟫(theta_v_) - ·⟪E2Cₒ, 0ₒ⟫(theta_v_)))(⟪C2Eₒ, _i_2⟫(theta_v)),
+                         ·⟪C2CEₒ, _i_2⟫(geofac_div)
+                       )
+                   ), float64), u⟨ Cellₕ: [horizontal_start, horizontal_end[, Kᵥ: [vertical_start, vertical_end[ ⟩
+         )(kh_smag_e, inv_dual_edge_length, theta_v, geofac_div);
+}
+end
+Generating '/tmp/nsys-report-7137.qdstrm'
+
+[1/8] [0%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [0%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [6%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [8%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [9%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [10%                         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [11%                         ] calculaapplyte_nabla2_for_theta_off.nsys-rep
+[1/8] [9%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [8%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [7%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [8%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [7%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [6%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [7%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [6%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [7%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [6%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [5%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [5%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [6%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [5%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [6%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [5%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [7%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [9%                          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [11%                         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [12%                         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [14%                         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=16%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=15%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=16%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=15%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [14%                         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=15%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [14%                         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=15%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=16%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=17%                        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==20%                       ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==21%                       ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===22%                      ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===23%                      ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===24%                      ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [====25%                     ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [====26%                     ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [====27%                     ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [====28%                     ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====29%                    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====30%                    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====31%                    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====32%                    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [======33%                   ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [======34%                   ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [======35%                   ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=======36%                  ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=======37%                  ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=======38%                  ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=======39%                  ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [========40%                 ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [========41%                 ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [========42%                 ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=========43%                ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=========44%                ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=========45%                ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=========46%                ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==========47%               ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==========48%               ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==========49%               ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===========50%              ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===========51%              ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===========52%              ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===========53%              ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [============54%             ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [============55%             ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [============56%             ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [============57%             ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=============58%            ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=============59%            ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=============60%            ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==============61%           ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==============62%           ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==============63%           ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==============64%           ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===============65%          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===============66%          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===============67%          ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [================68%         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [================69%         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [================70%         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [================71%         ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=================72%        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=================73%        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=================74%        ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==================75%       ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==================76%       ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==================77%       ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [==================78%       ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===================79%      ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===================80%      ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===================81%      ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [===================82%      ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [====================83%     ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [====================84%     ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [====================85%     ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====================86%    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====================87%    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====================88%    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [=====================89%    ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [======================90%   ] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [========================100%] calculate_nabla2_for_theta_off.nsys-rep
+[1/8] [========================100%] calculate_nabla2_for_theta_off.nsys-rep
+
+[2/8] [0%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [1%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [2%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [3%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [4%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [5%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [6%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [7%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [8%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [9%                          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [10%                         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [11%                         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [12%                         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [13%                         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [14%                         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=15%                        ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=16%                        ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=17%                        ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==18%                       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==19%                       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==20%                       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==21%                       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===22%                      ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===23%                      ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===24%                      ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [====25%                     ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [====26%                     ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [====27%                     ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [====28%                     ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====29%                    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====30%                    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====31%                    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====32%                    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [======33%                   ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [======34%                   ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [======35%                   ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======36%                  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======37%                  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======38%                  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======39%                  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========40%                 ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========41%                 ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========42%                 ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=========43%                ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=========44%                ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=========45%                ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=========46%                ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==========47%               ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==========48%               ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==========49%               ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===========50%              ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===========51%              ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===========52%              ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===========53%              ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [============54%             ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [============55%             ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [============56%             ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [============57%             ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=============58%            ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=============59%            ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=============60%            ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==============61%           ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==============62%           ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==============63%           ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==============64%           ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===============65%          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===============66%          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===============67%          ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [================68%         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [================69%         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [================70%         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [================71%         ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=================72%        ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=================73%        ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=================74%        ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==================75%       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==================76%       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==================77%       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [==================78%       ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===================79%      ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===================80%      ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===================81%      ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [===================82%      ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [====================83%     ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [====================84%     ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [====================85%     ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====================86%    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====================87%    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====================88%    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=====================89%    ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [======================90%   ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [======================91%   ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [======================92%   ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======================93%  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======================94%  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======================95%  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [=======================96%  ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========================97% ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========================98% ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========================99% ] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========================100%] calculate_nabla2_for_theta_off.sqlite
+[2/8] [========================100%] calculate_nabla2_for_theta_off.sqlite
+SKIPPED: /capstor/scratch/cscs/mklein/icon4py/nsys/calculate_nabla2_for_theta_off.sqlite does not contain NV Tools Extension (NVTX) data.
+[3/8] Executing 'nvtx_sum' stats report
+[4/8] Executing 'osrt_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls    Avg (ns)       Med (ns)      Min (ns)      Max (ns)       StdDev (ns)             Name         
+ --------  ---------------  ---------  -------------  -------------  ----------  --------------  ---------------  ----------------------
+     41.9  152,665,764,512      1,557   98,051,229.6  100,131,712.0       1,024   3,939,563,744    103,191,149.2  poll                  
+     20.3   73,782,651,200        261  282,692,150.2       39,712.0       8,320  17,860,382,720  1,582,646,330.8  waitpid               
+     14.0   51,003,133,280      1,082   47,137,831.1    5,935,920.0      12,288  44,227,073,344  1,344,357,448.0  sem_wait              
+      9.8   35,694,627,200     16,873    2,115,487.9        6,048.0       1,024     305,215,840     10,367,875.5  read                  
+      6.1   22,148,607,392         32  692,143,981.0  182,967,552.0  24,352,032   6,177,257,824  1,473,333,443.4  system                
+      5.8   20,966,458,336      2,865    7,318,135.5       11,040.0       1,024   9,487,901,824    180,550,525.0  select                
+      0.5    1,703,780,608        228    7,472,722.0        4,928.0       1,024     117,021,984     16,882,014.6  pread                 
+      0.4    1,540,831,360      1,749      880,978.5       12,384.0       1,024     644,454,976     20,118,206.2  ioctl                 
+      0.2      740,059,104      4,797      154,275.4      154,656.0       1,440       9,890,176        387,236.5  open64                
+      0.2      628,682,656     38,447       16,351.9        2,624.0       1,184      15,001,344        244,924.9  open                  
+      0.2      608,705,824      1,170      520,261.4       31,840.0      22,560       6,932,608      1,458,573.9  pthread_cond_timedwait
+      0.1      500,705,728      2,903      172,478.7        4,160.0       1,312     157,312,736      4,020,035.1  fopen64               
+      0.1      454,992,480      2,187      208,044.1        3,360.0       1,024      67,646,368      2,776,532.1  fread                 
+      0.1      285,972,384         17   16,821,904.9    3,591,232.0     126,208      54,303,904     20,669,816.4  fdatasync             
+      0.0      178,235,008         36    4,950,972.4      441,696.0     389,856      33,217,152      7,618,867.8  posix_spawn           
+      0.0      168,277,024      1,194      140,935.5        5,312.0       1,376      20,332,896      1,011,159.3  fopen                 
+      0.0      152,621,184      2,936       51,982.7        2,336.0       1,024      25,776,160        919,851.1  putc                  
+      0.0      108,032,512      1,792       60,286.0        3,520.0       1,024      29,529,024        827,571.8  write                 
+      0.0       91,835,584      1,414       64,947.4        2,944.0       1,024       9,075,776        404,208.0  fclose                
+      0.0       90,772,864      2,510       36,164.5        4,416.0       1,024      23,145,472        590,547.3  getc                  
+      0.0       84,320,064         56    1,505,715.4        4,576.0       1,024      24,807,680      4,986,907.0  pread64               
+      0.0       74,228,736         36    2,061,909.3        6,400.0       1,056      15,809,760      4,175,100.2  fputs_unlocked        
+      0.0       50,288,352        102      493,023.1      465,216.0     410,208       1,513,792        152,238.9  fork                  
+      0.0       49,499,424      3,227       15,339.1       10,208.0       1,024       9,945,120        180,336.3  fflush                
+      0.0       28,665,056        778       36,844.5        7,200.0       1,120       8,087,488        296,348.8  munmap                
+      0.0       22,865,184      2,417        9,460.2        1,376.0       1,024      10,166,048        228,570.9  fgets                 
+      0.0       21,847,072        344       63,508.9        1,488.0       1,024      13,398,560        729,928.2  fwrite                
+      0.0       11,613,024        156       74,442.5        4,080.0       1,024         383,488        118,981.7  writev                
+      0.0       11,102,720      1,168        9,505.8        9,440.0       1,120         193,664          6,644.9  pthread_cond_signal   
+      0.0       10,670,336      1,002       10,649.0        9,168.0       2,176          67,680          5,401.5  mmap64                
+      0.0       10,019,776          6    1,669,962.7       13,088.0       8,896       9,954,016      4,058,343.5  backtrace             
+      0.0        9,544,160        603       15,827.8        1,568.0       1,024         631,168         76,593.7  fputs                 
+      0.0        4,964,640        190       26,129.7        2,144.0       1,024         747,104        111,684.1  pwrite64              
+      0.0        4,165,728        377       11,049.7        9,440.0       1,888         180,224         13,074.5  mmap                  
+      0.0        3,940,640          9      437,848.9      438,176.0     297,632         577,056        101,005.4  pthread_create        
+      0.0        2,561,120         68       37,663.5        1,760.0       1,024         781,792        154,299.1  fwrite_unlocked       
+      0.0        1,820,384        523        3,480.7        2,496.0       1,408          86,144          4,122.5  pipe                  
+      0.0        1,318,336          9      146,481.8      147,936.0     121,344         172,608         16,186.9  flock                 
+      0.0        1,201,376        217        5,536.3        3,520.0       1,024          33,664          5,625.1  recv                  
+      0.0          858,560          5      171,712.0        1,120.0       1,088         853,664        381,222.8  fgetc                 
+      0.0          785,248          2      392,624.0      392,624.0      14,880         770,368        534,210.7  sendfile64            
+      0.0          735,616          3      245,205.3      300,224.0       1,376         434,016        221,505.4  pthread_cond_broadcast
+      0.0          453,440         62        7,313.5        6,384.0       1,600          17,184          3,893.1  pipe2                 
+      0.0          388,032          1      388,032.0      388,032.0     388,032         388,032              0.0  pthread_join          
+      0.0          262,016        145        1,807.0        1,184.0       1,024          65,216          5,319.9  sigaction             
+      0.0          183,520         16       11,470.0       12,176.0       5,760          20,448          4,297.9  send                  
+      0.0          181,600          3       60,533.3       65,952.0      18,016          97,632         40,083.6  pthread_cond_wait     
+      0.0          136,640         15        9,109.3       10,528.0       1,056          12,672          4,228.5  fputc                 
+      0.0          130,688         95        1,375.7        1,184.0       1,024           9,408          1,134.0  fcntl                 
+      0.0          129,312         91        1,421.0        1,312.0       1,024           3,136            423.7  signal                
+      0.0          114,016          6       19,002.7       20,320.0       3,520          30,400          8,931.6  connect               
+      0.0           87,936          9        9,770.7       11,392.0       1,824          18,080          5,586.9  socket                
+      0.0           79,488          3       26,496.0       28,704.0      21,280          29,504          4,534.9  fflush_unlocked       
+      0.0           15,488         12        1,290.7        1,296.0       1,024           1,664            210.6  dup2                  
+      0.0            9,184          1        9,184.0        9,184.0       9,184           9,184              0.0  pthread_mutex_lock    
+      0.0            8,608          3        2,869.3        2,816.0       2,784           3,008            121.2  getdelim              
+      0.0            8,608          2        4,304.0        4,304.0       3,936           4,672            520.4  bind                  
+      0.0            5,248          2        2,624.0        2,624.0       1,408           3,840          1,719.7  recvfrom              
+      0.0            2,912          2        1,456.0        1,456.0       1,312           1,600            203.6  listen                
+      0.0            2,720          2        1,360.0        1,360.0       1,088           1,632            384.7  dup                   
+
+[5/8] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls   Avg (ns)    Med (ns)   Min (ns)   Max (ns)    StdDev (ns)               Name            
+ --------  ---------------  ---------  -----------  ---------  --------  -----------  ------------  ----------------------------
+     84.2    3,736,048,896    299,990     12,453.9    8,256.0     6,368   49,102,080     243,786.7  cudaMemcpyAsync             
+     10.2      453,297,280    299,949      1,511.2    1,312.0     1,248   19,164,448      44,767.2  cudaStreamSynchronize       
+      3.4      150,339,968         73  2,059,451.6  122,848.0    73,120  137,678,976  16,094,623.3  cudaMalloc                  
+      1.1       47,097,248    299,988        157.0      160.0       128       54,592         226.5  cudaStreamIsCapturing_v10000
+      0.4       19,917,056      1,000     19,917.1   19,520.0    17,056      150,912       5,558.2  cudaLaunchKernel            
+      0.4       18,489,312          8  2,311,164.0  449,776.0     7,936   10,683,456   3,829,197.8  cudaHostAlloc               
+      0.2        8,023,136      1,371      5,852.0    4,768.0     2,208       75,744       4,537.3  cuLaunchKernel              
+      0.0        1,607,968         10    160,796.8  107,312.0    90,528      443,264     111,574.1  cuModuleLoadData            
+      0.0          480,192          5     96,038.4   68,352.0    62,304      142,112      41,378.9  cuModuleUnload              
+      0.0          207,488         73      2,842.3    2,560.0       960       14,720       2,421.1  cudaEventQuery              
+      0.0          152,576          2     76,288.0   76,288.0    63,136       89,440      18,599.7  cudaMemGetInfo              
+      0.0          137,216         39      3,518.4    2,528.0     2,048       11,872       2,529.4  cudaEventRecord             
+      0.0           90,592         39      2,322.9    1,440.0       992        9,856       2,040.3  cudaEventCreateWithFlags    
+      0.0           82,784          1     82,784.0   82,784.0    82,784       82,784           0.0  cuLibraryUnload             
+      0.0           80,096        413        193.9       96.0        32        4,544         367.0  cuGetProcAddress_v2         
+      0.0           61,792         38      1,626.1    1,152.0       640       10,112       1,594.4  cudaEventDestroy            
+      0.0            7,552          3      2,517.3    3,616.0       288        3,648       1,930.7  cuModuleGetLoadingMode      
+      0.0            3,264          1      3,264.0    3,264.0     3,264        3,264           0.0  cuInit                      
+
+[6/8] Executing 'cuda_gpu_kern_sum' stats report
+
+ Time (%)  Total Time (ns)  Instances  Avg (ns)   Med (ns)   Min (ns)  Max (ns)   StdDev (ns)                                                  Name                                                
+ --------  ---------------  ---------  ---------  ---------  --------  ---------  -----------  ----------------------------------------------------------------------------------------------------
+     52.8      309,136,577        352  878,228.9  510,464.0   334,784  2,233,536    627,925.3  cupy_max                                                                                            
+     46.8      273,764,190      1,000  273,764.2  273,792.0   270,528    279,168        813.4  void gridtools::fn::backend::gpu_impl_::kernel<gridtools::meta::list<gridtools::meta::list<gridtool…
+      0.1          685,248         92    7,448.3    4,976.0     4,000     17,664      4,105.3  cupy_copy__int32_int32                                                                              
+      0.1          582,240          2  291,120.0  291,120.0   228,000    354,240     89,265.2  cupy_copy__float64_float64                                                                          
+      0.1          393,856        352    1,118.9    1,088.0       928      1,568         98.7  cupy_add__int32_int_int32                                                                           
+      0.0          248,736        220    1,130.6    1,152.0       928      1,280        102.9  cupy_less__int32_int_bool                                                                           
+      0.0          221,056        176    1,256.0    1,280.0     1,088      1,600         83.4  cupy_greater__int32_int32_bool                                                                      
+      0.0          205,152        176    1,165.6    1,184.0       960      1,472        121.6  cupy_greater__int32_int_bool                                                                        
+      0.0          195,520          1  195,520.0  195,520.0   195,520    195,520          0.0  cupy_fill                                                                                           
+
+[7/8] Executing 'cuda_gpu_mem_time_sum' stats report
+
+ Time (%)  Total Time (ns)   Count   Avg (ns)  Med (ns)  Min (ns)   Max (ns)   StdDev (ns)            Operation           
+ --------  ---------------  -------  --------  --------  --------  ----------  -----------  ------------------------------
+     99.8      764,649,993  299,949   2,549.3   1,408.0     1,344  29,462,592    145,813.2  [CUDA memcpy Device-to-Host]  
+      0.1        1,140,864       39  29,252.9   9,248.0     6,176     365,152     70,466.5  [CUDA memcpy Host-to-Device]  
+      0.0           13,408        2   6,704.0   6,704.0     6,176       7,232        746.7  [CUDA memcpy Device-to-Device]
+
+[8/8] Executing 'cuda_gpu_mem_size_sum' stats report
+
+ Total (MB)   Count   Avg (MB)  Med (MB)  Min (MB)  Max (MB)  StdDev (MB)            Operation           
+ ----------  -------  --------  --------  --------  --------  -----------  ------------------------------
+    380.116       39     9.747     2.144     0.401   147.045       27.295  [CUDA memcpy Host-to-Device]  
+    129.929  299,949     0.000     0.000     0.000    10.109        0.051  [CUDA memcpy Device-to-Host]  
+      5.514        2     2.757     2.757     1.838     3.676        1.300  [CUDA memcpy Device-to-Device]
+
+Generated:
+    /capstor/scratch/cscs/mklein/icon4py/nsys/calculate_nabla2_for_theta_off.nsys-rep
+    /capstor/scratch/cscs/mklein/icon4py/nsys/calculate_nabla2_for_theta_off.sqlite
+Elapsed time: 0h 10m 1s

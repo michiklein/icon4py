@@ -1,0 +1,83 @@
+==ERROR== File v2c2e_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.0
+==ERROR== File v2c2v_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.1
+==ERROR== File v2e2c2v_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.2
+==ERROR== File c2e2c2e2c_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.3
+==ERROR== File v2e2c_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.4
+==ERROR== File v2e2v_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.5
+==ERROR== File c2e2c_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.6
+==ERROR== File c2e2v_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.7
+==ERROR== File c2v2c_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.8
+==ERROR== File c2v2e_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.9
+==ERROR== File e2c2v_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.10
+==ERROR== File e2v2c_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.11
+==ERROR== File e2v2e_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.12
+==PROF== Connected to process 121277 (/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/bin/python3.10)
+/user-environment/linux-sles15-neoverse_v2/gcc-13.2.0/python-3.10.13-4hvg7oai34ex7hohdvpmcovaec5b2r7h/lib/python3.10/functools.py:981: UserWarning: C2E2C2E connectivity is missing from grid.
+  val = self.func(instance)
+==PROF== Connected to process 124120 (/capstor/scratch/cscs/mklein/icon4py/GT4PYcacheoff/.gt4py_cache/compile_commands_cache_gridtools_gpu_master_nanobind_2_0_0_Release__81dc998aa0d634a7cf606f41e236b03a987f88c10134f8effd7abc877e6aa43b/build/CMakeFiles/3.27.9/CMakeDetermineCompilerABI_CUDA.bin)
+==PROF== Disconnected from process 124120
+==PROF== Profiling "kernel": 0%....50%....100% - 38 passes
+Grid loaded in 285.617465s
+Expected 50176 vertices
+Selected 50176 vertices, 149633 edges, and 99458 cells
+start
+no collapse tables
+ e2c2e_sum_program(
+  edge_input,
+  edge_out,
+  num_cells,
+  num_edges,
+  __edge_input_0_range,
+  __edge_input_1_range,
+  __edge_out_0_range,
+  __edge_out_1_range
+) {
+  edge_out @ u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+       ← as_fieldop(
+           λ(edge_input) → 
+             (λ(_cs_1, _cs_2) → ·⟪C2Eₒ, 0ₒ⟫(_cs_2) + ·⟪C2Eₒ, 1ₒ⟫(_cs_2) + ·⟪C2Eₒ, 2ₒ⟫(_cs_2) + ·⟪C2Eₒ, 0ₒ⟫(_cs_1)
+                                + ·⟪C2Eₒ, 1ₒ⟫(_cs_1) + ·⟪C2Eₒ, 2ₒ⟫(_cs_1))(
+               ⟪E2Cₒ, 1ₒ⟫(edge_input), ⟪E2Cₒ, 0ₒ⟫(edge_input)
+             ),
+           u⟨ Edgeₕ: [__edge_out_0_range[0], __edge_out_0_range[1][, Kᵥ: [__edge_out_1_range[0], __edge_out_1_range[1][ ⟩
+         )(edge_input);
+}
+end
+==PROF== Disconnected from process 121277
+==PROF== Report: /capstor/scratch/cscs/mklein/icon4py/ncu/e2c2e_off.ncu-rep
+==ERROR== File calculate_nabla2_for_theta_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.14
+==ERROR== File apply_diffusion_w_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.15
+==ERROR== File edge_diagnostics_off.ncu-rep already exists. Use '-f' for overwriting the file.
+srun: error: nid005499: task 0: Exited with exit code 1
+srun: Terminating StepId=334158.16
+Elapsed time: 0h 8m 43s

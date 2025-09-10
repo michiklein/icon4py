@@ -52,14 +52,14 @@ if __name__ == "__main__":
                 grid.connectivities[name] = cp.asarray(connectivity)
 
     rng = np.random.default_rng(1)
-    cell_values = xp.asarray(rng.random((grid.num_cells, levels)))
+    edge_values = xp.asarray(rng.random((grid.num_edges, levels)))
 
     from icon4py.model.common.dimension import CellDim, EdgeDim, KDim
 
     cell_domain = gtx.domain({CellDim: grid.num_cells, KDim: levels})
     edge_domain = gtx.domain({EdgeDim: grid.num_edges, KDim: levels})
 
-    cell_input = gtx.as_field(cell_domain, cell_values, allocator=b_end)
+    edge_input = gtx.as_field(edge_domain, edge_values, allocator=b_end)
     edge_output = gtx.zeros(edge_domain, allocator=b_end)
     if xp.__name__ == "cupy":
             for name, provider in grid.offset_providers.items():
@@ -75,10 +75,10 @@ if __name__ == "__main__":
     print("start")
     for _ in range(1000):
         e2c2e_sum_program(
-            cell_input=cell_input,
+            edge_input=edge_input,
             edge_out=edge_output,
-            offset_provider=grid.offset_providers,
+            num_cells=int32(len(cells)),
             num_edges=int32(len(edges)),
-            num_cells=int32(len(cells))
+            offset_provider=grid.offset_providers
         )
     print("end")
